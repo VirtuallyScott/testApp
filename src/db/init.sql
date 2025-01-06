@@ -19,6 +19,19 @@ CREATE TABLE IF NOT EXISTS user_roles (
     PRIMARY KEY (user_id, role_id)
 );
 
+-- API Keys
+CREATE TABLE IF NOT EXISTS api_keys (
+    id SERIAL PRIMARY KEY,
+    key_hash VARCHAR(255) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    user_id INTEGER REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP WITH TIME ZONE,
+    is_active BOOLEAN DEFAULT true,
+    last_used_at TIMESTAMP WITH TIME ZONE,
+    permissions JSONB DEFAULT '[]'::jsonb
+);
+
 -- Security scan results
 CREATE TABLE IF NOT EXISTS scan_results (
     id SERIAL PRIMARY KEY,
