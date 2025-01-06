@@ -4,13 +4,15 @@ A modern three-tier application with:
 - Web Frontend (React/TypeScript)
 - API Backend (FastAPI/Python)
 - Database (PostgreSQL)
+- Redis Cache (Session Management)
 
 ## Directory Structure
 ```
 src/
 ├── web/         # React frontend
 ├── api/         # FastAPI backend
-└── db/          # Database migrations and schemas
+├── db/          # Database migrations and schemas
+└── redis/       # Redis configuration and cache
 ```
 
 ## Development Setup
