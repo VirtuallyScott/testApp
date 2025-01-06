@@ -18,7 +18,9 @@ RUN npm install --quiet
 COPY src ./src
 COPY public ./public
 COPY tsconfig.json ./
-COPY .env ./
+
+# Create .env if it doesn't exist
+RUN test -f .env || echo "REACT_APP_API_URL=http://localhost:8000/api/v1" > .env
 
 # Build
 ENV NODE_ENV=production
