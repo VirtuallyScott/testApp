@@ -1,6 +1,13 @@
+# Version stage
+FROM alpine as version
+COPY get_version.sh /get_version.sh
+RUN chmod +x /get_version.sh
+RUN apk add --no-cache git
+RUN VERSION=$(/get_version.sh)
+
 # Build stage
 FROM python:3.11-slim as builder
-
+ARG VERSION
 WORKDIR /app
 
 COPY requirements.txt .

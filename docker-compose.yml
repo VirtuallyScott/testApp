@@ -2,8 +2,10 @@ version: '3.8'
 
 services:
   web:
-    build: 
+    build:
       context: ./src/web
+      args:
+        - VERSION=${VERSION:-0.0.1}
     ports:
       - "80:80"
     volumes:
@@ -15,8 +17,10 @@ services:
       - api
 
   api:
-    build: 
+    build:
       context: ./src/api
+      args:
+        - VERSION=${VERSION:-0.0.1}
     ports:
       - "8000:8000"
     volumes:
@@ -29,8 +33,10 @@ services:
       - redis
 
   db:
-    build: 
+    build:
       context: ./src/db
+      args:
+        - VERSION=${VERSION:-0.0.1}
     ports:
       - "5432:5432"
     volumes:
@@ -43,6 +49,8 @@ services:
   redis:
     build:
       context: ./src/redis
+      args:
+        - VERSION=${VERSION:-0.0.1}
     ports:
       - "6379:6379"
     volumes:
