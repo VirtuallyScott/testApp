@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { Box, TextField, Button, Typography, Paper } from '@mui/material';
 import axios from 'axios';
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onLoginSuccess: () => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,6 +21,7 @@ const Login: React.FC = () => {
         password
       });
       localStorage.setItem('access_token', response.data.access_token);
+      onLoginSuccess();
       navigate('/');
     } catch (err) {
       setError('Invalid username or password');
