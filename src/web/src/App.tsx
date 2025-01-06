@@ -51,7 +51,7 @@ function App() {
               path="/login"
               element={
                 !isAuthenticated ? (
-                  <Login setIsAuthenticated={setIsAuthenticated} />
+                  <Login onLoginSuccess={() => setIsAuthenticated(true)} />
                 ) : (
                   <Navigate to="/" />
                 )
@@ -64,7 +64,7 @@ function App() {
   );
 }
 
-export default function AppWrapper() {
+function AppWrapper() {
   return (
     <Router>
       <App />
@@ -72,4 +72,4 @@ export default function AppWrapper() {
   );
 }
 
-export default App;
+export default AppWrapper;
