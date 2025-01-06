@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
-import { fetchHealthStatus, fetchReadinessStatus } from '../services/healthService';
+import { fetchHealthStatus, fetchReadinessStatus, fetchVersion } from '../services/healthService';
 
 interface ServiceStatus {
   status: string;
@@ -21,16 +21,19 @@ interface ServiceStatus {
 const HealthDashboard: React.FC = () => {
   const [healthStatus, setHealthStatus] = useState<ServiceStatus | null>(null);
   const [readyStatus, setReadyStatus] = useState<ServiceStatus | null>(null);
+  const [version, setVersion] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
   const checkStatus = async () => {
     try {
-      const [health, ready] = await Promise.all([
+      const [health, ready, ver] = await Promise.all([
         fetchHealthStatus(),
-        fetchReadinessStatus()
+        fetchReadinessStatus(),
+        fetchVersion()
       ]);
       setHealthStatus(health);
       setReadyStatus(ready);
+      setVersion(ver.version);
     } catch (error) {
       console.error('Error fetching status:', error);
     } finally {
@@ -111,6 +114,11 @@ const HealthDashboard: React.FC = () => {
           </Card>
         </Grid>
       </Grid>
+      <Box sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}>
+        <Typography variant="body2">
+          Version: {version}
+        </Typography>
+      </Box>
     </Paper>
   );
 };
