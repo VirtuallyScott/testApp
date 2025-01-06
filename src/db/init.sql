@@ -98,6 +98,7 @@ BEGIN
         VALUES (
             admin_id,
             (SELECT id FROM roles WHERE name = 'admin')
-        );
+        )
+        ON CONFLICT (user_id, role_id) DO NOTHING;
     END IF;
 END $$;
