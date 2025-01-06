@@ -13,6 +13,9 @@ src/
 ├── api/         # FastAPI backend
 ├── db/          # Database migrations and schemas
 └── redis/       # Redis configuration and cache
+
+ci/             # CI Pipeline configurations
+cd/             # Terraform Infrastructure as Code
 ```
 
 ## Development Setup
