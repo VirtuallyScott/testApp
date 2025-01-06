@@ -12,10 +12,11 @@ WORKDIR /app
 
 # Install dependencies
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --quiet
 
 # Copy source and build
 COPY . .
+ENV NODE_ENV=production
 RUN npm run build
 
 # Runtime stage
@@ -26,6 +27,9 @@ LABEL version=$VERSION
 # Copy only the built files from builder
 COPY --from=builder /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Add nginx configuration
+RUN rm -rf /usr/share/nginx/html/*
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
