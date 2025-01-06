@@ -14,8 +14,13 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --quiet
 
-# Copy source and build
-COPY . .
+# Copy source files
+COPY src ./src
+COPY public ./public
+COPY tsconfig.json ./
+COPY .env ./
+
+# Build
 ENV NODE_ENV=production
 RUN npm run build
 
