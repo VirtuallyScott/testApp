@@ -1,18 +1,18 @@
 # Version stage
-FROM alpine as version
+FROM alpine AS version
 COPY get_version.sh /get_version.sh
 RUN chmod +x /get_version.sh
 RUN apk add --no-cache git
 RUN VERSION=$(/get_version.sh)
 
 # Build stage
-FROM node:18-alpine as builder
+FROM node:18-alpine AS builder
 ARG VERSION
 WORKDIR /app
 
 # Install dependencies
 COPY package*.json ./
-RUN npm ci --quiet
+RUN npm install --quiet
 
 # Copy source and build
 COPY . .
