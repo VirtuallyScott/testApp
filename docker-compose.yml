@@ -49,6 +49,13 @@ services:
       - redis_data:/data
     command: redis-server /usr/local/etc/redis/redis.conf
 
+  test-redis:
+    build:
+      context: ./src/redis
+      dockerfile: Dockerfile.test
+    ports:
+      - "6380:6379"
+
 volumes:
   postgres_data:
   redis_data:
