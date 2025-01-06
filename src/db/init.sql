@@ -74,27 +74,30 @@ INSERT INTO roles (name) VALUES
     ('uploader')
 ON CONFLICT (name) DO NOTHING;
 
--- Create default admin user
+-- Create default admin user if it doesn't exist
 DO $$
 DECLARE
     admin_salt TEXT := gen_salt('bf', 8);  -- Generate a secure salt
     admin_password TEXT := 'Admin@123';    -- Default password (change in production!)
     admin_id INT;
 BEGIN
-    -- Insert admin user with hashed password
-    INSERT INTO users (username, email, password_hash, salt)
-    VALUES (
-        'admin',
-        'admin@example.com',
-        hash_password(admin_password, admin_salt),
-        admin_salt
-    )
-    RETURNING id INTO admin_id;
+    -- Check if admin user already exists
+    IF NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin') THEN
+        -- Insert admin user with hashed password
+        INSERT INTO users (username, email, password_hash, salt)
+        VALUES (
+            'admin',
+            'admin@example.com',
+            hash_password(admin_password, admin_salt),
+            admin_salt
+        )
+        RETURNING id INTO admin_id;
 
-    -- Assign admin role to the user
-    INSERT INTO user_roles (user_id, role_id)
-    VALUES (
-        admin_id,
-        (SELECT id FROM roles WHERE name = 'admin')
-    );
+        -- Assign admin role to the user
+        INSERT INTO user_roles (user_id, role_id)
+        VALUES (
+            admin_id,
+            (SELECT id FROM roles WHERE name = 'admin')
+        );
+    END IF;
 END $$;
