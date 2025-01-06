@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, status
+from .version import get_version
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -90,6 +91,11 @@ async def get_scan(
     if not scan:
         raise HTTPException(status_code=404, detail="Scan not found")
     return scan
+
+@app.get("/version")
+async def version() -> Dict[str, str]:
+    """Get application version"""
+    return {"version": get_version()}
 
 @app.get("/health")
 async def health_check() -> Dict[str, str]:

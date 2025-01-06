@@ -11,3 +11,8 @@ export const fetchReadinessStatus = async () => {
   const response = await axios.get(`${API_URL}/ready`);
   return response.data;
 };
+
+export const fetchVersion = async () => {
+  const response = await axios.get(`${API_URL}/version`);
+  return response.data;
+};
