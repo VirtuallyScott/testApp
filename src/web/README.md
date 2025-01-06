@@ -1,15 +1,18 @@
 # Frontend Application
 
-React/TypeScript frontend for the three-tier application.
+React/TypeScript frontend for the container security scanning system.
 
 ## Features
 
-- React/TypeScript based SPA
-- Integration with FastAPI backend
-- Health and readiness check monitoring
-- Service status dashboard
+- React/TypeScript based SPA with Material UI
+- Secure authentication with JWT tokens
+- Role-based access control
+- Real-time health and readiness monitoring
+- Service status dashboard with detailed metrics
 - Production-ready Nginx configuration
 - Multi-stage Docker builds for optimal image size
+- Automatic API token refresh handling
+- Error boundary and 401 redirect handling
 
 ## Development
 
@@ -33,13 +36,32 @@ docker build -t web-app:prod .
 docker run -p 80:80 web-app:prod
 ```
 
+## Authentication
+
+The application uses JWT-based authentication with:
+- Login/logout functionality
+- Token storage in localStorage
+- Automatic token refresh handling
+- 401 error redirect to login
+
 ## Health Monitoring
 
-The application includes a health monitoring dashboard that shows:
+The application includes a comprehensive health monitoring dashboard that shows:
 - API service status (/health endpoint)
 - System readiness status (/ready endpoint)
 - Database connectivity
 - Redis cache status
+- Version information
+- Detailed service metrics
+
+## Security Features
+
+- JWT authentication
+- Secure token storage
+- Automatic token refresh
+- Role-based access control
+- Protected routes
+- Error boundary handling
 
 ## Environment Variables
 
@@ -51,3 +73,5 @@ The application includes a health monitoring dashboard that shows:
 - Development and production configurations
 - Nginx for static file serving
 - Optimized final image size
+- Version tagging
+- Secure default configuration
