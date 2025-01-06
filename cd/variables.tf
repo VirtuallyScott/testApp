@@ -12,26 +12,31 @@ variable "environment" {
   default     = "dev"
 }
 
-variable "aws_region" {
-  description = "AWS region"
+variable "project_id" {
+  description = "GCP Project ID"
   type        = string
-  default     = "us-west-2"
 }
 
-variable "vpc_cidr" {
-  description = "CIDR block for VPC"
+variable "region" {
+  description = "GCP region"
   type        = string
-  default     = "10.0.0.0/16"
+  default     = "us-central1"
 }
 
-variable "public_subnet_cidrs" {
-  description = "CIDR blocks for public subnets"
-  type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+variable "zone" {
+  description = "GCP zone"
+  type        = string
+  default     = "us-central1-a"
 }
 
-variable "availability_zones" {
-  description = "Availability zones"
-  type        = list(string)
-  default     = ["us-west-2a", "us-west-2b"]
+variable "network_name" {
+  description = "VPC network name"
+  type        = string
+  default     = "three-tier-network"
+}
+
+variable "subnet_cidr" {
+  description = "CIDR block for subnet"
+  type        = string
+  default     = "10.0.0.0/24"
 }

@@ -1,64 +1,103 @@
 # Main Terraform configuration
 
-# Configure AWS Provider
-provider "aws" {
-  region = var.aws_region
+# Configure Google Provider
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
 }
 
-# VPC Configuration
-resource "aws_vpc" "main" {
-  cidr_block           = var.vpc_cidr
-  enable_dns_hostnames = true
-  enable_dns_support   = true
+# VPC Network
+resource "google_compute_network" "vpc" {
+  name                    = var.network_name
+  auto_create_subnetworks = false
+}
 
-  tags = {
-    Name        = "${var.project_name}-vpc"
-    Environment = var.environment
+# Subnet
+resource "google_compute_subnetwork" "subnet" {
+  name          = "${var.network_name}-subnet"
+  ip_cidr_range = var.subnet_cidr
+  network       = google_compute_network.vpc.id
+  region        = var.region
+}
+
+# Firewall rules
+resource "google_compute_firewall" "allow_http" {
+  name    = "${var.project_name}-allow-http"
+  network = google_compute_network.vpc.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80", "443"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["web"]
+}
+
+# Cloud Run service for frontend
+resource "google_cloud_run_service" "frontend" {
+  name     = "${var.project_name}-frontend"
+  location = var.region
+
+  template {
+    spec {
+      containers {
+        image = "gcr.io/${var.project_id}/${var.project_name}-frontend"
+        ports {
+          container_port = 80
+        }
+      }
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
   }
 }
 
-# Subnet Configuration
-resource "aws_subnet" "public" {
-  count             = length(var.public_subnet_cidrs)
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.public_subnet_cidrs[count.index]
-  availability_zone = var.availability_zones[count.index]
+# Cloud Run service for backend
+resource "google_cloud_run_service" "backend" {
+  name     = "${var.project_name}-backend"
+  location = var.region
 
-  tags = {
-    Name        = "${var.project_name}-public-subnet-${count.index + 1}"
-    Environment = var.environment
+  template {
+    spec {
+      containers {
+        image = "gcr.io/${var.project_id}/${var.project_name}-backend"
+        ports {
+          container_port = 8000
+        }
+      }
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
   }
 }
 
-# Security Group
-resource "aws_security_group" "app" {
-  name        = "${var.project_name}-app-sg"
-  description = "Security group for application servers"
-  vpc_id      = aws_vpc.main.id
+# Cloud SQL instance
+resource "google_sql_database_instance" "postgres" {
+  name             = "${var.project_name}-db"
+  database_version = "POSTGRES_13"
+  region           = var.region
 
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+  settings {
+    tier = "db-f1-micro"
   }
 
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  deletion_protection = false
+}
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+# Redis instance
+resource "google_redis_instance" "cache" {
+  name           = "${var.project_name}-redis"
+  tier           = "BASIC"
+  memory_size_gb = 1
+  region         = var.region
 
-  tags = {
-    Name        = "${var.project_name}-app-sg"
-    Environment = var.environment
-  }
+  authorized_network = google_compute_network.vpc.id
 }
