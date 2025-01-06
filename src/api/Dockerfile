@@ -20,8 +20,9 @@ RUN apt-get update && \
 COPY requirements.txt .
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir wheel setuptools pip-tools && \
-    pip-compile requirements.txt && \
-    pip wheel --no-deps --wheel-dir /wheels -r requirements.txt
+    mkdir /wheels && \
+    pip-compile -o /wheels/requirements.txt requirements.txt && \
+    pip wheel --no-deps --wheel-dir /wheels -r /wheels/requirements.txt
 
 # Runtime stage
 FROM python:3.11-slim
