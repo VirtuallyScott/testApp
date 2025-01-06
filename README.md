@@ -17,6 +17,7 @@ src/
 ci/             # CI Pipeline configurations
 cd/             # Terraform Infrastructure as Code
 tests/          # Test suites for TDD
+postman/        # Postman Collections for API testing
 ```
 
 ## Development Setup

@@ -39,6 +39,7 @@ Each component has its specific test runner:
 - Backend (Python): pytest
 - Frontend (React): Jest
 - E2E: Cypress
+- API Testing: Postman/Newman
 
 ## TDD Workflow
 
