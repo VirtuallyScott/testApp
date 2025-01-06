@@ -23,6 +23,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     roles = relationship("Role", secondary=user_roles, back_populates="users")
+    api_keys = relationship("ApiKey", back_populates="user")
 
 class Role(Base):
     __tablename__ = "roles"
@@ -30,6 +31,21 @@ class Role(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
     users = relationship("User", secondary=user_roles, back_populates="roles")
+
+class ApiKey(Base):
+    __tablename__ = "api_keys"
+
+    id = Column(Integer, primary_key=True, index=True)
+    key_hash = Column(String, nullable=False)
+    name = Column(String, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    created_at = Column(DateTime, default=datetime.utcnow)
+    expires_at = Column(DateTime, nullable=True)
+    is_active = Column(Boolean, default=True)
+    last_used_at = Column(DateTime, nullable=True)
+    permissions = Column(JSON, default=list)
+
+    user = relationship("User", back_populates="api_keys")
 
 class ScanResult(Base):
     __tablename__ = "scan_results"
