@@ -34,8 +34,8 @@ WORKDIR /app
 # Copy wheels from builder
 COPY --from=builder /wheels /wheels
 
-# Install Python packages
-RUN pip install --no-cache-dir /wheels/*
+# Install Python packages from wheels
+RUN pip install --no-cache-dir /wheels/*.whl
 
 # Copy application code
 COPY . .
