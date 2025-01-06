@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Run backend tests
+echo "Running backend tests..."
+pytest tests/unit || exit 1
+
+# Run frontend tests
+echo "Running frontend tests..."
+cd src/web && npm test -- --watchAll=false || exit 1
+
+# Run linting
+echo "Running linting..."
+flake8 src/api || exit 1
+cd src/web && npm run lint || exit 1
+
+echo "All pre-commit checks passed!"
