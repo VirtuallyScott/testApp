@@ -10,15 +10,20 @@ FROM node:18-alpine as builder
 ARG VERSION
 WORKDIR /app
 
+# Install dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
+# Copy source and build
 COPY . .
 RUN npm run build
 
 # Runtime stage
 FROM nginx:alpine
+ARG VERSION
+LABEL version=$VERSION
 
+# Copy only the built files from builder
 COPY --from=builder /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
