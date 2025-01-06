@@ -16,6 +16,7 @@ src/
 
 ci/             # CI Pipeline configurations
 cd/             # Terraform Infrastructure as Code
+tests/          # Test suites for TDD
 ```
 
 ## Development Setup
