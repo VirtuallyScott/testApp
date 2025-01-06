@@ -39,4 +39,4 @@ INSERT INTO roles (name) VALUES
     ('admin'),
     ('viewer'),
     ('uploader')
-ON CONFLICT DO NOTHING;
+ON CONFLICT (name) DO NOTHING;
