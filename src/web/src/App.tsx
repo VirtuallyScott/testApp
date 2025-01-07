@@ -9,6 +9,7 @@ import Home from './components/Home';
 import Header from './components/Header';
 import ScanResults from './components/ScanResults';
 import ScanDetail from './components/ScanDetail';
+import ApiKeys from './components/ApiKeys';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -89,6 +90,16 @@ function App() {
                   <Login onLoginSuccess={() => setIsAuthenticated(true)} />
                 ) : (
                   <Navigate to="/" />
+                )
+              }
+            />
+            <Route
+              path="/api-keys"
+              element={
+                isAuthenticated ? (
+                  <ApiKeys />
+                ) : (
+                  <Navigate to="/login" />
                 )
               }
             />

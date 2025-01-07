@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
 from typing import Optional
+import secrets
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi import Depends, HTTPException, status, Request
+from fastapi.security import OAuth2PasswordBearer, APIKeyHeader
 from sqlalchemy.orm import Session
 import models
 import database
@@ -12,6 +13,7 @@ import database
 SECRET_KEY = "your-secret-key-here"  # Change this in production!
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+API_KEY_HEADER = APIKeyHeader(name="X-API-Key", auto_error=False)
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -32,7 +34,42 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
+def generate_api_key() -> str:
+    """Generate a secure API key"""
+    return secrets.token_urlsafe(32)
+
+def get_api_key_hash(api_key: str) -> str:
+    """Hash an API key for secure storage"""
+    return pwd_context.hash(api_key)
+
+async def get_current_user(
+    request: Request,
+    token: Optional[str] = Depends(oauth2_scheme),
+    api_key: Optional[str] = Depends(API_KEY_HEADER),
+    db: Session = Depends(database.get_db)
+):
+    # Try API key first
+    if api_key:
+        key = db.query(models.ApiKey).filter(
+            models.ApiKey.key_hash == get_api_key_hash(api_key),
+            models.ApiKey.is_active == True,
+            (models.ApiKey.expires_at == None) | (models.ApiKey.expires_at > datetime.utcnow())
+        ).first()
+        
+        if not key:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid API key"
+            )
+            
+        # Update last used timestamp
+        key.last_used_at = datetime.utcnow()
+        db.commit()
+        
+        return key.user
+        
+    # Fall back to JWT token
+    if token:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
