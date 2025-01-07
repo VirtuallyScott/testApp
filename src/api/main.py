@@ -35,33 +35,58 @@ api_v1 = FastAPI()
 # Mount the API v1 sub-application
 app.mount("/api/v1", api_v1)
 
-# Move all API endpoints to use api_v1 instead of app
+# CORS configuration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:80"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 @api_v1.post("/token")
 async def login(
-    form_data: OAuth2PasswordRequestForm = Depends(),
+    request: Request,
     db: Session = Depends(get_db)
 ):
-    logger.info(f"Login attempt for user: {form_data.username}")
     try:
-        user = db.query(models.User).filter(models.User.username == form_data.username).first()
+        # Try to parse as JSON first
+        json_data = await request.json()
+        username = json_data.get("username")
+        password = json_data.get("password")
+    except:
+        # Fall back to form data
+        form_data = await request.form()
+        username = form_data.get("username")
+        password = form_data.get("password")
+    
+    if not username or not password:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Both username and password are required"
+        )
+        
+    logger.info(f"Login attempt for user: {username}")
+    try:
+        user = db.query(models.User).filter(models.User.username == username).first()
         if not user:
-            logger.warning(f"Login attempt failed: User {form_data.username} not found in database")
+            logger.warning(f"Login attempt failed: User {username} not found in database")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Incorrect username or password",
                 headers={"WWW-Authenticate": "Bearer"},
             )
 
-        if not auth.verify_password(form_data.password, user.password_hash):
-            logger.warning(f"Login attempt failed: Invalid password for user {form_data.username}")
-            logger.debug(f"Stored hash for user {form_data.username}: {user.password_hash}")
+        if not auth.verify_password(password, user.password_hash):
+            logger.warning(f"Login attempt failed: Invalid password for user {username}")
+            logger.debug(f"Stored hash for user {username}: {user.password_hash}")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Incorrect username or password",
                 headers={"WWW-Authenticate": "Bearer"},
             )
         
-        logger.info(f"Successful login for user {form_data.username}")
+        logger.info(f"Successful login for user {username}")
         
         access_token = auth.create_access_token(
             data={"sub": user.username},
@@ -76,19 +101,6 @@ async def login(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal server error",
         )
-
-# CORS configuration
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:80"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-async def login(
-    form_data: OAuth2PasswordRequestForm = Depends(),
-    db: Session = Depends(get_db)
-):
     logger.info(f"Login attempt for user: {form_data.username}")
     try:
         user = db.query(models.User).filter(models.User.username == form_data.username).first()
