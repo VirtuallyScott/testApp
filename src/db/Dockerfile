@@ -1,5 +1,5 @@
 # Version stage
-FROM alpine as version
+FROM alpine AS version
 COPY get_version.sh /get_version.sh
 RUN chmod +x /get_version.sh
 RUN apk add --no-cache git
