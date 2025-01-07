@@ -23,11 +23,27 @@ postman/        # Postman Collections for API testing
 ## Development Setup
 
 1. Install Docker and Docker Compose
-2. Run `docker-compose up --build`
-3. Access:
-   - Frontend: http://localhost:3000
+2. Create logs directory:
+   ```bash
+   mkdir -p logs/{web,api,db,redis}
+   ```
+3. Start the application:
+   ```bash
+   docker-compose up --build
+   ```
+4. Access:
+   - Frontend: http://localhost
    - API Docs: http://localhost:8000/docs
    - API: http://localhost:8000/api/v1
+5. Default credentials:
+   - Username: admin
+   - Password: Admin@123
+
+Logs will be stored in the `logs/` directory:
+- Web: logs/web/
+- API: logs/api/
+- Database: logs/db/
+- Redis: logs/redis/
 
 ## Development Requirements
 - Docker

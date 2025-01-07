@@ -6,8 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,  -- Changed to TEXT to accommodate longer hashes
-    salt TEXT NOT NULL,           -- Added salt column
+    password_hash TEXT NOT NULL
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
@@ -88,8 +87,7 @@ BEGIN
         VALUES (
             'admin',
             'admin@example.com',
-            hash_password(admin_password, admin_salt),
-            admin_salt
+            '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY9uhNOIbQMDwxS'  -- Hash for 'Admin@123'
         )
         RETURNING id INTO admin_id;
 
