@@ -38,8 +38,8 @@ COPY --from=builder /wheels /wheels
 RUN pip install --no-cache-dir /wheels/*.whl
 
 # Create application directory structure
-COPY . /app/src/api
 WORKDIR /app
+COPY .. /app/src
 
 EXPOSE 8000
 ENV PYTHONPATH=/app
