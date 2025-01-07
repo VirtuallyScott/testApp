@@ -410,10 +410,10 @@ async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
         admin = db.query(models.User).filter(models.User.username == 'admin').first()
         if admin:
             logger.info("Admin user exists in database")
-            return {"status": "ready", "admin_exists": True}
+            return {"status": "ready", "admin_exists": "true"}
         else:
-            logger.warning("Admin user not found in database")
-            return {"status": "ready", "admin_exists": False}
+            logger.warning("Admin user not found in database") 
+            return {"status": "ready", "admin_exists": "false"}
     except Exception as e:
         logger.error(f"Database check failed: {str(e)}")
         return {"status": "not ready", "error": str(e)}
