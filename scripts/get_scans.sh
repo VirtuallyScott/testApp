@@ -22,24 +22,19 @@ while getopts "t:i:h" opt; do
     esac
 done
 
-# Get token if not provided
+# Get the authentication token
+echo "Getting authentication token..."
+TOKEN=$(curl -s -X POST -F "username=admin" -F "password=Admin@123" http://localhost:8000/api/v1/token | jq -r .access_token)
+
 if [ -z "$TOKEN" ]; then
-    TOKEN=$(./get_token.sh)
-    if [ $? -ne 0 ]; then
-        echo "Failed to get auth token"
-        exit 1
-    fi
+    echo "Failed to get authentication token"
+    exit 1
 fi
 
-# Construct API endpoint
-if [ -n "$SCAN_ID" ]; then
-    ENDPOINT="${API_URL}/scans/${SCAN_ID}"
-else
-    ENDPOINT="${API_URL}/scans"
-fi
+echo "Successfully obtained token"
 
 # Get scan results
-response=$(curl -s -X GET "${ENDPOINT}" \
+response=$(curl -s -X GET "${API_URL}/api/v1/scans" \
   -H "Authorization: Bearer ${TOKEN}" \
   -H "Accept: application/json")
 
