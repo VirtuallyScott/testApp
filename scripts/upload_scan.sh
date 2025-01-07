@@ -37,11 +37,39 @@ if [ -z "$TOKEN" ]; then
     fi
 fi
 
+# Parse required fields from Trivy JSON
+image_name=$(jq -r '.ArtifactName | split(":")[0]' "${SCAN_FILE}")
+image_tag=$(jq -r '.ArtifactName | split(":")[1]' "${SCAN_FILE}")
+image_sha256=$(jq -r '.Metadata.ImageID | sub("sha256:"; "")' "${SCAN_FILE}")
+scan_timestamp=$(date -u +"%Y-%m-%dT%H:%M:%S+00:00")
+
+# Count vulnerabilities by severity
+severity_critical=$(jq -r '[.Results[].Vulnerabilities[] | select(.Severity=="CRITICAL")] | length' "${SCAN_FILE}")
+severity_high=$(jq -r '[.Results[].Vulnerabilities[] | select(.Severity=="HIGH")] | length' "${SCAN_FILE}")
+severity_medium=$(jq -r '[.Results[].Vulnerabilities[] | select(.Severity=="MEDIUM")] | length' "${SCAN_FILE}")
+severity_low=$(jq -r '[.Results[].Vulnerabilities[] | select(.Severity=="LOW")] | length' "${SCAN_FILE}")
+
+# Create JSON payload
+payload=$(cat <<EOF
+{
+    "image_name": "${image_name}",
+    "image_tag": "${image_tag}",
+    "image_sha256": "${image_sha256}",
+    "scan_timestamp": "${scan_timestamp}",
+    "severity_critical": ${severity_critical:-0},
+    "severity_high": ${severity_high:-0},
+    "severity_medium": ${severity_medium:-0},
+    "severity_low": ${severity_low:-0},
+    "raw_results": $(cat "${SCAN_FILE}")
+}
+EOF
+)
+
 # Upload scan
 response=$(curl -s -X POST "${API_URL}/scans" \
   -H "Authorization: Bearer ${TOKEN}" \
   -H "Content-Type: application/json" \
-  -d @"${SCAN_FILE}")
+  -d "${payload}")
 
 # Check response
 if echo "$response" | grep -q "id"; then
