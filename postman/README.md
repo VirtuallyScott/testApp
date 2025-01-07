@@ -16,7 +16,8 @@ The collection includes endpoints for:
    - Get Token Status (GET /token/status)
 
 2. Scan Management
-   - Upload Scan Results (POST /scans)
+   - Upload Trivy Scan Results (POST /scans)
+     - Requires image name, tag, SHA256, scan timestamp and Trivy JSON output
    - List Scans (GET /scans)
    - Get Scan by ID (GET /scans/{id})
 
