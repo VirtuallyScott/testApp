@@ -13,6 +13,7 @@ The collection includes endpoints for:
 
 1. Authentication
    - Login (POST /token)
+   - Get Token Status (GET /token/status)
 
 2. Scan Management
    - Upload Scan Results (POST /scans)
