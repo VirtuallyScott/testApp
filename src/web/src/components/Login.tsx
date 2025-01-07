@@ -27,10 +27,14 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
     }
 
     try {
-      const response = await axios.post('/api/v1/token', {
-        username,
-        password
-      });
+      const response = await axios.post('/api/v1/token', 
+        `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }
+      );
       localStorage.setItem('access_token', response.data.access_token);
       const sessionId = 'sess_' + Math.random().toString(36).substr(2, 9);
       localStorage.setItem('sessionId', sessionId);
