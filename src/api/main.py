@@ -7,10 +7,10 @@ from typing import Dict, List
 import logging
 from datetime import timedelta
 
-import models
-import database
-import auth
-from database import engine, get_db
+from src.api import models
+from src.api import database
+from src.api import auth
+from src.api.database import engine, get_db
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
