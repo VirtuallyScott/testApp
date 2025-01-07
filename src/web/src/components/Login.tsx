@@ -15,17 +15,27 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Default credentials
+    if (username === 'admin' && password === 'admin') {
+      localStorage.setItem('access_token', 'default-token');
+      const sessionId = 'sess_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('sessionId', sessionId);
+      onLoginSuccess();
+      navigate('/dashboard');
+      return;
+    }
+
     try {
-      const response = await axios.post('/token', {
+      const response = await axios.post('/api/token', {
         username,
         password
       });
       localStorage.setItem('access_token', response.data.access_token);
-      // Generate and store a session ID
       const sessionId = 'sess_' + Math.random().toString(36).substr(2, 9);
       localStorage.setItem('sessionId', sessionId);
       onLoginSuccess();
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       setError('Invalid username or password');
     }
