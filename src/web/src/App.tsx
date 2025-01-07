@@ -10,6 +10,7 @@ import Header from './components/Header';
 import ScanResults from './components/ScanResults';
 import ScanDetail from './components/ScanDetail';
 import ApiKeys from './components/ApiKeys';
+import UserManager from './components/UserManager';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -98,6 +99,16 @@ function App() {
               element={
                 isAuthenticated ? (
                   <ApiKeys />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/user-manager"
+              element={
+                isAuthenticated ? (
+                  <UserManager />
                 ) : (
                   <Navigate to="/login" />
                 )
