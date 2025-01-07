@@ -14,14 +14,11 @@ WORKDIR /app
 RUN apk add --no-cache python3 make g++
 
 # Install dependencies first for better caching
-COPY package*.json ./
-COPY tsconfig.json ./
+COPY package.json package-lock.json ./
 RUN npm install --verbose
-RUN npm install -g typescript@4.9.5
 
 # Copy source files
-COPY src ./src
-COPY public ./public
+COPY . .
 
 # Create .env if it doesn't exist
 RUN test -f .env || echo "REACT_APP_API_URL=/api/v1" > .env
