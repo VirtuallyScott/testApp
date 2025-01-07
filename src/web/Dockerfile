@@ -10,10 +10,13 @@ FROM node:18-alpine AS builder
 ARG VERSION
 WORKDIR /app
 
+# Install system dependencies
+RUN apk add --no-cache python3 make g++
+
 # Install dependencies first for better caching
 COPY package*.json ./
 COPY tsconfig.json ./
-RUN npm ci --silent
+RUN npm install --verbose
 RUN npm install -g typescript@4.9.5
 
 # Copy source files
