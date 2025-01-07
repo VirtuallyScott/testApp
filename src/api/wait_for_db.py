@@ -1,6 +1,6 @@
 import time
 import logging
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.exc import OperationalError
 import os
 
@@ -22,7 +22,7 @@ def wait_for_db():
         try:
             # Try to connect to the database
             with engine.connect() as connection:
-                connection.execute("SELECT 1")
+                connection.execute(text("SELECT 1"))
             logger.info("Database is ready!")
             return True
         except OperationalError as e:
