@@ -9,7 +9,7 @@ const Header: React.FC = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Container Security Dashboard
         </Typography>
-        <Box sx={{ display: 'flex', gap: 2 }}>
+        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
           <Button color="inherit" component={Link} to="/">
             Home
           </Button>
@@ -19,10 +19,20 @@ const Header: React.FC = () => {
           <Button color="inherit" component={Link} to="/scans">
             Scan Results
           </Button>
-          <Button color="inherit" component={Link} to="/api-keys">
+          <Button 
+            color="inherit" 
+            component={Link} 
+            to="/api-keys"
+            sx={{ fontWeight: 'bold' }}
+          >
             API Keys
           </Button>
-          <Button color="inherit" component={Link} to="/user-manager">
+          <Button 
+            color="inherit" 
+            component={Link} 
+            to="/user-manager"
+            sx={{ fontWeight: 'bold' }}
+          >
             User Manager
           </Button>
         </Box>
