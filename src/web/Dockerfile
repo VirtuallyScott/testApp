@@ -12,7 +12,9 @@ WORKDIR /app
 
 # Install dependencies
 COPY package*.json ./
+COPY tsconfig.json ./
 RUN npm install --quiet
+RUN npm install -g typescript@4.9.5
 
 # Copy source files
 COPY src ./src
