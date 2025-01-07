@@ -38,11 +38,11 @@ COPY --from=builder /wheels /wheels
 RUN pip install --no-cache-dir /wheels/*.whl
 
 # Copy application files
-COPY . /app/api
-WORKDIR /app/api
+COPY . /app
+WORKDIR /app
 
 EXPOSE 8000
-ENV PYTHONPATH=/app/api
+ENV PYTHONPATH=/app
 
 # Add entrypoint script
 COPY entrypoint.sh /entrypoint.sh
