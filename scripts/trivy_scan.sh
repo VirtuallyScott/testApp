@@ -5,13 +5,13 @@ trivy image ubuntu-golden --output results.json
 #!/bin/bash
 set -e
 
-# Check if image name is provided
+# Use provided image name or default to 'ubuntu-golden'
 if [ -z "$1" ]; then
-    echo "Usage: $0 <image-name>"
-    exit 1
+    IMAGE_NAME="ubuntu-golden"
+    echo "No image name provided, using default: $IMAGE_NAME"
+else
+    IMAGE_NAME=$1
 fi
-
-IMAGE_NAME=$1
 DATE=$(date +%m%d%Y)
 OUTPUT_FILE="${DATE}-${IMAGE_NAME}.json"
 
