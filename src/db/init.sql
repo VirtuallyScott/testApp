@@ -71,7 +71,7 @@ INSERT INTO roles (name) VALUES
     ('admin'),
     ('viewer'),
     ('uploader')
-ON CONFLICT (name) DO NOTHING;
+    ON CONFLICT (name) DO NOTHING;
 
 -- Create default admin user if it doesn't exist
 DO $$
@@ -83,7 +83,7 @@ BEGIN
     -- Check if admin user already exists
     IF NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin') THEN
         -- Insert admin user with hashed password
-        INSERT INTO users (username, email, password_hash, salt)
+        INSERT INTO users (username, email, password_hash)
         VALUES (
             'admin',
             'admin@example.com',
