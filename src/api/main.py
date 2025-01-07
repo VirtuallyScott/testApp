@@ -6,6 +6,7 @@ from version import get_version
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 from typing import Dict, List
 import logging
 from datetime import timedelta
@@ -404,7 +405,7 @@ async def list_users(
 async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     """Readiness check endpoint"""
     try:
-        db.execute("SELECT 1")
+        db.execute(text("SELECT 1"))
         # Check if admin user exists
         admin = db.query(models.User).filter(models.User.username == 'admin').first()
         if admin:
