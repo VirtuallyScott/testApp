@@ -1,0 +1,159 @@
+{
+    "info": {
+        "name": "Container Security API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var jsonData = pm.response.json();",
+                                    "pm.environment.set(\"access_token\", jsonData.access_token);"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/x-www-form-urlencoded"
+                            }
+                        ],
+                        "body": {
+                            "mode": "urlencoded",
+                            "urlencoded": [
+                                {
+                                    "key": "username",
+                                    "value": "admin",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "password",
+                                    "value": "Admin@123",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/token",
+                            "host": ["{{base_url}}"],
+                            "path": ["token"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Scans",
+            "item": [
+                {
+                    "name": "Upload Scan",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"image_name\": \"nginx\",\n    \"image_tag\": \"latest\",\n    \"scanner_type\": \"trivy\",\n    \"severity_critical\": 2,\n    \"severity_high\": 5,\n    \"severity_medium\": 10,\n    \"severity_low\": 15,\n    \"raw_results\": {\n        \"vulnerabilities\": [\n            {\n                \"vulnerability_id\": \"CVE-2023-1234\",\n                \"severity\": \"HIGH\",\n                \"package_name\": \"openssl\",\n                \"installed_version\": \"1.1.1t-1\",\n                \"fixed_version\": \"1.1.1u-1\"\n            }\n        ]\n    }\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/scans",
+                            "host": ["{{base_url}}"],
+                            "path": ["scans"]
+                        }
+                    }
+                },
+                {
+                    "name": "List Scans",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/scans",
+                            "host": ["{{base_url}}"],
+                            "path": ["scans"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Scan by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/scans/1",
+                            "host": ["{{base_url}}"],
+                            "path": ["scans", "1"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Health Checks",
+            "item": [
+                {
+                    "name": "Health Check",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{base_url}}/health",
+                            "host": ["{{base_url}}"],
+                            "path": ["health"]
+                        }
+                    }
+                },
+                {
+                    "name": "Readiness Check",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{base_url}}/ready",
+                            "host": ["{{base_url}}"],
+                            "path": ["ready"]
+                        }
+                    }
+                },
+                {
+                    "name": "Version",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{base_url}}/version",
+                            "host": ["{{base_url}}"],
+                            "path": ["version"]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
