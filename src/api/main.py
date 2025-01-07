@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException, status
-from src.api.version import get_version
+from .version import get_version
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -7,10 +7,10 @@ from typing import Dict, List
 import logging
 from datetime import timedelta
 
-from src.api import models
-from src.api import database
-from src.api import auth
-from src.api.database import engine, get_db
+from . import models
+from . import database
+from . import auth
+from .database import engine, get_db
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
