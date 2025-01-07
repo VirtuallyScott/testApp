@@ -1,6 +1,6 @@
 import os
 from datetime import datetime, timedelta
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, Request
 from version import get_version
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
@@ -26,7 +26,19 @@ except Exception as e:
     logger.error(f"Failed to create database tables: {str(e)}")
     raise
 
-app = FastAPI(title="Container Security Scan API", root_path="/api/v1")
+app = FastAPI(
+    title="Container Security Scan API",
+    root_path="/api/v1",
+    openapi_prefix="/api/v1"
+)
+
+# Add middleware to ensure proper path handling
+@app.middleware("http")
+async def add_root_path(request: Request, call_next):
+    if request.url.path.startswith("/api/v1"):
+        request.scope["path"] = request.scope["path"].replace("/api/v1", "", 1)
+    response = await call_next(request)
+    return response
 
 # CORS configuration
 app.add_middleware(
