@@ -26,7 +26,7 @@ except Exception as e:
     logger.error(f"Failed to create database tables: {str(e)}")
     raise
 
-app = FastAPI(title="Container Security Scan API", root_path="/")
+app = FastAPI(title="Container Security Scan API", root_path="/api/v1")
 
 # CORS configuration
 app.add_middleware(
@@ -37,7 +37,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/token")
+@app.post("/token", include_in_schema=False)
 async def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
@@ -78,7 +78,7 @@ async def login(
             detail="Internal server error",
         )
 
-@app.post("/scans")
+@app.post("/scans", include_in_schema=False)
 async def upload_scan(
     scan_data: Dict,
     current_user: models.User = Depends(auth.get_current_user),
@@ -113,7 +113,7 @@ async def upload_scan(
     db.refresh(scan_result)
     return scan_result
 
-@app.get("/scans")
+@app.get("/scans", include_in_schema=False)
 async def list_scans(
     current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
@@ -159,7 +159,7 @@ async def list_scans(
             detail="Error retrieving scan results"
         )
 
-@app.get("/scans/{scan_id}")
+@app.get("/scans/{scan_id}", include_in_schema=False)
 async def get_scan(
     scan_id: int,
     current_user: models.User = Depends(auth.get_current_user),
@@ -171,17 +171,17 @@ async def get_scan(
         raise HTTPException(status_code=404, detail="Scan not found")
     return scan
 
-@app.get("/version")
+@app.get("/version", include_in_schema=False)
 async def version() -> Dict[str, str]:
     """Get application version"""
     return {"version": get_version()}
 
-@app.get("/health")
+@app.get("/health", include_in_schema=False)
 async def health_check() -> Dict[str, str]:
     """Health check endpoint"""
     return {"status": "healthy"}
 
-@app.get("/ready")
+@app.get("/ready", include_in_schema=False)
 async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     """Readiness check endpoint"""
     try:
