@@ -6,6 +6,9 @@ import HealthDashboard from './components/HealthDashboard';
 import Login from './components/Login';
 import Footer from './components/Footer';
 import Home from './components/Home';
+import Header from './components/Header';
+import ScanResults from './components/ScanResults';
+import ScanDetail from './components/ScanDetail';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -28,7 +31,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="lg" sx={{ pb: 8 }}> {/* Add padding bottom for footer */}
+      <Header />
+      <Container maxWidth="lg" sx={{ pb: 8, pt: 2 }}> {/* Add padding bottom for footer */}
         {isAuthenticated && (
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
             <Button variant="contained" color="secondary" onClick={handleLogout}>
@@ -53,6 +57,26 @@ function App() {
               element={
                 isAuthenticated ? (
                   <HealthDashboard />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/scans"
+              element={
+                isAuthenticated ? (
+                  <ScanResults />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/scans/:scanId"
+              element={
+                isAuthenticated ? (
+                  <ScanDetail />
                 ) : (
                   <Navigate to="/login" />
                 )
