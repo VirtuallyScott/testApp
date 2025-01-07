@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
   useEffect(() => {
     const fetchVersion = async () => {
       try {
-        const response = await axios.get<VersionInfo>('/version');
+        const response = await axios.get<VersionInfo>('/api/v1/version');
         setVersion(response.data.version || 'Unknown');
       } catch (error) {
         console.error('Failed to fetch version:', error);
