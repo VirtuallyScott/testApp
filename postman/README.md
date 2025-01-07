@@ -36,8 +36,9 @@ The environment file includes:
 
 1. Import both the collection and environment files into Postman
 2. Select the "Container Security API Environment"
-3. Execute the Login request first to get an access token
-4. Use other endpoints as needed - they'll automatically use the token
+3. The Scans folder has an automatic pre-request script that will fetch a new token
+4. You can also manually get a token using the Login request in the Authentication folder
+5. All endpoints will automatically use the token stored in the environment
 
 ## Running via Newman
 
