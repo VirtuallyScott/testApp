@@ -1,0 +1,3389 @@
+{
+  "SchemaVersion": 2,
+  "CreatedAt": "2025-01-07T15:11:42.05756-05:00",
+  "ArtifactName": "ubuntu-golden",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "OS": {
+      "Family": "ubuntu",
+      "Name": "24.04"
+    },
+    "ImageID": "sha256:a4ef6acb17aca3bb93c0ed99560c824c32884cc775eae4f33c0f606480959d90",
+    "DiffIDs": [
+      "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000",
+      "sha256:5d8e2a768b068e18d82d03d811ca47ed4fad7b08ffb53d2e7bf583c5b4d4f165",
+      "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78",
+      "sha256:f3b052d4ecb1248d8c9ab8045e9c31d73055c60855923ff633722207e8af5f76",
+      "sha256:02b20921b4991393dedc52f85a8cad0407021d8e5da8fe0a93fe1b0c2515c680",
+      "sha256:d9f2372cb68ccab6aea7c052192f1ac8c08d100366f42ca1c2429f66f7fed88c",
+      "sha256:ab37e2fcf7f617f6357e906ed00d1adf50625bbfa0d73f30332b3f118716e9dc",
+      "sha256:2a9aaf40a0199c1b72b19cba7025db8f4caefaddb418e06052aa593f234a7f41",
+      "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+      "sha256:5f2fb831441360d9b21cd07ffaea8f70a79c24d282ee6513e2565e8cd8f95480",
+      "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+      "sha256:4bd3015989af0ecff8c59ff65be652e6863ed98661da529ed2cfc80101c0bbd4",
+      "sha256:e592d88d82967dfc58358ff60af07a22f1bf3220d7a2c0131e698fcd77e864ca",
+      "sha256:6b1541b39367b730f1acfc1f290ebf0861785da7d74ca38357985bffcbeee9db",
+      "sha256:d48cd5c4cd14d56bf54307b1e3de5bc5dcb928c92e5c1aa71c2d3b589907a664"
+    ],
+    "RepoTags": [
+      "ubuntu-golden:0.0.1-init.1",
+      "ubuntu-golden:latest"
+    ],
+    "ImageConfig": {
+      "architecture": "arm64",
+      "created": "2025-01-04T22:11:23.378394133Z",
+      "history": [
+        {
+          "created": "2024-11-19T16:18:45Z",
+          "created_by": "/bin/sh -c #(nop)  ARG RELEASE",
+          "empty_layer": true
+        },
+        {
+          "created": "2024-11-19T16:18:45Z",
+          "created_by": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
+          "empty_layer": true
+        },
+        {
+          "created": "2024-11-19T16:18:45Z",
+          "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
+          "empty_layer": true
+        },
+        {
+          "created": "2024-11-19T16:18:45Z",
+          "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=24.04",
+          "empty_layer": true
+        },
+        {
+          "created": "2024-11-19T16:18:47Z",
+          "created_by": "/bin/sh -c #(nop) ADD file:765dfd09ec2ac4870c8b3efd6ef4a994f99695c574d546d7a9a0e69bbb970b03 in / "
+        },
+        {
+          "created": "2024-11-19T16:18:47Z",
+          "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/bash\"]",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "ARG VERSION=0.0.1-init.1",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "ARG BUILD_DATE=2025-01-04T22:09:25Z",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "ARG DOTNET_VERSION=8.0",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "LABEL maintainer=Your Organization DevOps Team \u003cdevops@yourorg.com\u003e",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "LABEL build-date=2025-01-04T22:09:25Z",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "LABEL version=0.0.1-init.1",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "LABEL version=1.0",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "LABEL description=Ubuntu 24.04 Golden Image with .NET Core 8.0, CIS and NIST security baseline",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "ENV DEBIAN_FRONTEND=noninteractive",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "ENV TZ=UTC",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:09:27Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \u0026\u0026 echo $TZ \u003e /etc/timezone # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:10:42Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c apt-get update \u0026\u0026 apt-get upgrade -y \u0026\u0026     apt-get install -y     apt-utils     ca-certificates     curl     gnupg     lsb-release     unattended-upgrades     apt-listchanges     auditd     apparmor     apparmor-utils     fail2ban     ufw     wget     software-properties-common     \u0026\u0026 apt-get clean     \u0026\u0026 rm -rf /var/lib/apt/lists/* # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:05Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c wget https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \u0026\u0026     dpkg -i packages-microsoft-prod.deb \u0026\u0026     rm packages-microsoft-prod.deb \u0026\u0026     apt-get update \u0026\u0026     apt-get install -y dotnet-sdk-${DOTNET_VERSION} \u0026\u0026     apt-get clean \u0026\u0026     rm -rf /var/lib/apt/lists/* # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:22Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c echo \"Implementing CIS security configurations...\" \u0026\u0026     apt-get update \u0026\u0026     apt-get install -y openssh-server \u0026\u0026     apt-get clean \u0026\u0026     rm -rf /var/lib/apt/lists/* # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:22Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c for file in /etc/passwd /etc/group /etc/services; do         if [ -f \"$file\" ]; then chmod 644 \"$file\"; fi     done \u0026\u0026     if [ -f /etc/shadow ]; then chmod 000 /etc/shadow; fi \u0026\u0026     if [ -f /etc/ssh/sshd_config ]; then chmod 600 /etc/ssh/sshd_config; fi # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:22Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c ufw default deny incoming \u0026\u0026     ufw default allow outgoing \u0026\u0026     ufw logging on # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:22Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c sed -i 's/^space_left_action.*/space_left_action = email/' /etc/audit/auditd.conf \u0026\u0026     sed -i 's/^action_mail_acct.*/action_mail_acct = root/' /etc/audit/auditd.conf \u0026\u0026     sed -i 's/^admin_space_left_action.*/admin_space_left_action = halt/' /etc/audit/auditd.conf # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:22Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c echo \"Configuring AppArmor...\" \u0026\u0026     mkdir -p /etc/apparmor.d/disable \u0026\u0026     mkdir -p /etc/apparmor.d/local \u0026\u0026     mkdir -p /var/cache/apparmor # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:22Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c echo 'APT::Periodic::Update-Package-Lists \"1\";' \u003e /etc/apt/apt.conf.d/20auto-upgrades \u0026\u0026     echo 'APT::Periodic::Unattended-Upgrade \"1\";' \u003e\u003e /etc/apt/apt.conf.d/20auto-upgrades # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:23Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c echo \"Implementing NIST security configurations...\" # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:23Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c sed -i 's/PASS_MAX_DAYS.*/PASS_MAX_DAYS   90/' /etc/login.defs \u0026\u0026     sed -i 's/PASS_MIN_DAYS.*/PASS_MIN_DAYS   7/' /etc/login.defs \u0026\u0026     sed -i 's/PASS_WARN_AGE.*/PASS_WARN_AGE   14/' /etc/login.defs # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:23Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c apt-get clean \u0026\u0026     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:23Z",
+          "created_by": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c echo \"umask 027\" \u003e\u003e /etc/bash.bashrc # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:23Z",
+          "created_by": "HEALTHCHECK \u0026{[\"CMD-SHELL\" \"curl -f http://localhost/ || exit 1\"] \"5m0s\" \"3s\" \"0s\" \"0s\" '\\x00'}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2025-01-04T22:11:23Z",
+          "created_by": "WORKDIR /app",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2025-01-04T22:11:23Z",
+          "created_by": "CMD [\"/bin/bash\"]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        }
+      ],
+      "os": "linux",
+      "rootfs": {
+        "type": "layers",
+        "diff_ids": [
+          "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000",
+          "sha256:5d8e2a768b068e18d82d03d811ca47ed4fad7b08ffb53d2e7bf583c5b4d4f165",
+          "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78",
+          "sha256:f3b052d4ecb1248d8c9ab8045e9c31d73055c60855923ff633722207e8af5f76",
+          "sha256:02b20921b4991393dedc52f85a8cad0407021d8e5da8fe0a93fe1b0c2515c680",
+          "sha256:d9f2372cb68ccab6aea7c052192f1ac8c08d100366f42ca1c2429f66f7fed88c",
+          "sha256:ab37e2fcf7f617f6357e906ed00d1adf50625bbfa0d73f30332b3f118716e9dc",
+          "sha256:2a9aaf40a0199c1b72b19cba7025db8f4caefaddb418e06052aa593f234a7f41",
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+          "sha256:5f2fb831441360d9b21cd07ffaea8f70a79c24d282ee6513e2565e8cd8f95480",
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+          "sha256:4bd3015989af0ecff8c59ff65be652e6863ed98661da529ed2cfc80101c0bbd4",
+          "sha256:e592d88d82967dfc58358ff60af07a22f1bf3220d7a2c0131e698fcd77e864ca",
+          "sha256:6b1541b39367b730f1acfc1f290ebf0861785da7d74ca38357985bffcbeee9db",
+          "sha256:d48cd5c4cd14d56bf54307b1e3de5bc5dcb928c92e5c1aa71c2d3b589907a664"
+        ]
+      },
+      "config": {
+        "Cmd": [
+          "/bin/bash"
+        ],
+        "Healthcheck": {
+          "Test": [
+            "CMD-SHELL",
+            "curl -f http://localhost/ || exit 1"
+          ],
+          "Interval": 300000000000,
+          "Timeout": 3000000000
+        },
+        "Env": [
+          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "DEBIAN_FRONTEND=noninteractive",
+          "TZ=UTC"
+        ],
+        "Labels": {
+          "build-date": "2025-01-04T22:09:25Z",
+          "description": "Ubuntu 24.04 Golden Image with .NET Core 8.0, CIS and NIST security baseline",
+          "maintainer": "Your Organization DevOps Team \u003cdevops@yourorg.com\u003e",
+          "org.opencontainers.image.ref.name": "ubuntu",
+          "org.opencontainers.image.version": "24.04",
+          "version": "1.0"
+        },
+        "WorkingDir": "/app",
+        "ArgsEscaped": true
+      }
+    }
+  },
+  "Results": [
+    {
+      "Target": "ubuntu-golden (ubuntu 24.04)",
+      "Class": "os-pkgs",
+      "Type": "ubuntu",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2016-2781",
+          "PkgID": "coreutils@9.4-3ubuntu6",
+          "PkgName": "coreutils",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/coreutils@9.4-3ubuntu6?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "4867b8aa07a6c4b"
+          },
+          "InstalledVersion": "9.4-3ubuntu6",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2016-2781",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "coreutils: Non-privileged session can escape to the parent session in chroot",
+          "Description": "chroot in GNU coreutils, when used with --userspec, allows local users to escape to the parent session via a crafted TIOCSTI ioctl call, which pushes characters to the terminal's input buffer.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-20"
+          ],
+          "VendorSeverity": {
+            "azure": 2,
+            "cbl-mariner": 2,
+            "nvd": 2,
+            "redhat": 2,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V2Vector": "AV:L/AC:L/Au:N/C:N/I:P/A:N",
+              "V3Vector": "CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:H/A:N",
+              "V2Score": 2.1,
+              "V3Score": 6.5
+            },
+            "redhat": {
+              "V2Vector": "AV:L/AC:H/Au:N/C:C/I:C/A:C",
+              "V3Vector": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+              "V2Score": 6.2,
+              "V3Score": 8.6
+            }
+          },
+          "References": [
+            "http://seclists.org/oss-sec/2016/q1/452",
+            "http://www.openwall.com/lists/oss-security/2016/02/28/2",
+            "http://www.openwall.com/lists/oss-security/2016/02/28/3",
+            "https://access.redhat.com/security/cve/CVE-2016-2781",
+            "https://lists.apache.org/thread.html/rf9fa47ab66495c78bb4120b0754dd9531ca2ff0430f6685ac9b07772%40%3Cdev.mina.apache.org%3E",
+            "https://lore.kernel.org/patchwork/patch/793178/",
+            "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.28/v2.28-ReleaseNotes",
+            "https://nvd.nist.gov/vuln/detail/CVE-2016-2781",
+            "https://www.cve.org/CVERecord?id=CVE-2016-2781"
+          ],
+          "PublishedDate": "2017-02-07T15:59:00.333Z",
+          "LastModifiedDate": "2023-11-07T02:32:03.347Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "dirmngr@2.4.4-2ubuntu17",
+          "PkgName": "dirmngr",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/dirmngr@2.4.4-2ubuntu17?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "9943e44f55b20a00"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "gnupg@2.4.4-2ubuntu17",
+          "PkgName": "gnupg",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gnupg@2.4.4-2ubuntu17?arch=all\u0026distro=ubuntu-24.04",
+            "UID": "3f3239b02bc4e35f"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "gnupg-l10n@2.4.4-2ubuntu17",
+          "PkgName": "gnupg-l10n",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gnupg-l10n@2.4.4-2ubuntu17?arch=all\u0026distro=ubuntu-24.04",
+            "UID": "a1664f5c27034051"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "gnupg-utils@2.4.4-2ubuntu17",
+          "PkgName": "gnupg-utils",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gnupg-utils@2.4.4-2ubuntu17?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "2bf6ab5794ffdc2f"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "gpg@2.4.4-2ubuntu17",
+          "PkgName": "gpg",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gpg@2.4.4-2ubuntu17?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "e5474e30ae5b7e21"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "gpg-agent@2.4.4-2ubuntu17",
+          "PkgName": "gpg-agent",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gpg-agent@2.4.4-2ubuntu17?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "63e09371534820c2"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "gpg-wks-client@2.4.4-2ubuntu17",
+          "PkgName": "gpg-wks-client",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gpg-wks-client@2.4.4-2ubuntu17?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "206d641d7f36a5b2"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "gpgconf@2.4.4-2ubuntu17",
+          "PkgName": "gpgconf",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gpgconf@2.4.4-2ubuntu17?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "959ef2ce22c2d214"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "gpgsm@2.4.4-2ubuntu17",
+          "PkgName": "gpgsm",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gpgsm@2.4.4-2ubuntu17?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "6f02e94886db3fe5"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "gpgv@2.4.4-2ubuntu17",
+          "PkgName": "gpgv",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gpgv@2.4.4-2ubuntu17?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "2fbda29087a22521"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2022-3219",
+          "PkgID": "keyboxd@2.4.4-2ubuntu17",
+          "PkgName": "keyboxd",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/keyboxd@2.4.4-2ubuntu17?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "203da5ae7108fe48"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2022-3219",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: denial of service issue (resource consumption) using compressed packets",
+          "Description": "GnuPG can be made to spin on a relatively small input by (for example) crafting a public key with thousands of signatures attached, compressed down to just a few KB.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-787"
+          ],
+          "VendorSeverity": {
+            "nvd": 1,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 3.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2022-3219",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2127010",
+            "https://dev.gnupg.org/D556",
+            "https://dev.gnupg.org/T5993",
+            "https://marc.info/?l=oss-security\u0026m=165696590211434\u0026w=4",
+            "https://nvd.nist.gov/vuln/detail/CVE-2022-3219",
+            "https://security.netapp.com/advisory/ntap-20230324-0001/",
+            "https://www.cve.org/CVERecord?id=CVE-2022-3219"
+          ],
+          "PublishedDate": "2023-02-23T20:15:12.393Z",
+          "LastModifiedDate": "2023-05-26T16:31:34.07Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26462",
+          "PkgID": "krb5-locales@1.20.1-6ubuntu2.2",
+          "PkgName": "krb5-locales",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/krb5-locales@1.20.1-6ubuntu2.2?arch=all\u0026distro=ubuntu-24.04",
+            "UID": "15c659109f2dceab"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26462",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/kdc/ndr.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/kdc/ndr.c.",
+          "Severity": "MEDIUM",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26462",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_3.md",
+            "https://linux.oracle.com/cve/CVE-2024-26462.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26462",
+            "https://security.netapp.com/advisory/ntap-20240415-0012/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26462"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.857Z",
+          "LastModifiedDate": "2024-05-14T15:09:01.053Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26458",
+          "PkgID": "krb5-locales@1.20.1-6ubuntu2.2",
+          "PkgName": "krb5-locales",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/krb5-locales@1.20.1-6ubuntu2.2?arch=all\u0026distro=ubuntu-24.04",
+            "UID": "15c659109f2dceab"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26458",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/lib/rpc/pmap_rmt.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak in /krb5/src/lib/rpc/pmap_rmt.c.",
+          "Severity": "LOW",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 2,
+            "cbl-mariner": 2,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 1,
+            "rocky": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26458",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266731",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266740",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26458",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26461",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://errata.rockylinux.org/RLSA-2024:3268",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_1.md",
+            "https://linux.oracle.com/cve/CVE-2024-26458.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26458",
+            "https://security.netapp.com/advisory/ntap-20240415-0010/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26458"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.78Z",
+          "LastModifiedDate": "2024-12-06T21:15:06.28Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26461",
+          "PkgID": "krb5-locales@1.20.1-6ubuntu2.2",
+          "PkgName": "krb5-locales",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/krb5-locales@1.20.1-6ubuntu2.2?arch=all\u0026distro=ubuntu-24.04",
+            "UID": "15c659109f2dceab"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26461",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/lib/gssapi/krb5/k5sealv3.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/lib/gssapi/krb5/k5sealv3.c.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-770"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "cbl-mariner": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 1,
+            "rocky": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26461",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266731",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266740",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26458",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26461",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://errata.rockylinux.org/RLSA-2024:3268",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_2.md",
+            "https://linux.oracle.com/cve/CVE-2024-26461.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26461",
+            "https://security.netapp.com/advisory/ntap-20240415-0011/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26461"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.82Z",
+          "LastModifiedDate": "2024-08-14T16:35:10.207Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2016-20013",
+          "PkgID": "libc-bin@2.39-0ubuntu8.3",
+          "PkgName": "libc-bin",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libc-bin@2.39-0ubuntu8.3?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "85907adaa3eaabb9"
+          },
+          "InstalledVersion": "2.39-0ubuntu8.3",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2016-20013",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Description": "sha256crypt and sha512crypt through 0.6 allow attackers to cause a denial of service (CPU consumption) because the algorithm's runtime is proportional to the square of the length of the password.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-770"
+          ],
+          "VendorSeverity": {
+            "nvd": 3,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V2Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V2Score": 5,
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://akkadia.org/drepper/SHA-crypt.txt",
+            "https://pthree.org/2018/05/23/do-not-use-sha256crypt-sha512crypt-theyre-dangerous/",
+            "https://twitter.com/solardiz/status/795601240151457793",
+            "https://www.cve.org/CVERecord?id=CVE-2016-20013"
+          ],
+          "PublishedDate": "2022-02-19T05:15:09.413Z",
+          "LastModifiedDate": "2022-03-03T16:43:19.667Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2016-20013",
+          "PkgID": "libc6@2.39-0ubuntu8.3",
+          "PkgName": "libc6",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libc6@2.39-0ubuntu8.3?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "d5d1429ab49f54fa"
+          },
+          "InstalledVersion": "2.39-0ubuntu8.3",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2016-20013",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Description": "sha256crypt and sha512crypt through 0.6 allow attackers to cause a denial of service (CPU consumption) because the algorithm's runtime is proportional to the square of the length of the password.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-770"
+          ],
+          "VendorSeverity": {
+            "nvd": 3,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V2Vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P",
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V2Score": 5,
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://akkadia.org/drepper/SHA-crypt.txt",
+            "https://pthree.org/2018/05/23/do-not-use-sha256crypt-sha512crypt-theyre-dangerous/",
+            "https://twitter.com/solardiz/status/795601240151457793",
+            "https://www.cve.org/CVERecord?id=CVE-2016-20013"
+          ],
+          "PublishedDate": "2022-02-19T05:15:09.413Z",
+          "LastModifiedDate": "2022-03-03T16:43:19.667Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-2236",
+          "PkgID": "libgcrypt20@1.10.3-2build1",
+          "PkgName": "libgcrypt20",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libgcrypt20@1.10.3-2build1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "ed6873fcc7dda3c6"
+          },
+          "InstalledVersion": "1.10.3-2build1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-2236",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "libgcrypt: vulnerable to Marvin Attack",
+          "Description": "A timing-based side-channel flaw was found in libgcrypt's RSA implementation. This issue may allow a remote attacker to initiate a Bleichenbacher-style attack, which can lead to the decryption of RSA ciphertexts.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-208"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "oracle-oval": 2,
+            "redhat": 2,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9404",
+            "https://access.redhat.com/security/cve/CVE-2024-2236",
+            "https://bugzilla.redhat.com/2245218",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2245218",
+            "https://dev.gnupg.org/T7136",
+            "https://errata.almalinux.org/9/ALSA-2024-9404.html",
+            "https://github.com/tomato42/marvin-toolkit/tree/master/example/libgcrypt",
+            "https://gitlab.com/redhat-crypto/libgcrypt/libgcrypt-mirror/-/merge_requests/17",
+            "https://linux.oracle.com/cve/CVE-2024-2236.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9404.html",
+            "https://lists.gnupg.org/pipermail/gcrypt-devel/2024-March/005607.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-2236",
+            "https://www.cve.org/CVERecord?id=CVE-2024-2236"
+          ],
+          "PublishedDate": "2024-03-06T22:15:57.977Z",
+          "LastModifiedDate": "2024-11-12T18:15:20.15Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26462",
+          "PkgID": "libgssapi-krb5-2@1.20.1-6ubuntu2.2",
+          "PkgName": "libgssapi-krb5-2",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libgssapi-krb5-2@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "177d3c8f04ae2cdb"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26462",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/kdc/ndr.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/kdc/ndr.c.",
+          "Severity": "MEDIUM",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26462",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_3.md",
+            "https://linux.oracle.com/cve/CVE-2024-26462.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26462",
+            "https://security.netapp.com/advisory/ntap-20240415-0012/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26462"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.857Z",
+          "LastModifiedDate": "2024-05-14T15:09:01.053Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26458",
+          "PkgID": "libgssapi-krb5-2@1.20.1-6ubuntu2.2",
+          "PkgName": "libgssapi-krb5-2",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libgssapi-krb5-2@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "177d3c8f04ae2cdb"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26458",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/lib/rpc/pmap_rmt.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak in /krb5/src/lib/rpc/pmap_rmt.c.",
+          "Severity": "LOW",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 2,
+            "cbl-mariner": 2,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 1,
+            "rocky": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26458",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266731",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266740",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26458",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26461",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://errata.rockylinux.org/RLSA-2024:3268",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_1.md",
+            "https://linux.oracle.com/cve/CVE-2024-26458.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26458",
+            "https://security.netapp.com/advisory/ntap-20240415-0010/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26458"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.78Z",
+          "LastModifiedDate": "2024-12-06T21:15:06.28Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26461",
+          "PkgID": "libgssapi-krb5-2@1.20.1-6ubuntu2.2",
+          "PkgName": "libgssapi-krb5-2",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libgssapi-krb5-2@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "177d3c8f04ae2cdb"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26461",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/lib/gssapi/krb5/k5sealv3.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/lib/gssapi/krb5/k5sealv3.c.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-770"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "cbl-mariner": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 1,
+            "rocky": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26461",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266731",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266740",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26458",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26461",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://errata.rockylinux.org/RLSA-2024:3268",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_2.md",
+            "https://linux.oracle.com/cve/CVE-2024-26461.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26461",
+            "https://security.netapp.com/advisory/ntap-20240415-0011/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26461"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.82Z",
+          "LastModifiedDate": "2024-08-14T16:35:10.207Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26462",
+          "PkgID": "libk5crypto3@1.20.1-6ubuntu2.2",
+          "PkgName": "libk5crypto3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libk5crypto3@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "bbbf5230fa4b5aa3"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26462",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/kdc/ndr.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/kdc/ndr.c.",
+          "Severity": "MEDIUM",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26462",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_3.md",
+            "https://linux.oracle.com/cve/CVE-2024-26462.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26462",
+            "https://security.netapp.com/advisory/ntap-20240415-0012/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26462"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.857Z",
+          "LastModifiedDate": "2024-05-14T15:09:01.053Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26458",
+          "PkgID": "libk5crypto3@1.20.1-6ubuntu2.2",
+          "PkgName": "libk5crypto3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libk5crypto3@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "bbbf5230fa4b5aa3"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26458",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/lib/rpc/pmap_rmt.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak in /krb5/src/lib/rpc/pmap_rmt.c.",
+          "Severity": "LOW",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 2,
+            "cbl-mariner": 2,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 1,
+            "rocky": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26458",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266731",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266740",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26458",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26461",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://errata.rockylinux.org/RLSA-2024:3268",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_1.md",
+            "https://linux.oracle.com/cve/CVE-2024-26458.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26458",
+            "https://security.netapp.com/advisory/ntap-20240415-0010/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26458"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.78Z",
+          "LastModifiedDate": "2024-12-06T21:15:06.28Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26461",
+          "PkgID": "libk5crypto3@1.20.1-6ubuntu2.2",
+          "PkgName": "libk5crypto3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libk5crypto3@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "bbbf5230fa4b5aa3"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26461",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/lib/gssapi/krb5/k5sealv3.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/lib/gssapi/krb5/k5sealv3.c.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-770"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "cbl-mariner": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 1,
+            "rocky": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26461",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266731",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266740",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26458",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26461",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://errata.rockylinux.org/RLSA-2024:3268",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_2.md",
+            "https://linux.oracle.com/cve/CVE-2024-26461.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26461",
+            "https://security.netapp.com/advisory/ntap-20240415-0011/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26461"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.82Z",
+          "LastModifiedDate": "2024-08-14T16:35:10.207Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26462",
+          "PkgID": "libkrb5-3@1.20.1-6ubuntu2.2",
+          "PkgName": "libkrb5-3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libkrb5-3@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "fdc3e24182a0c8e2"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26462",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/kdc/ndr.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/kdc/ndr.c.",
+          "Severity": "MEDIUM",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26462",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_3.md",
+            "https://linux.oracle.com/cve/CVE-2024-26462.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26462",
+            "https://security.netapp.com/advisory/ntap-20240415-0012/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26462"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.857Z",
+          "LastModifiedDate": "2024-05-14T15:09:01.053Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26458",
+          "PkgID": "libkrb5-3@1.20.1-6ubuntu2.2",
+          "PkgName": "libkrb5-3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libkrb5-3@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "fdc3e24182a0c8e2"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26458",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/lib/rpc/pmap_rmt.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak in /krb5/src/lib/rpc/pmap_rmt.c.",
+          "Severity": "LOW",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 2,
+            "cbl-mariner": 2,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 1,
+            "rocky": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26458",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266731",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266740",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26458",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26461",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://errata.rockylinux.org/RLSA-2024:3268",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_1.md",
+            "https://linux.oracle.com/cve/CVE-2024-26458.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26458",
+            "https://security.netapp.com/advisory/ntap-20240415-0010/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26458"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.78Z",
+          "LastModifiedDate": "2024-12-06T21:15:06.28Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26461",
+          "PkgID": "libkrb5-3@1.20.1-6ubuntu2.2",
+          "PkgName": "libkrb5-3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libkrb5-3@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "fdc3e24182a0c8e2"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26461",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/lib/gssapi/krb5/k5sealv3.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/lib/gssapi/krb5/k5sealv3.c.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-770"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "cbl-mariner": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 1,
+            "rocky": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26461",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266731",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266740",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26458",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26461",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://errata.rockylinux.org/RLSA-2024:3268",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_2.md",
+            "https://linux.oracle.com/cve/CVE-2024-26461.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26461",
+            "https://security.netapp.com/advisory/ntap-20240415-0011/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26461"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.82Z",
+          "LastModifiedDate": "2024-08-14T16:35:10.207Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26462",
+          "PkgID": "libkrb5support0@1.20.1-6ubuntu2.2",
+          "PkgName": "libkrb5support0",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libkrb5support0@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "7c5a727dee22cfbd"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26462",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/kdc/ndr.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/kdc/ndr.c.",
+          "Severity": "MEDIUM",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26462",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_3.md",
+            "https://linux.oracle.com/cve/CVE-2024-26462.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26462",
+            "https://security.netapp.com/advisory/ntap-20240415-0012/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26462"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.857Z",
+          "LastModifiedDate": "2024-05-14T15:09:01.053Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26458",
+          "PkgID": "libkrb5support0@1.20.1-6ubuntu2.2",
+          "PkgName": "libkrb5support0",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libkrb5support0@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "7c5a727dee22cfbd"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26458",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/lib/rpc/pmap_rmt.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak in /krb5/src/lib/rpc/pmap_rmt.c.",
+          "Severity": "LOW",
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 2,
+            "cbl-mariner": 2,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 1,
+            "rocky": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26458",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266731",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266740",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26458",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26461",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://errata.rockylinux.org/RLSA-2024:3268",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_1.md",
+            "https://linux.oracle.com/cve/CVE-2024-26458.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26458",
+            "https://security.netapp.com/advisory/ntap-20240415-0010/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26458"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.78Z",
+          "LastModifiedDate": "2024-12-06T21:15:06.28Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-26461",
+          "PkgID": "libkrb5support0@1.20.1-6ubuntu2.2",
+          "PkgName": "libkrb5support0",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libkrb5support0@1.20.1-6ubuntu2.2?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "7c5a727dee22cfbd"
+          },
+          "InstalledVersion": "1.20.1-6ubuntu2.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-26461",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "krb5: Memory leak at /krb5/src/lib/gssapi/krb5/k5sealv3.c",
+          "Description": "Kerberos 5 (aka krb5) 1.21.2 contains a memory leak vulnerability in /krb5/src/lib/gssapi/krb5/k5sealv3.c.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-770"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "amazon": 2,
+            "azure": 3,
+            "cbl-mariner": 3,
+            "oracle-oval": 2,
+            "photon": 2,
+            "redhat": 1,
+            "rocky": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:9331",
+            "https://access.redhat.com/security/cve/CVE-2024-26461",
+            "https://bugzilla.redhat.com/2266731",
+            "https://bugzilla.redhat.com/2266740",
+            "https://bugzilla.redhat.com/2266742",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266731",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2266740",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26458",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-26461",
+            "https://errata.almalinux.org/9/ALSA-2024-9331.html",
+            "https://errata.rockylinux.org/RLSA-2024:3268",
+            "https://github.com/LuMingYinDetect/krb5_defects/blob/main/krb5_detect_2.md",
+            "https://linux.oracle.com/cve/CVE-2024-26461.html",
+            "https://linux.oracle.com/errata/ELSA-2024-9331.html",
+            "https://mailman.mit.edu/pipermail/kerberos/2024-March/023095.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-26461",
+            "https://security.netapp.com/advisory/ntap-20240415-0011/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-26461"
+          ],
+          "PublishedDate": "2024-02-29T01:44:18.82Z",
+          "LastModifiedDate": "2024-08-14T16:35:10.207Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-10041",
+          "PkgID": "libpam-modules@1.5.3-5ubuntu5.1",
+          "PkgName": "libpam-modules",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-modules@1.5.3-5ubuntu5.1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "2d38b32c636907dc"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-10041",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "pam: libpam: Libpam vulnerable to read hashed password",
+          "Description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-922"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "oracle-oval": 2,
+            "redhat": 2,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N",
+              "V3Score": 4.7
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:10379",
+            "https://access.redhat.com/errata/RHSA-2024:11250",
+            "https://access.redhat.com/errata/RHSA-2024:9941",
+            "https://access.redhat.com/security/cve/CVE-2024-10041",
+            "https://bugzilla.redhat.com/2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2324291",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10041",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10963",
+            "https://errata.almalinux.org/9/ALSA-2024-11250.html",
+            "https://errata.rockylinux.org/RLSA-2024:10379",
+            "https://linux.oracle.com/cve/CVE-2024-10041.html",
+            "https://linux.oracle.com/errata/ELSA-2024-11250.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-10041",
+            "https://www.cve.org/CVERecord?id=CVE-2024-10041"
+          ],
+          "PublishedDate": "2024-10-23T14:15:03.97Z",
+          "LastModifiedDate": "2024-12-18T10:15:05.85Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-10963",
+          "PkgID": "libpam-modules@1.5.3-5ubuntu5.1",
+          "PkgName": "libpam-modules",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-modules@1.5.3-5ubuntu5.1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "2d38b32c636907dc"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-10963",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "pam: Improper Hostname Interpretation in pam_access Leads to Access Control Bypass",
+          "Description": "A flaw was found in pam_access, where certain rules in its configuration file are mistakenly treated as hostnames. This vulnerability allows attackers to trick the system by pretending to be a trusted hostname, gaining unauthorized access. This issue poses a risk for systems that rely on this feature to control who can access certain services or terminals.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-287"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "azure": 3,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:10244",
+            "https://access.redhat.com/security/cve/CVE-2024-10963",
+            "https://bugzilla.redhat.com/2324291",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2324291",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10041",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10963",
+            "https://errata.almalinux.org/9/ALSA-2024-10244.html",
+            "https://errata.rockylinux.org/RLSA-2024:10379",
+            "https://linux.oracle.com/cve/CVE-2024-10963.html",
+            "https://linux.oracle.com/errata/ELSA-2024-10379.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-10963",
+            "https://www.cve.org/CVERecord?id=CVE-2024-10963"
+          ],
+          "PublishedDate": "2024-11-07T16:15:17.15Z",
+          "LastModifiedDate": "2024-11-11T18:15:14.487Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-10041",
+          "PkgID": "libpam-modules-bin@1.5.3-5ubuntu5.1",
+          "PkgName": "libpam-modules-bin",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-modules-bin@1.5.3-5ubuntu5.1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "730d92186e08aa8d"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-10041",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "pam: libpam: Libpam vulnerable to read hashed password",
+          "Description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-922"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "oracle-oval": 2,
+            "redhat": 2,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N",
+              "V3Score": 4.7
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:10379",
+            "https://access.redhat.com/errata/RHSA-2024:11250",
+            "https://access.redhat.com/errata/RHSA-2024:9941",
+            "https://access.redhat.com/security/cve/CVE-2024-10041",
+            "https://bugzilla.redhat.com/2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2324291",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10041",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10963",
+            "https://errata.almalinux.org/9/ALSA-2024-11250.html",
+            "https://errata.rockylinux.org/RLSA-2024:10379",
+            "https://linux.oracle.com/cve/CVE-2024-10041.html",
+            "https://linux.oracle.com/errata/ELSA-2024-11250.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-10041",
+            "https://www.cve.org/CVERecord?id=CVE-2024-10041"
+          ],
+          "PublishedDate": "2024-10-23T14:15:03.97Z",
+          "LastModifiedDate": "2024-12-18T10:15:05.85Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-10963",
+          "PkgID": "libpam-modules-bin@1.5.3-5ubuntu5.1",
+          "PkgName": "libpam-modules-bin",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-modules-bin@1.5.3-5ubuntu5.1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "730d92186e08aa8d"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-10963",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "pam: Improper Hostname Interpretation in pam_access Leads to Access Control Bypass",
+          "Description": "A flaw was found in pam_access, where certain rules in its configuration file are mistakenly treated as hostnames. This vulnerability allows attackers to trick the system by pretending to be a trusted hostname, gaining unauthorized access. This issue poses a risk for systems that rely on this feature to control who can access certain services or terminals.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-287"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "azure": 3,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:10244",
+            "https://access.redhat.com/security/cve/CVE-2024-10963",
+            "https://bugzilla.redhat.com/2324291",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2324291",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10041",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10963",
+            "https://errata.almalinux.org/9/ALSA-2024-10244.html",
+            "https://errata.rockylinux.org/RLSA-2024:10379",
+            "https://linux.oracle.com/cve/CVE-2024-10963.html",
+            "https://linux.oracle.com/errata/ELSA-2024-10379.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-10963",
+            "https://www.cve.org/CVERecord?id=CVE-2024-10963"
+          ],
+          "PublishedDate": "2024-11-07T16:15:17.15Z",
+          "LastModifiedDate": "2024-11-11T18:15:14.487Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-10041",
+          "PkgID": "libpam-runtime@1.5.3-5ubuntu5.1",
+          "PkgName": "libpam-runtime",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-runtime@1.5.3-5ubuntu5.1?arch=all\u0026distro=ubuntu-24.04",
+            "UID": "91e10e825cb21409"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-10041",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "pam: libpam: Libpam vulnerable to read hashed password",
+          "Description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-922"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "oracle-oval": 2,
+            "redhat": 2,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N",
+              "V3Score": 4.7
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:10379",
+            "https://access.redhat.com/errata/RHSA-2024:11250",
+            "https://access.redhat.com/errata/RHSA-2024:9941",
+            "https://access.redhat.com/security/cve/CVE-2024-10041",
+            "https://bugzilla.redhat.com/2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2324291",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10041",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10963",
+            "https://errata.almalinux.org/9/ALSA-2024-11250.html",
+            "https://errata.rockylinux.org/RLSA-2024:10379",
+            "https://linux.oracle.com/cve/CVE-2024-10041.html",
+            "https://linux.oracle.com/errata/ELSA-2024-11250.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-10041",
+            "https://www.cve.org/CVERecord?id=CVE-2024-10041"
+          ],
+          "PublishedDate": "2024-10-23T14:15:03.97Z",
+          "LastModifiedDate": "2024-12-18T10:15:05.85Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-10963",
+          "PkgID": "libpam-runtime@1.5.3-5ubuntu5.1",
+          "PkgName": "libpam-runtime",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-runtime@1.5.3-5ubuntu5.1?arch=all\u0026distro=ubuntu-24.04",
+            "UID": "91e10e825cb21409"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-10963",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "pam: Improper Hostname Interpretation in pam_access Leads to Access Control Bypass",
+          "Description": "A flaw was found in pam_access, where certain rules in its configuration file are mistakenly treated as hostnames. This vulnerability allows attackers to trick the system by pretending to be a trusted hostname, gaining unauthorized access. This issue poses a risk for systems that rely on this feature to control who can access certain services or terminals.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-287"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "azure": 3,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:10244",
+            "https://access.redhat.com/security/cve/CVE-2024-10963",
+            "https://bugzilla.redhat.com/2324291",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2324291",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10041",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10963",
+            "https://errata.almalinux.org/9/ALSA-2024-10244.html",
+            "https://errata.rockylinux.org/RLSA-2024:10379",
+            "https://linux.oracle.com/cve/CVE-2024-10963.html",
+            "https://linux.oracle.com/errata/ELSA-2024-10379.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-10963",
+            "https://www.cve.org/CVERecord?id=CVE-2024-10963"
+          ],
+          "PublishedDate": "2024-11-07T16:15:17.15Z",
+          "LastModifiedDate": "2024-11-11T18:15:14.487Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-10041",
+          "PkgID": "libpam0g@1.5.3-5ubuntu5.1",
+          "PkgName": "libpam0g",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam0g@1.5.3-5ubuntu5.1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "5567c6f767e233a4"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-10041",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "pam: libpam: Libpam vulnerable to read hashed password",
+          "Description": "A vulnerability was found in PAM. The secret information is stored in memory, where the attacker can trigger the victim program to execute by sending characters to its standard input (stdin). As this occurs, the attacker can train the branch predictor to execute an ROP chain speculatively. This flaw could result in leaked passwords, such as those found in /etc/shadow while performing authentications.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-922"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "oracle-oval": 2,
+            "redhat": 2,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N",
+              "V3Score": 4.7
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:10379",
+            "https://access.redhat.com/errata/RHSA-2024:11250",
+            "https://access.redhat.com/errata/RHSA-2024:9941",
+            "https://access.redhat.com/security/cve/CVE-2024-10041",
+            "https://bugzilla.redhat.com/2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2324291",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10041",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10963",
+            "https://errata.almalinux.org/9/ALSA-2024-11250.html",
+            "https://errata.rockylinux.org/RLSA-2024:10379",
+            "https://linux.oracle.com/cve/CVE-2024-10041.html",
+            "https://linux.oracle.com/errata/ELSA-2024-11250.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-10041",
+            "https://www.cve.org/CVERecord?id=CVE-2024-10041"
+          ],
+          "PublishedDate": "2024-10-23T14:15:03.97Z",
+          "LastModifiedDate": "2024-12-18T10:15:05.85Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-10963",
+          "PkgID": "libpam0g@1.5.3-5ubuntu5.1",
+          "PkgName": "libpam0g",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam0g@1.5.3-5ubuntu5.1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "5567c6f767e233a4"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-10963",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "pam: Improper Hostname Interpretation in pam_access Leads to Access Control Bypass",
+          "Description": "A flaw was found in pam_access, where certain rules in its configuration file are mistakenly treated as hostnames. This vulnerability allows attackers to trick the system by pretending to be a trusted hostname, gaining unauthorized access. This issue poses a risk for systems that rely on this feature to control who can access certain services or terminals.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-287"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "azure": 3,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:10244",
+            "https://access.redhat.com/security/cve/CVE-2024-10963",
+            "https://bugzilla.redhat.com/2324291",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2319212",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2324291",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10041",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-10963",
+            "https://errata.almalinux.org/9/ALSA-2024-10244.html",
+            "https://errata.rockylinux.org/RLSA-2024:10379",
+            "https://linux.oracle.com/cve/CVE-2024-10963.html",
+            "https://linux.oracle.com/errata/ELSA-2024-10379.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-10963",
+            "https://www.cve.org/CVERecord?id=CVE-2024-10963"
+          ],
+          "PublishedDate": "2024-11-07T16:15:17.15Z",
+          "LastModifiedDate": "2024-11-11T18:15:14.487Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2016-2568",
+          "PkgID": "libpolkit-agent-1-0@124-2ubuntu1",
+          "PkgName": "libpolkit-agent-1-0",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpolkit-agent-1-0@124-2ubuntu1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "c12c1e35ccfd79"
+          },
+          "InstalledVersion": "124-2ubuntu1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2016-2568",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "polkit: Program run via pkexec as unprivileged user can escape to parent session via TIOCSTI ioctl",
+          "Description": "pkexec, when used with --user nonpriv, allows local users to escape to the parent session via a crafted TIOCSTI ioctl call, which pushes characters to the terminal's input buffer.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-116"
+          ],
+          "VendorSeverity": {
+            "cbl-mariner": 3,
+            "nvd": 3,
+            "redhat": 2,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V2Vector": "AV:L/AC:M/Au:N/C:P/I:P/A:P",
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:H/A:H",
+              "V2Score": 4.4,
+              "V3Score": 7.8
+            },
+            "redhat": {
+              "V2Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P",
+              "V3Vector": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:L",
+              "V2Score": 5.1,
+              "V3Score": 6.1
+            }
+          },
+          "References": [
+            "http://seclists.org/oss-sec/2016/q1/443",
+            "http://www.openwall.com/lists/oss-security/2016/02/26/3",
+            "https://access.redhat.com/security/cve/CVE-2016-2568",
+            "https://access.redhat.com/security/cve/cve-2016-2568",
+            "https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=816062",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=1300746",
+            "https://lore.kernel.org/patchwork/patch/793178/",
+            "https://nvd.nist.gov/vuln/detail/CVE-2016-2568",
+            "https://ubuntu.com/security/CVE-2016-2568",
+            "https://www.cve.org/CVERecord?id=CVE-2016-2568"
+          ],
+          "PublishedDate": "2017-02-13T18:59:00.393Z",
+          "LastModifiedDate": "2022-04-18T17:59:06.053Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2016-2568",
+          "PkgID": "libpolkit-gobject-1-0@124-2ubuntu1",
+          "PkgName": "libpolkit-gobject-1-0",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpolkit-gobject-1-0@124-2ubuntu1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "1c8d566f3c3a799c"
+          },
+          "InstalledVersion": "124-2ubuntu1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2016-2568",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "polkit: Program run via pkexec as unprivileged user can escape to parent session via TIOCSTI ioctl",
+          "Description": "pkexec, when used with --user nonpriv, allows local users to escape to the parent session via a crafted TIOCSTI ioctl call, which pushes characters to the terminal's input buffer.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-116"
+          ],
+          "VendorSeverity": {
+            "cbl-mariner": 3,
+            "nvd": 3,
+            "redhat": 2,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V2Vector": "AV:L/AC:M/Au:N/C:P/I:P/A:P",
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:H/A:H",
+              "V2Score": 4.4,
+              "V3Score": 7.8
+            },
+            "redhat": {
+              "V2Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P",
+              "V3Vector": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:L",
+              "V2Score": 5.1,
+              "V3Score": 6.1
+            }
+          },
+          "References": [
+            "http://seclists.org/oss-sec/2016/q1/443",
+            "http://www.openwall.com/lists/oss-security/2016/02/26/3",
+            "https://access.redhat.com/security/cve/CVE-2016-2568",
+            "https://access.redhat.com/security/cve/cve-2016-2568",
+            "https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=816062",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=1300746",
+            "https://lore.kernel.org/patchwork/patch/793178/",
+            "https://nvd.nist.gov/vuln/detail/CVE-2016-2568",
+            "https://ubuntu.com/security/CVE-2016-2568",
+            "https://www.cve.org/CVERecord?id=CVE-2016-2568"
+          ],
+          "PublishedDate": "2017-02-13T18:59:00.393Z",
+          "LastModifiedDate": "2022-04-18T17:59:06.053Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-41996",
+          "PkgID": "libssl3t64@3.0.13-0ubuntu3.4",
+          "PkgName": "libssl3t64",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libssl3t64@3.0.13-0ubuntu3.4?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "e3ae43171132bb7c"
+          },
+          "InstalledVersion": "3.0.13-0ubuntu3.4",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:1575723d84b80a2963cb6b2bf2ae5cefd3859bda7470710cff2b703d40a92000"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-41996",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "openssl: remote attackers (from the client side) to trigger unnecessarily expensive server-side DHE modular-exponentiation calculations",
+          "Description": "Validating the order of the public keys in the Diffie-Hellman Key Agreement Protocol, when an approved safe prime is used, allows remote attackers (from the client side) to trigger unnecessarily expensive server-side DHE modular-exponentiation calculations. The client may cause asymmetric resource consumption. The basic attack scenario is that the client must claim that it can only communicate with DHE, and the server must be configured to allow DHE and validate the order of the public key.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-295"
+          ],
+          "VendorSeverity": {
+            "amazon": 2,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2024-41996",
+            "https://dheatattack.gitlab.io/details/",
+            "https://dheatattack.gitlab.io/faq/",
+            "https://gist.github.com/c0r0n3r/abccc14d4d96c0442f3a77fa5ca255d1",
+            "https://github.com/openssl/openssl/issues/17374",
+            "https://github.com/openssl/openssl/pull/25088",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-41996",
+            "https://openssl-library.org/post/2022-10-21-tls-groups-configuration/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-41996"
+          ],
+          "PublishedDate": "2024-08-26T06:15:04.603Z",
+          "LastModifiedDate": "2024-08-26T16:35:11.247Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-41996",
+          "PkgID": "openssl@3.0.13-0ubuntu3.4",
+          "PkgName": "openssl",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/openssl@3.0.13-0ubuntu3.4?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "b3ce9a746a2fa8a6"
+          },
+          "InstalledVersion": "3.0.13-0ubuntu3.4",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-41996",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "openssl: remote attackers (from the client side) to trigger unnecessarily expensive server-side DHE modular-exponentiation calculations",
+          "Description": "Validating the order of the public keys in the Diffie-Hellman Key Agreement Protocol, when an approved safe prime is used, allows remote attackers (from the client side) to trigger unnecessarily expensive server-side DHE modular-exponentiation calculations. The client may cause asymmetric resource consumption. The basic attack scenario is that the client must claim that it can only communicate with DHE, and the server must be configured to allow DHE and validate the order of the public key.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-295"
+          ],
+          "VendorSeverity": {
+            "amazon": 2,
+            "redhat": 1,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2024-41996",
+            "https://dheatattack.gitlab.io/details/",
+            "https://dheatattack.gitlab.io/faq/",
+            "https://gist.github.com/c0r0n3r/abccc14d4d96c0442f3a77fa5ca255d1",
+            "https://github.com/openssl/openssl/issues/17374",
+            "https://github.com/openssl/openssl/pull/25088",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-41996",
+            "https://openssl-library.org/post/2022-10-21-tls-groups-configuration/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-41996"
+          ],
+          "PublishedDate": "2024-08-26T06:15:04.603Z",
+          "LastModifiedDate": "2024-08-26T16:35:11.247Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2016-2568",
+          "PkgID": "polkitd@124-2ubuntu1",
+          "PkgName": "polkitd",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/polkitd@124-2ubuntu1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "c087e1709c37d645"
+          },
+          "InstalledVersion": "124-2ubuntu1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2016-2568",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "polkit: Program run via pkexec as unprivileged user can escape to parent session via TIOCSTI ioctl",
+          "Description": "pkexec, when used with --user nonpriv, allows local users to escape to the parent session via a crafted TIOCSTI ioctl call, which pushes characters to the terminal's input buffer.",
+          "Severity": "LOW",
+          "CweIDs": [
+            "CWE-116"
+          ],
+          "VendorSeverity": {
+            "cbl-mariner": 3,
+            "nvd": 3,
+            "redhat": 2,
+            "ubuntu": 1
+          },
+          "CVSS": {
+            "nvd": {
+              "V2Vector": "AV:L/AC:M/Au:N/C:P/I:P/A:P",
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:C/C:H/I:H/A:H",
+              "V2Score": 4.4,
+              "V3Score": 7.8
+            },
+            "redhat": {
+              "V2Vector": "AV:N/AC:H/Au:N/C:P/I:P/A:P",
+              "V3Vector": "CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:L",
+              "V2Score": 5.1,
+              "V3Score": 6.1
+            }
+          },
+          "References": [
+            "http://seclists.org/oss-sec/2016/q1/443",
+            "http://www.openwall.com/lists/oss-security/2016/02/26/3",
+            "https://access.redhat.com/security/cve/CVE-2016-2568",
+            "https://access.redhat.com/security/cve/cve-2016-2568",
+            "https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=816062",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=1300746",
+            "https://lore.kernel.org/patchwork/patch/793178/",
+            "https://nvd.nist.gov/vuln/detail/CVE-2016-2568",
+            "https://ubuntu.com/security/CVE-2016-2568",
+            "https://www.cve.org/CVERecord?id=CVE-2016-2568"
+          ],
+          "PublishedDate": "2017-02-13T18:59:00.393Z",
+          "LastModifiedDate": "2022-04-18T17:59:06.053Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2021-31879",
+          "PkgID": "wget@1.21.4-1ubuntu4.1",
+          "PkgName": "wget",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/wget@1.21.4-1ubuntu4.1?arch=arm64\u0026distro=ubuntu-24.04",
+            "UID": "a6cda4cce3f38177"
+          },
+          "InstalledVersion": "1.21.4-1ubuntu4.1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:3bc09de5e612160c49de30922419a870a7cd9cdd0995b4ec269882187e282d78"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2021-31879",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "wget: authorization header disclosure on redirect",
+          "Description": "GNU Wget through 1.21.1 does not omit the Authorization header upon a redirect to a different origin, a related issue to CVE-2018-1000007.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-601"
+          ],
+          "VendorSeverity": {
+            "amazon": 2,
+            "cbl-mariner": 2,
+            "nvd": 2,
+            "photon": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "nvd": {
+              "V2Vector": "AV:N/AC:M/Au:N/C:P/I:P/A:N",
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+              "V2Score": 5.8,
+              "V3Score": 6.1
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N",
+              "V3Score": 6.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2021-31879",
+            "https://mail.gnu.org/archive/html/bug-wget/2021-02/msg00002.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2021-31879",
+            "https://savannah.gnu.org/bugs/?56909",
+            "https://security.netapp.com/advisory/ntap-20210618-0002/",
+            "https://www.cve.org/CVERecord?id=CVE-2021-31879"
+          ],
+          "PublishedDate": "2021-04-29T05:15:08.707Z",
+          "LastModifiedDate": "2022-05-13T20:52:24.793Z"
+        }
+      ]
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/Containers/tasks/net8.0/Microsoft.NET.Build.Containers.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-0057",
+          "PkgID": "NuGet.Packaging/6.8.1-rc.32767",
+          "PkgName": "NuGet.Packaging",
+          "PkgIdentifier": {
+            "PURL": "pkg:nuget/NuGet.Packaging@6.8.1-rc.32767",
+            "UID": "dd72843cfa56e0bd"
+          },
+          "InstalledVersion": "6.8.1-rc.32767",
+          "FixedVersion": "5.11.6, 6.0.6, 6.3.4, 6.4.3, 6.6.2, 6.7.1, 6.8.1",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:f3b052d4ecb1248d8c9ab8045e9c31d73055c60855923ff633722207e8af5f76"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-0057",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory NuGet",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Anuget"
+          },
+          "Title": "dotnet: X509 Certificates - Validation Bypass across Azure",
+          "Description": "NET, .NET Framework, and Visual Studio Security Feature Bypass Vulnerability",
+          "Severity": "CRITICAL",
+          "CweIDs": [
+            "CWE-20"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 3,
+            "bitnami": 4,
+            "ghsa": 4,
+            "nvd": 4,
+            "oracle-oval": 3,
+            "photon": 4,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 9.1
+            },
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 9.1
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:0156",
+            "https://access.redhat.com/security/cve/CVE-2024-0057",
+            "https://bugzilla.redhat.com/2255384",
+            "https://bugzilla.redhat.com/2255386",
+            "https://bugzilla.redhat.com/2257566",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2255384",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2255386",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2257566",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-0056",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-0057",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21319",
+            "https://devblogs.microsoft.com/dotnet/january-2024-updates/",
+            "https://errata.almalinux.org/9/ALSA-2024-0156.html",
+            "https://errata.rockylinux.org/RLSA-2024:0158",
+            "https://github.com/NuGet/NuGet.Client",
+            "https://github.com/NuGet/NuGet.Client/commit/3333f352ec47f0ebb489f20353dea7017f6cb00c",
+            "https://github.com/NuGet/NuGet.Client/commit/5e1ba955cca14328d2cb5723f211d5fbc9bcacb3",
+            "https://github.com/NuGet/NuGet.Client/security/advisories/GHSA-68w7-72jg-6qpp",
+            "https://github.com/dotnet/core/blob/ce802c56fde3abe2ae14ad09a1b8991b6709c18b/release-notes/6.0/6.0.26/6.0.26.md",
+            "https://linux.oracle.com/cve/CVE-2024-0057.html",
+            "https://linux.oracle.com/errata/ELSA-2024-0158.html",
+            "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-0057",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-0057",
+            "https://security.netapp.com/advisory/ntap-20240208-0007",
+            "https://ubuntu.com/security/notices/USN-6578-1",
+            "https://www.cve.org/CVERecord?id=CVE-2024-0057"
+          ],
+          "PublishedDate": "2024-01-09T18:15:46.98Z",
+          "LastModifiedDate": "2024-10-08T16:15:05.277Z"
+        }
+      ]
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/DotnetTools/dotnet-format/dotnet-format.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/DotnetTools/dotnet-user-jwts/8.0.11-servicing.24521.16/tools/net8.0/any/dotnet-user-jwts.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/DotnetTools/dotnet-user-secrets/8.0.11-servicing.24521.16/tools/net8.0/any/dotnet-user-secrets.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/DotnetTools/dotnet-watch/8.0.111-servicing.24521.41/tools/net8.0/any/dotnet-watch.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/FSharp/fsc.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/FSharp/fsi.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/MSBuild.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-0057",
+          "PkgID": "NuGet.Packaging/6.8.1-rc.32767",
+          "PkgName": "NuGet.Packaging",
+          "PkgIdentifier": {
+            "PURL": "pkg:nuget/NuGet.Packaging@6.8.1-rc.32767",
+            "UID": "1653e9d7ee40945e"
+          },
+          "InstalledVersion": "6.8.1-rc.32767",
+          "FixedVersion": "5.11.6, 6.0.6, 6.3.4, 6.4.3, 6.6.2, 6.7.1, 6.8.1",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:f3b052d4ecb1248d8c9ab8045e9c31d73055c60855923ff633722207e8af5f76"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-0057",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory NuGet",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Anuget"
+          },
+          "Title": "dotnet: X509 Certificates - Validation Bypass across Azure",
+          "Description": "NET, .NET Framework, and Visual Studio Security Feature Bypass Vulnerability",
+          "Severity": "CRITICAL",
+          "CweIDs": [
+            "CWE-20"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 3,
+            "bitnami": 4,
+            "ghsa": 4,
+            "nvd": 4,
+            "oracle-oval": 3,
+            "photon": 4,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 9.1
+            },
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 9.1
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:0156",
+            "https://access.redhat.com/security/cve/CVE-2024-0057",
+            "https://bugzilla.redhat.com/2255384",
+            "https://bugzilla.redhat.com/2255386",
+            "https://bugzilla.redhat.com/2257566",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2255384",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2255386",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2257566",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-0056",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-0057",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21319",
+            "https://devblogs.microsoft.com/dotnet/january-2024-updates/",
+            "https://errata.almalinux.org/9/ALSA-2024-0156.html",
+            "https://errata.rockylinux.org/RLSA-2024:0158",
+            "https://github.com/NuGet/NuGet.Client",
+            "https://github.com/NuGet/NuGet.Client/commit/3333f352ec47f0ebb489f20353dea7017f6cb00c",
+            "https://github.com/NuGet/NuGet.Client/commit/5e1ba955cca14328d2cb5723f211d5fbc9bcacb3",
+            "https://github.com/NuGet/NuGet.Client/security/advisories/GHSA-68w7-72jg-6qpp",
+            "https://github.com/dotnet/core/blob/ce802c56fde3abe2ae14ad09a1b8991b6709c18b/release-notes/6.0/6.0.26/6.0.26.md",
+            "https://linux.oracle.com/cve/CVE-2024-0057.html",
+            "https://linux.oracle.com/errata/ELSA-2024-0158.html",
+            "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-0057",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-0057",
+            "https://security.netapp.com/advisory/ntap-20240208-0007",
+            "https://ubuntu.com/security/notices/USN-6578-1",
+            "https://www.cve.org/CVERecord?id=CVE-2024-0057"
+          ],
+          "PublishedDate": "2024-01-09T18:15:46.98Z",
+          "LastModifiedDate": "2024-10-08T16:15:05.277Z"
+        }
+      ]
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/NuGet.CommandLine.XPlat.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-0057",
+          "PkgID": "NuGet.Packaging/6.8.1-rc.32767",
+          "PkgName": "NuGet.Packaging",
+          "PkgIdentifier": {
+            "PURL": "pkg:nuget/NuGet.Packaging@6.8.1-rc.32767",
+            "UID": "8580dbe0e9fd295"
+          },
+          "InstalledVersion": "6.8.1-rc.32767",
+          "FixedVersion": "5.11.6, 6.0.6, 6.3.4, 6.4.3, 6.6.2, 6.7.1, 6.8.1",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:f3b052d4ecb1248d8c9ab8045e9c31d73055c60855923ff633722207e8af5f76"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-0057",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory NuGet",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Anuget"
+          },
+          "Title": "dotnet: X509 Certificates - Validation Bypass across Azure",
+          "Description": "NET, .NET Framework, and Visual Studio Security Feature Bypass Vulnerability",
+          "Severity": "CRITICAL",
+          "CweIDs": [
+            "CWE-20"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 3,
+            "bitnami": 4,
+            "ghsa": 4,
+            "nvd": 4,
+            "oracle-oval": 3,
+            "photon": 4,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 9.1
+            },
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 9.1
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:0156",
+            "https://access.redhat.com/security/cve/CVE-2024-0057",
+            "https://bugzilla.redhat.com/2255384",
+            "https://bugzilla.redhat.com/2255386",
+            "https://bugzilla.redhat.com/2257566",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2255384",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2255386",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2257566",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-0056",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-0057",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21319",
+            "https://devblogs.microsoft.com/dotnet/january-2024-updates/",
+            "https://errata.almalinux.org/9/ALSA-2024-0156.html",
+            "https://errata.rockylinux.org/RLSA-2024:0158",
+            "https://github.com/NuGet/NuGet.Client",
+            "https://github.com/NuGet/NuGet.Client/commit/3333f352ec47f0ebb489f20353dea7017f6cb00c",
+            "https://github.com/NuGet/NuGet.Client/commit/5e1ba955cca14328d2cb5723f211d5fbc9bcacb3",
+            "https://github.com/NuGet/NuGet.Client/security/advisories/GHSA-68w7-72jg-6qpp",
+            "https://github.com/dotnet/core/blob/ce802c56fde3abe2ae14ad09a1b8991b6709c18b/release-notes/6.0/6.0.26/6.0.26.md",
+            "https://linux.oracle.com/cve/CVE-2024-0057.html",
+            "https://linux.oracle.com/errata/ELSA-2024-0158.html",
+            "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-0057",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-0057",
+            "https://security.netapp.com/advisory/ntap-20240208-0007",
+            "https://ubuntu.com/security/notices/USN-6578-1",
+            "https://www.cve.org/CVERecord?id=CVE-2024-0057"
+          ],
+          "PublishedDate": "2024-01-09T18:15:46.98Z",
+          "LastModifiedDate": "2024-10-08T16:15:05.277Z"
+        }
+      ]
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/Sdks/Microsoft.NET.Sdk.BlazorWebAssembly/tools/net8.0/Microsoft.NET.Sdk.BlazorWebAssembly.Tool.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/Sdks/Microsoft.NET.Sdk.Razor/source-generators/Microsoft.NET.Sdk.Razor.SourceGenerators.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/Sdks/Microsoft.NET.Sdk.Razor/tools/rzc.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/Sdks/Microsoft.NET.Sdk.StaticWebAssets/tools/net8.0/Microsoft.NET.Sdk.StaticWebAssets.Tool.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/datacollector.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/dotnet.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-0057",
+          "PkgID": "NuGet.Packaging/6.8.1-rc.32767",
+          "PkgName": "NuGet.Packaging",
+          "PkgIdentifier": {
+            "PURL": "pkg:nuget/NuGet.Packaging@6.8.1-rc.32767",
+            "UID": "2e1de03649eb04d0"
+          },
+          "InstalledVersion": "6.8.1-rc.32767",
+          "FixedVersion": "5.11.6, 6.0.6, 6.3.4, 6.4.3, 6.6.2, 6.7.1, 6.8.1",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:f3b052d4ecb1248d8c9ab8045e9c31d73055c60855923ff633722207e8af5f76"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-0057",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory NuGet",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Anuget"
+          },
+          "Title": "dotnet: X509 Certificates - Validation Bypass across Azure",
+          "Description": "NET, .NET Framework, and Visual Studio Security Feature Bypass Vulnerability",
+          "Severity": "CRITICAL",
+          "CweIDs": [
+            "CWE-20"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 3,
+            "bitnami": 4,
+            "ghsa": 4,
+            "nvd": 4,
+            "oracle-oval": 3,
+            "photon": 4,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 9.1
+            },
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 9.1
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2024:0156",
+            "https://access.redhat.com/security/cve/CVE-2024-0057",
+            "https://bugzilla.redhat.com/2255384",
+            "https://bugzilla.redhat.com/2255386",
+            "https://bugzilla.redhat.com/2257566",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2255384",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2255386",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2257566",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-0056",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-0057",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-21319",
+            "https://devblogs.microsoft.com/dotnet/january-2024-updates/",
+            "https://errata.almalinux.org/9/ALSA-2024-0156.html",
+            "https://errata.rockylinux.org/RLSA-2024:0158",
+            "https://github.com/NuGet/NuGet.Client",
+            "https://github.com/NuGet/NuGet.Client/commit/3333f352ec47f0ebb489f20353dea7017f6cb00c",
+            "https://github.com/NuGet/NuGet.Client/commit/5e1ba955cca14328d2cb5723f211d5fbc9bcacb3",
+            "https://github.com/NuGet/NuGet.Client/security/advisories/GHSA-68w7-72jg-6qpp",
+            "https://github.com/dotnet/core/blob/ce802c56fde3abe2ae14ad09a1b8991b6709c18b/release-notes/6.0/6.0.26/6.0.26.md",
+            "https://linux.oracle.com/cve/CVE-2024-0057.html",
+            "https://linux.oracle.com/errata/ELSA-2024-0158.html",
+            "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-0057",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-0057",
+            "https://security.netapp.com/advisory/ntap-20240208-0007",
+            "https://ubuntu.com/security/notices/USN-6578-1",
+            "https://www.cve.org/CVERecord?id=CVE-2024-0057"
+          ],
+          "PublishedDate": "2024-01-09T18:15:46.98Z",
+          "LastModifiedDate": "2024-10-08T16:15:05.277Z"
+        }
+      ]
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/testhost.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/sdk/8.0.111/vstest.console.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/shared/Microsoft.AspNetCore.App/8.0.11/Microsoft.AspNetCore.App.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "usr/lib/dotnet/shared/Microsoft.NETCore.App/8.0.11/Microsoft.NETCore.App.deps.json",
+      "Class": "lang-pkgs",
+      "Type": "dotnet-core"
+    },
+    {
+      "Target": "/etc/ssh/ssh_host_ecdsa_key",
+      "Class": "secret",
+      "Secrets": [
+        {
+          "RuleID": "private-key",
+          "Category": "AsymmetricPrivateKey",
+          "Severity": "HIGH",
+          "Title": "Asymmetric Private Key",
+          "StartLine": 1,
+          "EndLine": 1,
+          "Code": {
+            "Lines": [
+              {
+                "Number": 1,
+                "Content": "BEGIN OPENSSH PRIVATE KEY-----************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END OPENSSH PRI",
+                "IsCause": true,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "BEGIN OPENSSH PRIVATE KEY-----************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END OPENSSH PRI",
+                "FirstCause": true,
+                "LastCause": true
+              },
+              {
+                "Number": 2,
+                "Content": "",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "FirstCause": false,
+                "LastCause": false
+              }
+            ]
+          },
+          "Match": "BEGIN OPENSSH PRIVATE KEY-----************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END OPENSSH PRI",
+          "Layer": {
+            "DiffID": "sha256:02b20921b4991393dedc52f85a8cad0407021d8e5da8fe0a93fe1b0c2515c680",
+            "CreatedBy": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c echo \"Implementing CIS security configurations...\" \u0026\u0026     apt-get update \u0026\u0026     apt-get install -y openssh-server \u0026\u0026     apt-get clean \u0026\u0026     rm -rf /var/lib/apt/lists/* # buildkit"
+          }
+        }
+      ]
+    },
+    {
+      "Target": "/etc/ssh/ssh_host_ed25519_key",
+      "Class": "secret",
+      "Secrets": [
+        {
+          "RuleID": "private-key",
+          "Category": "AsymmetricPrivateKey",
+          "Severity": "HIGH",
+          "Title": "Asymmetric Private Key",
+          "StartLine": 1,
+          "EndLine": 1,
+          "Code": {
+            "Lines": [
+              {
+                "Number": 1,
+                "Content": "BEGIN OPENSSH PRIVATE KEY-----******************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END OPENSSH PRI",
+                "IsCause": true,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "BEGIN OPENSSH PRIVATE KEY-----******************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END OPENSSH PRI",
+                "FirstCause": true,
+                "LastCause": true
+              },
+              {
+                "Number": 2,
+                "Content": "",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "FirstCause": false,
+                "LastCause": false
+              }
+            ]
+          },
+          "Match": "BEGIN OPENSSH PRIVATE KEY-----******************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END OPENSSH PRI",
+          "Layer": {
+            "DiffID": "sha256:02b20921b4991393dedc52f85a8cad0407021d8e5da8fe0a93fe1b0c2515c680",
+            "CreatedBy": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c echo \"Implementing CIS security configurations...\" \u0026\u0026     apt-get update \u0026\u0026     apt-get install -y openssh-server \u0026\u0026     apt-get clean \u0026\u0026     rm -rf /var/lib/apt/lists/* # buildkit"
+          }
+        }
+      ]
+    },
+    {
+      "Target": "/etc/ssh/ssh_host_rsa_key",
+      "Class": "secret",
+      "Secrets": [
+        {
+          "RuleID": "private-key",
+          "Category": "AsymmetricPrivateKey",
+          "Severity": "HIGH",
+          "Title": "Asymmetric Private Key",
+          "StartLine": 1,
+          "EndLine": 1,
+          "Code": {
+            "Lines": [
+              {
+                "Number": 1,
+                "Content": "BEGIN OPENSSH PRIVATE KEY-----*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END OPENSSH PRI",
+                "IsCause": true,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "BEGIN OPENSSH PRIVATE KEY-----*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END OPENSSH PRI",
+                "FirstCause": true,
+                "LastCause": true
+              },
+              {
+                "Number": 2,
+                "Content": "",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "FirstCause": false,
+                "LastCause": false
+              }
+            ]
+          },
+          "Match": "BEGIN OPENSSH PRIVATE KEY-----*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************-----END OPENSSH PRI",
+          "Layer": {
+            "DiffID": "sha256:02b20921b4991393dedc52f85a8cad0407021d8e5da8fe0a93fe1b0c2515c680",
+            "CreatedBy": "RUN |3 VERSION=0.0.1-init.1 BUILD_DATE=2025-01-04T22:09:25Z DOTNET_VERSION=8.0 /bin/sh -c echo \"Implementing CIS security configurations...\" \u0026\u0026     apt-get update \u0026\u0026     apt-get install -y openssh-server \u0026\u0026     apt-get clean \u0026\u0026     rm -rf /var/lib/apt/lists/* # buildkit"
+          }
+        }
+      ]
+    }
+  ]
+}
