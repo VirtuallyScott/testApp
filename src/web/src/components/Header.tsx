@@ -22,6 +22,9 @@ const Header: React.FC = () => {
           <Button color="inherit" component={Link} to="/api-keys">
             API Keys
           </Button>
+          <Button color="inherit" component={Link} to="/api-keys">
+            API Keys
+          </Button>
         </Box>
       </Toolbar>
     </AppBar>
