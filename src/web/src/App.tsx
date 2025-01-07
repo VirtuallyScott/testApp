@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'r
 import { theme } from './theme';
 import HealthDashboard from './components/HealthDashboard';
 import Login from './components/Login';
+import Footer from './components/Footer';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,7 +28,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ pb: 8 }}> {/* Add padding bottom for footer */}
         {isAuthenticated && (
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
             <Button variant="contained" color="secondary" onClick={handleLogout}>
@@ -60,6 +61,7 @@ function App() {
           </Routes>
         </Box>
       </Container>
+      <Footer />
     </ThemeProvider>
   );
 }

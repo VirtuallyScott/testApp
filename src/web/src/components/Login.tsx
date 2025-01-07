@@ -21,6 +21,9 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
         password
       });
       localStorage.setItem('access_token', response.data.access_token);
+      // Generate and store a session ID
+      const sessionId = 'sess_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('sessionId', sessionId);
       onLoginSuccess();
       navigate('/');
     } catch (err) {
