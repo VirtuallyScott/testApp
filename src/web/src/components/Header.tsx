@@ -9,20 +9,43 @@ interface DecodedToken {
   exp: number;
 }
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  isAuthenticated: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      try {
-        const decoded = jwt_decode<DecodedToken>(token);
-        setIsAdmin(decoded.is_admin);
-      } catch (error) {
-        console.error('Error decoding token:', error);
+    if (!isAuthenticated) {
+      setIsAdmin(false);
+      return;
+    }
+    const checkAdminStatus = () => {
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        try {
+          const decoded = jwt_decode<DecodedToken>(token);
+          console.log('Token decoded:', decoded); // Debug log
+          setIsAdmin(decoded.is_admin);
+        } catch (error) {
+          console.error('Error decoding token:', error);
+          setIsAdmin(false);
+        }
+      } else {
+        console.log('No token found'); // Debug log
         setIsAdmin(false);
       }
-    }
+    };
+
+    // Check immediately
+    checkAdminStatus();
+
+    // Set up interval to check periodically
+    const interval = setInterval(checkAdminStatus, 30000); // Check every 30 seconds
+
+    // Cleanup interval on unmount
+    return () => clearInterval(interval);
   }, []);
   return (
     <AppBar position="static">

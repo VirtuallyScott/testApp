@@ -33,7 +33,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header />
+      <Header isAuthenticated={isAuthenticated} />
       <Container maxWidth="lg" sx={{ pb: 8, pt: 2 }}> {/* Add padding bottom for footer */}
         {isAuthenticated && (
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
