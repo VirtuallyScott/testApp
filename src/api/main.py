@@ -152,7 +152,8 @@ async def upload_scan(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Missing required field: {field}"
             )
-            
+    
+    # Allow duplicate scans by not checking for existing entries
     scan_result = models.ScanResult(
         image_name=scan_data["image_name"],
         image_tag=scan_data["image_tag"],
