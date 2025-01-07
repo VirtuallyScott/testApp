@@ -5,6 +5,7 @@ import { theme } from './theme';
 import HealthDashboard from './components/HealthDashboard';
 import Login from './components/Login';
 import Footer from './components/Footer';
+import Home from './components/Home';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
