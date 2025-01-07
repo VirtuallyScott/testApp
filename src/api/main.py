@@ -111,7 +111,22 @@ async def list_scans(
         logger.info(f"User {current_user.username} requesting scan list")
         scans = db.query(models.ScanResult).all()
         logger.info(f"Successfully retrieved {len(scans)} scans")
-        return scans
+        return [
+            {
+                "id": scan.id,
+                "image_name": scan.image_name,
+                "image_tag": scan.image_tag,
+                "scanner_type": scan.scanner_type,
+                "scan_timestamp": scan.scan_timestamp,
+                "severity_critical": scan.severity_critical,
+                "severity_high": scan.severity_high,
+                "severity_medium": scan.severity_medium,
+                "severity_low": scan.severity_low,
+                "raw_results": scan.raw_results,
+                "uploaded_by": scan.uploaded_by
+            }
+            for scan in scans
+        ]
     except Exception as e:
         logger.error(f"Error retrieving scans: {str(e)}")
         raise HTTPException(

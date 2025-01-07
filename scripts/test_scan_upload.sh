@@ -39,9 +39,11 @@ curl -s -X POST http://localhost:8000/scans \
   }' | jq '.'
 
 echo -e "\nListing all scans..."
-curl -s -H "Authorization: Bearer $TOKEN" http://localhost:8000/scans | jq '.'
-
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to list scans"
+SCAN_LIST=$(curl -s -H "Authorization: Bearer $TOKEN" http://localhost:8000/scans)
+if ! echo "$SCAN_LIST" | jq '.' >/dev/null 2>&1; then
+    echo "Error: Invalid JSON response from scans endpoint"
+    echo "Raw response: $SCAN_LIST"
     exit 1
+else
+    echo "$SCAN_LIST" | jq '.'
 fi
