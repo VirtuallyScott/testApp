@@ -58,7 +58,27 @@ Environment variables:
 
 Returns JSON formatted scan results.
 
-### upload_scan.sh
+### get_scan_count.sh
+Counts the number of scans in the database.
+
+```bash
+# Get the number of scans
+./get_scan_count.sh
+```
+
+Environment variables:
+- `API_URL`: API base URL (default: http://localhost:8000)
+
+The script will:
+1. Retrieve an authentication token
+2. Request the list of scans from the API
+3. Count the number of scans and print the result
+
+Error handling:
+- Checks for required dependencies (jq)
+- Reports API errors with details
+
+Returns the number of scans in the database.
 Uploads a Trivy scan result JSON file to the API.
 
 ```bash
