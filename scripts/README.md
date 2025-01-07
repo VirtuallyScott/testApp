@@ -2,6 +2,18 @@
 
 This directory contains utility scripts for interacting with the Container Security API.
 
+## Prerequisites
+
+- `curl`: Required for making HTTP requests
+- `jq`: Required for JSON parsing in upload_scan.sh
+- `bash`: Scripts are written for bash shell
+
+To install dependencies on Ubuntu/Debian:
+```bash
+sudo apt-get update
+sudo apt-get install curl jq
+```
+
 ## Authentication Scripts
 
 ### get_token.sh
@@ -41,6 +53,19 @@ Options:
 Environment variables:
 - `API_URL`: API base URL (default: http://localhost:8000)
 
+The script will:
+1. Validate the input JSON file exists
+2. Parse required fields using jq
+3. Calculate vulnerability counts by severity
+4. Format and send the data to the API
+5. Display the API response
+
+Error handling:
+- Checks for required dependencies (jq)
+- Validates input file exists and is readable
+- Verifies JSON parsing succeeds
+- Reports API errors with details
+
 Returns success/failure message and the API response.
 
 ## Example Usage
@@ -60,4 +85,12 @@ token=$(./get_token.sh)
 for scan in scans/*.json; do
     ./upload_scan.sh -f "$scan"
 done
+```
+
+4. Error handling example:
+```bash
+if ! ./upload_scan.sh -f scan.json; then
+    echo "Scan upload failed"
+    exit 1
+fi
 ```
