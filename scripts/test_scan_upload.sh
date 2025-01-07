@@ -3,7 +3,7 @@ set -e
 
 # Get the authentication token
 echo "Getting authentication token..."
-TOKEN=$(curl -s -X POST -F "username=admin" -F "password=Admin@123" http://localhost:8000/token | jq -r .access_token)
+TOKEN=$(curl -s -X POST -F "username=admin" -F "password=Admin@123" http://localhost:8000/api/v1/token | jq -r .access_token)
 
 if [ -z "$TOKEN" ]; then
     echo "Failed to get authentication token"
