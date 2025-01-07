@@ -111,27 +111,34 @@ async def list_scans(
         logger.info(f"User {current_user.username} requesting scan list")
         scans = db.query(models.ScanResult).all()
         logger.info(f"Successfully retrieved {len(scans)} scans")
-        return [
-            {
-                "id": scan.id,
-                "image_name": scan.image_name,
-                "image_tag": scan.image_tag,
-                "scanner_type": scan.scanner_type,
-                "scan_timestamp": scan.scan_timestamp,
-                "severity_critical": scan.severity_critical,
-                "severity_high": scan.severity_high,
-                "severity_medium": scan.severity_medium,
-                "severity_low": scan.severity_low,
-                "raw_results": scan.raw_results,
-                "uploaded_by": scan.uploaded_by
-            }
-            for scan in scans
-        ]
+        
+        result = []
+        for scan in scans:
+            try:
+                scan_dict = {
+                    "id": scan.id,
+                    "image_name": scan.image_name,
+                    "image_tag": scan.image_tag,
+                    "scanner_type": scan.scanner_type,
+                    "scan_timestamp": scan.scan_timestamp.isoformat() if scan.scan_timestamp else None,
+                    "severity_critical": scan.severity_critical,
+                    "severity_high": scan.severity_high,
+                    "severity_medium": scan.severity_medium,
+                    "severity_low": scan.severity_low,
+                    "raw_results": scan.raw_results,
+                    "uploaded_by": scan.uploaded_by
+                }
+                result.append(scan_dict)
+            except Exception as scan_error:
+                logger.error(f"Error processing scan {scan.id}: {str(scan_error)}")
+                continue
+        
+        return result
     except Exception as e:
         logger.error(f"Error retrieving scans: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Error retrieving scan results"
+            detail=f"Error retrieving scan results: {str(e)}"
         )
 
 @app.get("/scans/{scan_id}")
