@@ -55,6 +55,37 @@
         },
         {
             "name": "Scans",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "pm.sendRequest({",
+                            "    url: pm.environment.get('base_url') + '/token',",
+                            "    method: 'POST',",
+                            "    header: {",
+                            "        'Content-Type': 'application/x-www-form-urlencoded'",
+                            "    },",
+                            "    body: {",
+                            "        mode: 'urlencoded',",
+                            "        urlencoded: [",
+                            "            {key: 'username', value: pm.environment.get('username')},",
+                            "            {key: 'password', value: pm.environment.get('password')}",
+                            "        ]",
+                            "    }",
+                            "}, function (err, res) {",
+                            "    if (err) {",
+                            "        console.error(err);",
+                            "    } else {",
+                            "        var jsonData = res.json();",
+                            "        pm.environment.set('access_token', jsonData.access_token);",
+                            "    }",
+                            "});"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
             "item": [
                 {
                     "name": "Upload Scan",
