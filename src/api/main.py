@@ -41,9 +41,11 @@ async def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: Session = Depends(get_db)
 ):
-    user = db.query(models.User).filter(models.User.username == form_data.username).first()
-    if not user:
-        logger.warning(f"Login attempt failed: User {form_data.username} not found")
+    logger.info(f"Login attempt for user: {form_data.username}")
+    try:
+        user = db.query(models.User).filter(models.User.username == form_data.username).first()
+        if not user:
+            logger.warning(f"Login attempt failed: User {form_data.username} not found in database")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
@@ -52,6 +54,7 @@ async def login(
     
     if not auth.verify_password(form_data.password, user.password_hash):
         logger.warning(f"Login attempt failed: Invalid password for user {form_data.username}")
+        logger.debug(f"Stored hash for user {form_data.username}: {user.password_hash}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
@@ -126,7 +129,14 @@ async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     """Readiness check endpoint"""
     try:
         db.execute("SELECT 1")
-        return {"status": "ready"}
+        # Check if admin user exists
+        admin = db.query(models.User).filter(models.User.username == 'admin').first()
+        if admin:
+            logger.info("Admin user exists in database")
+            return {"status": "ready", "admin_exists": True}
+        else:
+            logger.warning("Admin user not found in database")
+            return {"status": "ready", "admin_exists": False}
     except Exception as e:
         logger.error(f"Database check failed: {str(e)}")
-        return {"status": "not ready"}
+        return {"status": "not ready", "error": str(e)}
