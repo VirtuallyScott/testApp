@@ -107,8 +107,17 @@ async def list_scans(
     db: Session = Depends(get_db)
 ) -> List[Dict]:
     """List all security scan results"""
-    scans = db.query(models.ScanResult).all()
-    return scans
+    try:
+        logger.info(f"User {current_user.username} requesting scan list")
+        scans = db.query(models.ScanResult).all()
+        logger.info(f"Successfully retrieved {len(scans)} scans")
+        return scans
+    except Exception as e:
+        logger.error(f"Error retrieving scans: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error retrieving scan results"
+        )
 
 @app.get("/scans/{scan_id}")
 async def get_scan(

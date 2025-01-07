@@ -39,4 +39,9 @@ curl -X POST http://localhost:8000/scans \
   }'
 
 echo -e "\n\nListing all scans..."
-curl -H "Authorization: Bearer $TOKEN" http://localhost:8000/scans
+curl -s -H "Authorization: Bearer $TOKEN" http://localhost:8000/scans | jq '.'
+
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to list scans"
+    exit 1
+fi
