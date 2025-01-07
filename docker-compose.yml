@@ -22,7 +22,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./src/api:/app
+      - ./src/api:/app/src/api
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/app_db
       - REDIS_URL=redis://:redis_password@redis:6379/0
