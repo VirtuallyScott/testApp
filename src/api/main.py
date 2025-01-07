@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, Depends, HTTPException, status
 from version import get_version
 from fastapi.security import OAuth2PasswordRequestForm
@@ -17,9 +18,14 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Create database tables
-models.Base.metadata.create_all(bind=engine)
+try:
+    models.Base.metadata.create_all(bind=engine)
+    logger.info("Successfully created database tables")
+except Exception as e:
+    logger.error(f"Failed to create database tables: {str(e)}")
+    raise
 
-app = FastAPI(title="Container Security Scan API")
+app = FastAPI(title="Container Security Scan API", root_path="/")
 
 # CORS configuration
 app.add_middleware(
