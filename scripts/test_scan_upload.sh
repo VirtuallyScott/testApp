@@ -14,7 +14,7 @@ echo "Successfully obtained token"
 
 # Upload a test scan
 echo "Uploading test scan..."
-curl -X POST http://localhost:8000/scans \
+curl -s -X POST http://localhost:8000/scans \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -36,9 +36,9 @@ curl -X POST http://localhost:8000/scans \
         }
       ]
     }
-  }'
+  }' | jq '.'
 
-echo -e "\n\nListing all scans..."
+echo -e "\nListing all scans..."
 curl -s -H "Authorization: Bearer $TOKEN" http://localhost:8000/scans | jq '.'
 
 if [ $? -ne 0 ]; then
