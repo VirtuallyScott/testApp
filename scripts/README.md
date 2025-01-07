@@ -2,11 +2,23 @@
 
 This directory contains utility scripts for interacting with the Container Security API.
 
+## Database Connection
+
+The application uses PostgreSQL with these default credentials:
+- Host: localhost
+- Port: 5432
+- Database: app_db
+- User: postgres
+- Password: postgres
+
+Connection string: `postgresql://postgres:postgres@localhost:5432/app_db`
+
 ## Prerequisites
 
 - `curl`: Required for making HTTP requests
 - `jq`: Required for JSON parsing in upload_scan.sh
 - `bash`: Scripts are written for bash shell
+- `psql`: Optional for direct database access
 
 To install dependencies on Ubuntu/Debian:
 ```bash
@@ -132,6 +144,13 @@ Error handling:
 - Reports API errors with details
 
 Returns success/failure message and the API response.
+
+## Database Access Example
+
+To connect to the database using psql:
+```bash
+psql -h localhost -p 5432 -U postgres -d app_db
+```
 
 ## Example Usage
 
