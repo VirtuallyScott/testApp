@@ -14,7 +14,7 @@ echo "Successfully obtained token"
 
 # Upload a test scan
 echo "Uploading test scan..."
-curl -s -X POST http://localhost:8000/scans \
+curl -s -X POST http://localhost:8000/api/v1/scans \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -43,7 +43,7 @@ SCAN_LIST=$(curl -s -X GET \
   -H "Authorization: Bearer $TOKEN" \
   -H "Accept: application/json" \
   -w "\nHTTP_STATUS:%{http_code}" \
-  http://localhost:8000/scans)
+  http://localhost:8000/api/v1/scans)
 
 HTTP_STATUS=$(echo "$SCAN_LIST" | grep "HTTP_STATUS:" | cut -d":" -f2)
 RESPONSE_BODY=$(echo "$SCAN_LIST" | grep -v "HTTP_STATUS:")
