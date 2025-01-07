@@ -12,12 +12,11 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('access_token');
-    if (token) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
+    setIsAuthenticated(!!token);
+    if (!token) {
+      navigate('/login');
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
