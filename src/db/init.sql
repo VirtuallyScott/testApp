@@ -87,7 +87,7 @@ BEGIN
         VALUES (
             'admin',
             'admin@example.com',
-            '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY9uhNOIbQMDwxS'  -- Hash for 'Admin@123'
+            crypt('Admin@123', gen_salt('bf', 8))  -- Hash for 'Admin@123'
         )
         RETURNING id INTO admin_id;
 
