@@ -34,6 +34,30 @@ Environment variables:
 
 Returns the access token on success, or error message on failure.
 
+### get_scans.sh
+Retrieves scan results from the API.
+
+```bash
+# List all scans
+./get_scans.sh
+
+# Use existing token
+./get_scans.sh -t YOUR_TOKEN
+
+# Get specific scan by ID
+./get_scans.sh -i 123
+```
+
+Options:
+- `-t`: Auth token (optional - will get new token if not provided)
+- `-i`: Scan ID (optional - will list all scans if not provided)
+- `-h`: Show help message
+
+Environment variables:
+- `API_URL`: API base URL (default: http://localhost:8000)
+
+Returns JSON formatted scan results.
+
 ### upload_scan.sh
 Uploads a Trivy scan result JSON file to the API.
 
