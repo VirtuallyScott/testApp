@@ -1,58 +1,46 @@
-# Postman Collections
+# Container Security API Postman Collection
 
-This directory contains Postman collections for API testing and monitoring.
+This directory contains Postman collections and environment configurations for testing the Container Security API.
 
-## Structure
+## Files
 
-```
-postman/
-├── collections/           # API request collections
-│   ├── development/      # Development environment tests
-│   ├── staging/         # Staging environment tests
-│   └── production/      # Production environment tests
-├── environments/         # Environment variables
-└── monitors/            # Synthetic transaction configs
-```
+- `Container_Security_API.postman_collection.json` - Main API collection
+- `Container_Security_API.postman_environment.json` - Environment variables
 
-## Collections
+## Collection Contents
 
-### Development
-- Basic CRUD operations
-- Authentication flows
-- Error scenarios
-- Rate limiting tests
+The collection includes endpoints for:
 
-### Staging/Production
-- Smoke tests
-- Critical path monitoring
-- Performance checks
-- Health checks
+1. Authentication
+   - Login (POST /token)
 
-## Synthetic Monitoring
+2. Scan Management
+   - Upload Scan Results (POST /scans)
+   - List Scans (GET /scans)
+   - Get Scan by ID (GET /scans/{id})
 
-Collections configured for continuous API monitoring:
-- Availability checks
-- Response time monitoring
-- Error rate tracking
-- SLA compliance checks
+3. Health Checks
+   - Health Check (GET /health)
+   - Readiness Check (GET /ready)
+   - Version Info (GET /version)
+
+## Environment Variables
+
+The environment file includes:
+- `base_url`: API base URL (default: http://localhost:8000)
+- `username`: Login username
+- `password`: Login password
+- `access_token`: JWT token (automatically set after login)
 
 ## Usage
 
-1. Import collections into Postman
-2. Set up environment variables
-3. Run collections manually or via Newman CLI
-4. Configure monitors for synthetic transactions
+1. Import both the collection and environment files into Postman
+2. Select the "Container Security API Environment"
+3. Execute the Login request first to get an access token
+4. Use other endpoints as needed - they'll automatically use the token
 
-## Running Tests via Newman
+## Running via Newman
 
 ```bash
-newman run collection.json -e environment.json
+newman run Container_Security_API.postman_collection.json -e Container_Security_API.postman_environment.json
 ```
-
-## TODO
-
-- [ ] Create initial API collections
-- [ ] Set up environment configurations
-- [ ] Configure synthetic monitors
-- [ ] Add performance test scenarios
-- [ ] Document test cases
