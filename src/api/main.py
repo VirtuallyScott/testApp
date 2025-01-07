@@ -1,5 +1,6 @@
 import os
 from datetime import datetime, timedelta
+from typing import Optional
 from fastapi import FastAPI, Depends, HTTPException, status, Request
 from version import get_version
 from fastapi.security import OAuth2PasswordRequestForm
