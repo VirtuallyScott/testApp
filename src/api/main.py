@@ -46,28 +46,36 @@ async def login(
         user = db.query(models.User).filter(models.User.username == form_data.username).first()
         if not user:
             logger.warning(f"Login attempt failed: User {form_data.username} not found in database")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect username or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+
+        if not auth.verify_password(form_data.password, user.password_hash):
+            logger.warning(f"Login attempt failed: Invalid password for user {form_data.username}")
+            logger.debug(f"Stored hash for user {form_data.username}: {user.password_hash}")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Incorrect username or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        
+        logger.info(f"Successful login for user {form_data.username}")
+        
+        access_token = auth.create_access_token(
+            data={"sub": user.username},
+            expires_delta=timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
         )
-    
-    if not auth.verify_password(form_data.password, user.password_hash):
-        logger.warning(f"Login attempt failed: Invalid password for user {form_data.username}")
-        logger.debug(f"Stored hash for user {form_data.username}: {user.password_hash}")
+        return {"access_token": access_token, "token_type": "bearer"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error during login: {str(e)}")
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error",
         )
-    
-    logger.info(f"Successful login for user {form_data.username}")
-    
-    access_token = auth.create_access_token(
-        data={"sub": user.username},
-        expires_delta=timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
 
 @app.post("/scans")
 async def upload_scan(
