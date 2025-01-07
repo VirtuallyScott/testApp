@@ -128,11 +128,12 @@ const ScanResults: React.FC = () => {
   }
 
   return (
-    <Paper sx={{ p: 3, mt: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        Scan Results
-      </Typography>
-      <TableContainer component={Paper}>
+    <>
+      <Paper sx={{ p: 3, mt: 2 }}>
+        <Typography variant="h4" gutterBottom>
+          Scan Results
+        </Typography>
+        <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
@@ -193,9 +194,9 @@ const ScanResults: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Paper>
+      </Paper>
 
-    <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
+      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
       <DialogTitle>{currentSeverity} Vulnerabilities</DialogTitle>
       <DialogContent>
         {currentVulnerabilities.length > 0 ? (
@@ -220,7 +221,8 @@ const ScanResults: React.FC = () => {
       <DialogActions>
         <Button onClick={handleCloseDialog}>Close</Button>
       </DialogActions>
-    </Dialog>
+      </Dialog>
+    </>
   );
 };
 
