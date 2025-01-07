@@ -38,16 +38,16 @@ if [ -z "$TOKEN" ]; then
 fi
 
 # Parse required fields from Trivy JSON with null handling
-image_name=$(jq -r '.ArtifactName | split(":")[0] // empty' "${SCAN_FILE}")
-image_tag=$(jq -r '.ArtifactName | split(":")[1] // "latest"' "${SCAN_FILE}")
-image_sha256=$(jq -r '.Metadata.ImageID | sub("sha256:"; "") // empty' "${SCAN_FILE}")
+image_name=$(jq -r '.ArtifactName // empty' "${SCAN_FILE}")
+image_tag=$(jq -r '.ArtifactName | if contains(":") then split(":")[1] else "latest" end' "${SCAN_FILE}")
+image_sha256=$(jq -r '.Metadata.ImageID | if startswith("sha256:") then sub("sha256:"; "") else . end // empty' "${SCAN_FILE}")
 scan_timestamp=$(date -u +"%Y-%m-%dT%H:%M:%S+00:00")
 
 # Count vulnerabilities by severity with null handling
-severity_critical=$(jq -r '([.Results[]?.Vulnerabilities[]? | select(.Severity=="CRITICAL")] | length) // 0' "${SCAN_FILE}")
-severity_high=$(jq -r '([.Results[]?.Vulnerabilities[]? | select(.Severity=="HIGH")] | length) // 0' "${SCAN_FILE}")
-severity_medium=$(jq -r '([.Results[]?.Vulnerabilities[]? | select(.Severity=="MEDIUM")] | length) // 0' "${SCAN_FILE}")
-severity_low=$(jq -r '([.Results[]?.Vulnerabilities[]? | select(.Severity=="LOW")] | length) // 0' "${SCAN_FILE}")
+severity_critical=$(jq -r '[.Results[].Vulnerabilities[]? | select(.Severity=="CRITICAL")] | length // 0' "${SCAN_FILE}")
+severity_high=$(jq -r '[.Results[].Vulnerabilities[]? | select(.Severity=="HIGH")] | length // 0' "${SCAN_FILE}")
+severity_medium=$(jq -r '[.Results[].Vulnerabilities[]? | select(.Severity=="MEDIUM")] | length // 0' "${SCAN_FILE}")
+severity_low=$(jq -r '[.Results[].Vulnerabilities[]? | select(.Severity=="LOW")] | length // 0' "${SCAN_FILE}")
 
 # Validate required fields
 if [ -z "$image_name" ] || [ -z "$image_sha256" ]; then
