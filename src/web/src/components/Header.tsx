@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+
+interface DecodedToken {
+  sub: string;
+  is_admin: boolean;
+  exp: number;
+}
 
 const Header: React.FC = () => {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      try {
+        const decoded = jwt_decode<DecodedToken>(token);
+        setIsAdmin(decoded.is_admin);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        setIsAdmin(false);
+      }
+    }
+  }, []);
   return (
     <AppBar position="static">
       <Toolbar>
@@ -19,22 +40,26 @@ const Header: React.FC = () => {
           <Button color="inherit" component={Link} to="/scans">
             Scan Results
           </Button>
-          <Button 
-            color="inherit" 
-            component={Link} 
-            to="/api-keys"
-            sx={{ fontWeight: 'bold' }}
-          >
-            API Keys
-          </Button>
-          <Button 
-            color="inherit" 
-            component={Link} 
-            to="/user-manager"
-            sx={{ fontWeight: 'bold' }}
-          >
-            User Manager
-          </Button>
+          {isAdmin && (
+            <>
+              <Button 
+                color="inherit" 
+                component={Link} 
+                to="/api-keys"
+                sx={{ fontWeight: 'bold' }}
+              >
+                API Keys
+              </Button>
+              <Button 
+                color="inherit" 
+                component={Link} 
+                to="/user-manager"
+                sx={{ fontWeight: 'bold' }}
+              >
+                User Manager
+              </Button>
+            </>
+          )}
         </Box>
       </Toolbar>
     </AppBar>
