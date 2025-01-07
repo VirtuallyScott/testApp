@@ -13,6 +13,9 @@ React/TypeScript frontend for the container security scanning system.
 - Multi-stage Docker builds for optimal image size
 - Automatic API token refresh handling
 - Error boundary and 401 redirect handling
+- Version information in footer
+- Scan results management
+- JSON download functionality
 
 ## Development
 
@@ -24,15 +27,15 @@ npm start
 
 ### Docker Development Build
 ```bash
-docker build -t web-app:dev .
+docker build --build-arg VERSION=$(./get_version.sh) -t web-app:dev .
 docker run -p 80:80 web-app:dev
 ```
 
 ## Production Build
 
 ```bash
-# Build production Docker image
-docker build -t web-app:prod .
+# Build production Docker image with version
+docker build --build-arg VERSION=$(./get_version.sh) -t web-app:prod .
 docker run -p 80:80 web-app:prod
 ```
 
@@ -62,10 +65,12 @@ The application includes a comprehensive health monitoring dashboard that shows:
 - Role-based access control
 - Protected routes
 - Error boundary handling
+- Secure API communication
 
 ## Environment Variables
 
 - REACT_APP_API_URL: Backend API URL (default: http://localhost:8000)
+- VERSION: Application version (set during build)
 
 ## Docker Build Features
 
@@ -75,3 +80,4 @@ The application includes a comprehensive health monitoring dashboard that shows:
 - Optimized final image size
 - Version tagging
 - Secure default configuration
+- Git-based version detection
