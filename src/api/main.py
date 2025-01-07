@@ -36,12 +36,23 @@ async def login(
     db: Session = Depends(get_db)
 ):
     user = db.query(models.User).filter(models.User.username == form_data.username).first()
-    if not user or not auth.verify_password(form_data.password, user.password_hash):
+    if not user:
+        logger.warning(f"Login attempt failed: User {form_data.username} not found")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    
+    if not auth.verify_password(form_data.password, user.password_hash):
+        logger.warning(f"Login attempt failed: Invalid password for user {form_data.username}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    logger.info(f"Successful login for user {form_data.username}")
     
     access_token = auth.create_access_token(
         data={"sub": user.username},
