@@ -58,6 +58,27 @@ Environment variables:
 
 Returns JSON formatted scan results.
 
+### test_scan_upload.sh
+Uploads a scan from a JSON file and lists all scans.
+
+```bash
+# Upload scan with filename argument
+./test_scan_upload.sh /path/to/scan.json
+
+# Upload scan with prompt for filename
+./test_scan_upload.sh
+```
+
+Features:
+- Prompts for filename if not provided
+- Validates file existence
+- Uses functions for better organization
+- Lists all scans after upload
+- Supports API_URL environment variable
+
+Environment variables:
+- `API_URL`: API base URL (default: http://localhost:8000)
+
 ### get_scan_count.sh
 Counts the number of scans in the database.
 
