@@ -306,6 +306,100 @@ async def delete_api_key(
     db.commit()
     return {"status": "deleted"}
 
+@api_v1.post("/users")
+async def create_user(
+    username: str,
+    email: str,
+    password: str,
+    is_active: bool = True,
+    current_user: models.User = Depends(auth.check_admin_role),
+    db: Session = Depends(get_db)
+):
+    """Create a new user"""
+    # Check if username already exists
+    existing_user = db.query(models.User).filter(models.User.username == username).first()
+    if existing_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Username already exists"
+        )
+    
+    # Create new user
+    new_user = models.User(
+        username=username,
+        email=email,
+        password_hash=auth.get_password_hash(password),
+        is_active=is_active
+    )
+    
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
+@api_v1.put("/users/{user_id}/password")
+async def change_password(
+    user_id: int,
+    new_password: str,
+    current_user: models.User = Depends(auth.check_admin_role),
+    db: Session = Depends(get_db)
+):
+    """Change a user's password"""
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user.password_hash = auth.get_password_hash(new_password)
+    db.commit()
+    return {"status": "password updated"}
+
+@api_v1.put("/users/{user_id}/email")
+async def update_email(
+    user_id: int,
+    new_email: str,
+    current_user: models.User = Depends(auth.check_admin_role),
+    db: Session = Depends(get_db)
+):
+    """Update a user's email address"""
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user.email = new_email
+    db.commit()
+    return {"status": "email updated"}
+
+@api_v1.put("/users/{user_id}/status")
+async def update_user_status(
+    user_id: int,
+    is_active: bool,
+    current_user: models.User = Depends(auth.check_admin_role),
+    db: Session = Depends(get_db)
+):
+    """Activate or deactivate a user"""
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user.is_active = is_active
+    db.commit()
+    return {"status": "active" if is_active else "inactive"}
+
+@api_v1.get("/users")
+async def list_users(
+    current_user: models.User = Depends(auth.check_admin_role),
+    db: Session = Depends(get_db)
+):
+    """List all users"""
+    users = db.query(models.User).all()
+    return [{
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "is_active": user.is_active,
+        "created_at": user.created_at
+    } for user in users]
+
 @api_v1.get("/ready")
 async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     """Readiness check endpoint"""
