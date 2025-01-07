@@ -34,12 +34,12 @@
                             "urlencoded": [
                                 {
                                     "key": "username",
-                                    "value": "",
+                                    "value": "{{username}}",
                                     "type": "text"
                                 },
                                 {
                                     "key": "password",
-                                    "value": "",
+                                    "value": "{{password}}",
                                     "type": "text"
                                 }
                             ]
