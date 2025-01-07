@@ -42,6 +42,16 @@ function App() {
               path="/"
               element={
                 isAuthenticated ? (
+                  <Home />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                isAuthenticated ? (
                   <HealthDashboard />
                 ) : (
                   <Navigate to="/login" />

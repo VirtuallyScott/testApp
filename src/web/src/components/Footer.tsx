@@ -48,7 +48,8 @@ const Footer: React.FC = () => {
         bgcolor: 'background.paper',
         p: 2,
         borderTop: 1,
-        borderColor: 'divider'
+        borderColor: 'divider',
+        zIndex: 1000
       }}
     >
       <Divider sx={{ mb: 1 }} />
