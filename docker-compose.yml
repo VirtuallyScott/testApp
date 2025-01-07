@@ -23,11 +23,13 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./src/api:/app/src/api
+      - ./src/api:/app
       - ./logs/api:/var/log/api
+    working_dir: /app
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/app_db
       - REDIS_URL=redis://:redis_password@redis:6379/0
+      - PYTHONPATH=/app
     depends_on:
       - db
       - redis
