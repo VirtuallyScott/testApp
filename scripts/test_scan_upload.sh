@@ -39,11 +39,25 @@ curl -s -X POST http://localhost:8000/scans \
   }' | jq '.'
 
 echo -e "\nListing all scans..."
-SCAN_LIST=$(curl -s -H "Authorization: Bearer $TOKEN" http://localhost:8000/scans)
-if ! echo "$SCAN_LIST" | jq '.' >/dev/null 2>&1; then
+SCAN_LIST=$(curl -s -X GET \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Accept: application/json" \
+  -w "\nHTTP_STATUS:%{http_code}" \
+  http://localhost:8000/scans)
+
+HTTP_STATUS=$(echo "$SCAN_LIST" | grep "HTTP_STATUS:" | cut -d":" -f2)
+RESPONSE_BODY=$(echo "$SCAN_LIST" | grep -v "HTTP_STATUS:")
+
+if [ "$HTTP_STATUS" != "200" ]; then
+    echo "Error: HTTP status $HTTP_STATUS"
+    echo "Response body: $RESPONSE_BODY"
+    exit 1
+fi
+
+if ! echo "$RESPONSE_BODY" | jq '.' >/dev/null 2>&1; then
     echo "Error: Invalid JSON response from scans endpoint"
-    echo "Raw response: $SCAN_LIST"
+    echo "Raw response: $RESPONSE_BODY"
     exit 1
 else
-    echo "$SCAN_LIST" | jq '.'
+    echo "$RESPONSE_BODY" | jq '.'
 fi

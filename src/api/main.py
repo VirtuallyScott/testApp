@@ -115,30 +115,36 @@ async def list_scans(
         result = []
         for scan in scans:
             try:
+                # Ensure raw_results is a dict
+                raw_results = scan.raw_results if isinstance(scan.raw_results, dict) else {}
+                
                 scan_dict = {
                     "id": scan.id,
-                    "image_name": scan.image_name,
-                    "image_tag": scan.image_tag,
-                    "scanner_type": scan.scanner_type,
+                    "image_name": str(scan.image_name),
+                    "image_tag": str(scan.image_tag),
+                    "scanner_type": str(scan.scanner_type),
                     "scan_timestamp": scan.scan_timestamp.isoformat() if scan.scan_timestamp else None,
-                    "severity_critical": scan.severity_critical,
-                    "severity_high": scan.severity_high,
-                    "severity_medium": scan.severity_medium,
-                    "severity_low": scan.severity_low,
-                    "raw_results": scan.raw_results,
-                    "uploaded_by": scan.uploaded_by
+                    "severity_critical": int(scan.severity_critical or 0),
+                    "severity_high": int(scan.severity_high or 0),
+                    "severity_medium": int(scan.severity_medium or 0),
+                    "severity_low": int(scan.severity_low or 0),
+                    "raw_results": raw_results,
+                    "uploaded_by": int(scan.uploaded_by) if scan.uploaded_by else None
                 }
                 result.append(scan_dict)
+                logger.debug(f"Successfully processed scan {scan.id}")
             except Exception as scan_error:
-                logger.error(f"Error processing scan {scan.id}: {str(scan_error)}")
+                logger.error(f"Error processing scan {scan.id}: {str(scan_error)}", exc_info=True)
+                # Continue processing other scans
                 continue
         
+        logger.info(f"Successfully processed {len(result)} out of {len(scans)} scans")
         return result
     except Exception as e:
-        logger.error(f"Error retrieving scans: {str(e)}")
+        logger.error(f"Error retrieving scans: {str(e)}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error retrieving scan results: {str(e)}"
+            detail="Error retrieving scan results"
         )
 
 @app.get("/scans/{scan_id}")
