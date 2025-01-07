@@ -38,8 +38,9 @@ COPY --from=builder /wheels /wheels
 RUN pip install --no-cache-dir /wheels/*.whl
 
 # Create application directory structure
-COPY . /app
-WORKDIR /app
+RUN mkdir -p /app/src/api
+COPY . /app/src/api
+WORKDIR /app/src/api
 
 EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
