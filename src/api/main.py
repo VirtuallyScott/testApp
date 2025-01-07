@@ -241,6 +241,70 @@ async def health_check() -> Dict[str, str]:
     """Health check endpoint"""
     return {"status": "healthy"}
 
+@api_v1.post("/api-keys")
+async def create_api_key(
+    name: str,
+    expires_in_days: Optional[int] = 30,
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Create a new API key"""
+    api_key = auth.generate_api_key()
+    hashed_key = auth.get_api_key_hash(api_key)
+    
+    db_key = models.ApiKey(
+        key_hash=hashed_key,
+        name=name,
+        user_id=current_user.id,
+        expires_at=datetime.utcnow() + timedelta(days=expires_in_days) if expires_in_days else None
+    )
+    
+    db.add(db_key)
+    db.commit()
+    db.refresh(db_key)
+    
+    return {
+        "api_key": api_key,  # Only returned once!
+        "id": db_key.id,
+        "name": db_key.name,
+        "created_at": db_key.created_at,
+        "expires_at": db_key.expires_at
+    }
+
+@api_v1.get("/api-keys")
+async def list_api_keys(
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """List all API keys for current user"""
+    keys = db.query(models.ApiKey).filter(models.ApiKey.user_id == current_user.id).all()
+    return [{
+        "id": key.id,
+        "name": key.name,
+        "created_at": key.created_at,
+        "expires_at": key.expires_at,
+        "last_used_at": key.last_used_at
+    } for key in keys]
+
+@api_v1.delete("/api-keys/{key_id}")
+async def delete_api_key(
+    key_id: int,
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Delete an API key"""
+    key = db.query(models.ApiKey).filter(
+        models.ApiKey.id == key_id,
+        models.ApiKey.user_id == current_user.id
+    ).first()
+    
+    if not key:
+        raise HTTPException(status_code=404, detail="API key not found")
+    
+    db.delete(key)
+    db.commit()
+    return {"status": "deleted"}
+
 @api_v1.get("/ready")
 async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     """Readiness check endpoint"""
