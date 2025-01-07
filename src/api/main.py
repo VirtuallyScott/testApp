@@ -84,10 +84,21 @@ async def upload_scan(
     db: Session = Depends(get_db)
 ):
     """Upload a new security scan result"""
+    # Validate required fields
+    required_fields = ["image_name", "image_tag", "image_sha256", "scan_timestamp", "raw_results"]
+    for field in required_fields:
+        if field not in scan_data:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Missing required field: {field}"
+            )
+            
     scan_result = models.ScanResult(
         image_name=scan_data["image_name"],
         image_tag=scan_data["image_tag"],
-        scanner_type=scan_data["scanner_type"],
+        image_sha256=scan_data["image_sha256"],
+        scanner_type="trivy",  # Fixed as Trivy scanner
+        scan_timestamp=datetime.fromisoformat(scan_data["scan_timestamp"]),
         severity_critical=scan_data.get("severity_critical", 0),
         severity_high=scan_data.get("severity_high", 0),
         severity_medium=scan_data.get("severity_medium", 0),
