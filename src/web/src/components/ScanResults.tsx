@@ -12,11 +12,26 @@ import {
   CircularProgress,
   Box,
   IconButton,
-  Tooltip
+  Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  List,
+  ListItem,
+  ListItemText
 } from '@mui/material';
 import { Download, Visibility } from '@mui/icons-material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+
+interface Vulnerability {
+  id: string;
+  title: string;
+  description: string;
+  severity: string;
+}
 
 interface Scan {
   id: number;
@@ -27,12 +42,48 @@ interface Scan {
   severity_high: number;
   severity_medium: number;
   severity_low: number;
+  vulnerabilities: {
+    critical: Vulnerability[];
+    high: Vulnerability[];
+    medium: Vulnerability[];
+    low: Vulnerability[];
+  };
 }
 
 const ScanResults: React.FC = () => {
   const [scans, setScans] = useState<Scan[]>([]);
   const [loading, setLoading] = useState(true);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [currentVulnerabilities, setCurrentVulnerabilities] = useState<Vulnerability[]>([]);
+  const [currentSeverity, setCurrentSeverity] = useState('');
   const navigate = useNavigate();
+
+  const handleVulnerabilityClick = (scan: Scan, severity: string) => {
+    switch(severity) {
+      case 'critical':
+        setCurrentVulnerabilities(scan.vulnerabilities.critical);
+        break;
+      case 'high':
+        setCurrentVulnerabilities(scan.vulnerabilities.high);
+        break;
+      case 'medium':
+        setCurrentVulnerabilities(scan.vulnerabilities.medium);
+        break;
+      case 'low':
+        setCurrentVulnerabilities(scan.vulnerabilities.low);
+        break;
+      default:
+        setCurrentVulnerabilities([]);
+    }
+    setCurrentSeverity(severity.toUpperCase());
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setCurrentVulnerabilities([]);
+    setCurrentSeverity('');
+  };
 
   useEffect(() => {
     const fetchScans = async () => {
@@ -101,10 +152,30 @@ const ScanResults: React.FC = () => {
                 <TableCell>{scan.image_name}</TableCell>
                 <TableCell>{scan.image_tag}</TableCell>
                 <TableCell>{new Date(scan.scan_timestamp).toLocaleString()}</TableCell>
-                <TableCell sx={{ color: 'error.main' }}>{scan.severity_critical}</TableCell>
-                <TableCell sx={{ color: 'warning.main' }}>{scan.severity_high}</TableCell>
-                <TableCell sx={{ color: 'info.main' }}>{scan.severity_medium}</TableCell>
-                <TableCell>{scan.severity_low}</TableCell>
+                <TableCell 
+                  sx={{ color: 'error.main', cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                  onClick={() => handleVulnerabilityClick(scan, 'critical')}
+                >
+                  {scan.severity_critical}
+                </TableCell>
+                <TableCell 
+                  sx={{ color: 'warning.main', cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                  onClick={() => handleVulnerabilityClick(scan, 'high')}
+                >
+                  {scan.severity_high}
+                </TableCell>
+                <TableCell 
+                  sx={{ color: 'info.main', cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                  onClick={() => handleVulnerabilityClick(scan, 'medium')}
+                >
+                  {scan.severity_medium}
+                </TableCell>
+                <TableCell 
+                  sx={{ cursor: 'pointer', '&:hover': { textDecoration: 'underline' } }}
+                  onClick={() => handleVulnerabilityClick(scan, 'low')}
+                >
+                  {scan.severity_low}
+                </TableCell>
                 <TableCell>
                   <Tooltip title="View Details">
                     <IconButton onClick={() => handleViewDetails(scan.id)}>
@@ -123,6 +194,33 @@ const ScanResults: React.FC = () => {
         </Table>
       </TableContainer>
     </Paper>
+
+    <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
+      <DialogTitle>{currentSeverity} Vulnerabilities</DialogTitle>
+      <DialogContent>
+        {currentVulnerabilities.length > 0 ? (
+          <List>
+            {currentVulnerabilities.map((vuln) => (
+              <ListItem key={vuln.id} sx={{ borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
+                <ListItemText
+                  primary={vuln.title}
+                  secondary={vuln.description}
+                  primaryTypographyProps={{ fontWeight: 'bold' }}
+                  secondaryTypographyProps={{ whiteSpace: 'pre-wrap' }}
+                />
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <DialogContentText>
+            No {currentSeverity.toLowerCase()} vulnerabilities found.
+          </DialogContentText>
+        )}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCloseDialog}>Close</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
