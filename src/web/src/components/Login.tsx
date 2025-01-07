@@ -27,7 +27,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
     }
 
     try {
-      const response = await axios.post('/api/token', {
+      const response = await axios.post('/api/v1/token', {
         username,
         password
       });
