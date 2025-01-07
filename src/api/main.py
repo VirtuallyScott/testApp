@@ -26,19 +26,21 @@ except Exception as e:
     logger.error(f"Failed to create database tables: {str(e)}")
     raise
 
-app = FastAPI(
-    title="Container Security Scan API",
-    root_path="/api/v1",
-    openapi_prefix="/api/v1"
-)
+# Create main FastAPI app
+app = FastAPI(title="Container Security Scan API")
 
-# Add middleware to ensure proper path handling
-@app.middleware("http")
-async def add_root_path(request: Request, call_next):
-    if request.url.path.startswith("/api/v1"):
-        request.scope["path"] = request.scope["path"].replace("/api/v1", "", 1)
-    response = await call_next(request)
-    return response
+# Create sub-application for API v1
+api_v1 = FastAPI()
+
+# Mount the API v1 sub-application
+app.mount("/api/v1", api_v1)
+
+# Move all API endpoints to use api_v1 instead of app
+@api_v1.post("/token")
+async def login(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: Session = Depends(get_db)
+):
 
 # CORS configuration
 app.add_middleware(
@@ -90,7 +92,7 @@ async def login(
             detail="Internal server error",
         )
 
-@app.post("/scans")
+@api_v1.post("/scans")
 async def upload_scan(
     scan_data: Dict,
     current_user: models.User = Depends(auth.get_current_user),
@@ -125,7 +127,7 @@ async def upload_scan(
     db.refresh(scan_result)
     return scan_result
 
-@app.get("/scans")
+@api_v1.get("/scans")
 async def list_scans(
     current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
@@ -171,7 +173,7 @@ async def list_scans(
             detail="Error retrieving scan results"
         )
 
-@app.get("/scans/{scan_id}")
+@api_v1.get("/scans/{scan_id}")
 async def get_scan(
     scan_id: int,
     current_user: models.User = Depends(auth.get_current_user),
@@ -183,17 +185,17 @@ async def get_scan(
         raise HTTPException(status_code=404, detail="Scan not found")
     return scan
 
-@app.get("/version")
+@api_v1.get("/version")
 async def version() -> Dict[str, str]:
     """Get application version"""
     return {"version": get_version()}
 
-@app.get("/health")
+@api_v1.get("/health")
 async def health_check() -> Dict[str, str]:
     """Health check endpoint"""
     return {"status": "healthy"}
 
-@app.get("/ready")
+@api_v1.get("/ready")
 async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     """Readiness check endpoint"""
     try:
