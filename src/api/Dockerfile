@@ -37,10 +37,10 @@ COPY --from=builder /wheels /wheels
 # Install Python packages from wheels
 RUN pip install --no-cache-dir /wheels/*.whl
 
-# Create application directory structure
-WORKDIR /app
-COPY .. /app/src
+# Copy only the api directory
+COPY . /app/api
+WORKDIR /app/api
 
 EXPOSE 8000
-ENV PYTHONPATH=/app
-CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENV PYTHONPATH=/app/api
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
