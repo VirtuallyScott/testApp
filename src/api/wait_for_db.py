@@ -15,8 +15,8 @@ def wait_for_db():
     logger.info("Waiting for database to be ready...")
     engine = create_engine(db_url)
     
-    max_retries = 30
-    retry_interval = 2
+    max_retries = 60
+    retry_interval = 5
 
     for i in range(max_retries):
         try:
