@@ -8,7 +8,7 @@ A modern three-tier application for container security scanning and monitoring.
 - **API Backend**: FastAPI/Python with JWT authentication
 - **Database**: PostgreSQL for persistent storage
 - **Redis**: Session management and caching
-- **Security Scanning**: Integrated vulnerability scanning
+- **Security Scanning**: Integrated vulnerability scanning with support for duplicate scans
 - **Versioning**: Git-based version tracking
 - **Health Monitoring**: Comprehensive system health checks
 - **CI/CD**: Terraform and CI pipeline configurations

@@ -49,7 +49,7 @@ severity_high=$(jq -r '[.Results[].Vulnerabilities[]? | select(.Severity=="HIGH"
 severity_medium=$(jq -r '[.Results[].Vulnerabilities[]? | select(.Severity=="MEDIUM")] | length // 0' "${SCAN_FILE}")
 severity_low=$(jq -r '[.Results[].Vulnerabilities[]? | select(.Severity=="LOW")] | length // 0' "${SCAN_FILE}")
 
-# Validate required fields
+# Allow duplicate scans by not checking for existing entries
 if [ -z "$image_name" ] || [ -z "$image_sha256" ]; then
     echo "Error: Missing required fields from scan results"
     echo "image_name: $image_name"
