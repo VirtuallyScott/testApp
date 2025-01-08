@@ -39,6 +39,16 @@ CREATE TABLE IF NOT EXISTS user_roles (
 );
 
 -- API Keys
+CREATE TABLE IF NOT EXISTS user_preferences (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    theme VARCHAR(20) DEFAULT 'light',
+    notifications_enabled BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(user_id)
+);
+
 CREATE TABLE IF NOT EXISTS api_keys (
     id SERIAL PRIMARY KEY,
     key_hash VARCHAR(255) NOT NULL,

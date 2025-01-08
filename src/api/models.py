@@ -24,6 +24,7 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     roles = relationship("Role", secondary=user_roles, back_populates="users")
     api_keys = relationship("ApiKey", back_populates="user")
+    preferences = relationship("UserPreferences", back_populates="user", uselist=False)
 
 class Role(Base):
     __tablename__ = "roles"
@@ -31,6 +32,18 @@ class Role(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
     users = relationship("User", secondary=user_roles, back_populates="roles")
+
+class UserPreferences(Base):
+    __tablename__ = "user_preferences"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), unique=True)
+    theme = Column(String, default="light")
+    notifications_enabled = Column(Boolean, default=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    user = relationship("User", back_populates="preferences")
 
 class ApiKey(Base):
     __tablename__ = "api_keys"

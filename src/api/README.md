@@ -8,6 +8,8 @@ FastAPI backend for the three-tier application.
 - Multi-stage Docker builds
 - Optimized dependencies management
 - Production-ready configuration
+- User preference management
+- API key management with role-based access
 
 ## Development
 
