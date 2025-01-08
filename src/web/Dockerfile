@@ -1,9 +1,9 @@
 # Version stage
 FROM alpine:3.18 AS version
-COPY get_version.sh /get_version.sh
-RUN chmod +x /get_version.sh
+COPY ./get_version.sh ./get_version.sh
+RUN chmod +x ./get_version.sh
 RUN apk add --no-cache git
-RUN /get_version.sh > /version
+RUN ./get_version.sh > version
 
 # Build stage
 FROM node:18-alpine AS builder
