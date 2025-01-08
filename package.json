@@ -7,8 +7,8 @@
   },
   "dependencies": {
     "@mui/x-data-grid": "6.20.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-router-dom": "7.1.1",
     "reselect": "4.1.8"
   },
