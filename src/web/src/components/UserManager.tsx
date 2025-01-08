@@ -105,6 +105,10 @@ const UserManager: React.FC = () => {
 
   const { logout } = useAuthService();
 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom>
