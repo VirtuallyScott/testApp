@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+export const logout = () => {
+  localStorage.removeItem('access_token');
+  window.location.href = '/login';
+};
+
 export const getCurrentUserRoles = async (): Promise<string[]> => {
   try {
     const response = await axios.get('/api/v1/users/me/roles');

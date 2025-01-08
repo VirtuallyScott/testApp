@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuthService } from '../services/authService';
 import { Box, Button, Typography, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Alert, Switch } from '@mui/material';
 import { format } from 'date-fns';
 
@@ -99,10 +100,7 @@ const UserManager: React.FC = () => {
     }
   };
 
-  const onLogout = () => {
-    localStorage.removeItem('access_token');
-    window.location.href = '/login';
-  };
+  const { logout } = useAuthService();
 
   return (
     <Box sx={{ p: 3 }}>
