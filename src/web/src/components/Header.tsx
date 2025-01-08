@@ -93,21 +93,15 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
             </>
           )}
           {isAuthenticated && (
-            <Button 
-              variant="contained" 
-              color="secondary" 
-              onClick={handleLogout}
-              sx={{ 
-                ml: 2,
-                fontWeight: 'bold',
-                backgroundColor: 'error.main',
-                '&:hover': {
-                  backgroundColor: 'error.dark'
-                }
-              }}
-            >
-              Logout
-            </Button>
+            <>
+              <Button 
+                color="inherit" 
+                onClick={handleLogout}
+                sx={{ fontWeight: 'bold' }}
+              >
+                Logout
+              </Button>
+            </>
           )}
         </Box>
       </Toolbar>
