@@ -47,28 +47,32 @@ The API provides two monitoring endpoints:
 Returns the health status of all system components:
 ```json
 {
-  "status": "healthy",
+  "status": "healthy" | "unhealthy",
   "checks": {
-    "database": {"status": "healthy"},
-    "redis": {"status": "healthy"},
-    "api": {"status": "healthy"}
+    "database": {"status": "healthy" | "unhealthy"},
+    "redis": {"status": "healthy" | "unhealthy"},
+    "api": {"status": "healthy" | "unhealthy"}
   }
 }
 ```
+
+Note: All status fields will always be present and contain one of the specified values.
 
 #### Readiness Check (/api/v1/ready)
 Returns the readiness status of all system components:
 ```json
 {
-  "status": "ready",
+  "status": "ready" | "not ready",
   "checks": {
-    "database": {"status": "ready"},
-    "redis": {"status": "ready"},
-    "api": {"status": "ready"}
+    "database": {"status": "ready" | "not ready"},
+    "redis": {"status": "ready" | "not ready"},
+    "api": {"status": "ready" | "not ready"}
   },
-  "admin_exists": "true"
+  "admin_exists": "true" | "false"
 }
 ```
+
+Note: All status fields will always be present and contain one of the specified values.
 
 ## Docker Build Features
 
