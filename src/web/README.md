@@ -27,7 +27,7 @@ npm start
 
 ### Docker Development Build
 ```bash
-docker build --build-arg VERSION=$(./get_version.sh) -t web-app:dev .
+docker build --target builder --build-arg VERSION=$(./get_version.sh) -t web-app:dev .
 docker run -p 80:80 web-app:dev
 ```
 
@@ -38,6 +38,20 @@ docker run -p 80:80 web-app:dev
 docker build --build-arg VERSION=$(./get_version.sh) -t web-app:prod .
 docker run -p 80:80 web-app:prod
 ```
+
+## Build Process Details
+
+The Docker build uses a multi-stage process:
+1. Version stage: Determines the current version using git
+2. Dependency stage: Installs production dependencies
+3. Builder stage: Installs dev dependencies and builds the app
+4. Runtime stage: Uses nginx to serve the built app
+
+This approach provides:
+- Faster builds through dependency caching
+- Smaller final image size
+- Better separation of concerns
+- Reproducible builds
 
 ## Authentication
 

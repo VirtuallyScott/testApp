@@ -5,6 +5,12 @@ RUN chmod +x /get_version.sh
 RUN apk add --no-cache git
 RUN VERSION=$(/get_version.sh)
 
+# Dependency stage
+FROM node:18-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --production
+
 # Build stage
 FROM node:18-alpine AS builder
 ARG VERSION
@@ -13,17 +19,15 @@ WORKDIR /app
 # Install system dependencies
 RUN apk add --no-cache python3 make g++
 
-# Install dependencies first for better caching
-COPY package.json package-lock.json ./
-RUN npm install --verbose
+# Copy dependencies from deps stage
+COPY --from=deps /app/node_modules ./node_modules
 
 # Copy source files
 COPY . .
 
-# Create .env if it doesn't exist
+# Install dev dependencies and build
+RUN npm ci
 RUN test -f .env || echo "REACT_APP_API_URL=/api/v1" > .env
-
-# Build with production settings
 ENV NODE_ENV=production
 RUN npm run build
 
