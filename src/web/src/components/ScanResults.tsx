@@ -58,33 +58,6 @@ const ScanResults: React.FC = () => {
   const [currentSeverity, setCurrentSeverity] = useState('');
   const navigate = useNavigate();
 
-  const handleVulnerabilityClick = (scan: Scan, severity: string) => {
-    switch(severity) {
-      case 'critical':
-        setCurrentVulnerabilities(scan.vulnerabilities.critical);
-        break;
-      case 'high':
-        setCurrentVulnerabilities(scan.vulnerabilities.high);
-        break;
-      case 'medium':
-        setCurrentVulnerabilities(scan.vulnerabilities.medium);
-        break;
-      case 'low':
-        setCurrentVulnerabilities(scan.vulnerabilities.low);
-        break;
-      default:
-        setCurrentVulnerabilities([]);
-    }
-    setCurrentSeverity(severity.toUpperCase());
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-    setCurrentVulnerabilities([]);
-    setCurrentSeverity('');
-  };
-
   useEffect(() => {
     const fetchScans = async () => {
       try {
@@ -99,33 +72,6 @@ const ScanResults: React.FC = () => {
 
     fetchScans();
   }, []);
-
-  const handleVulnerabilityClick = (scan: Scan, severity: string) => {
-    switch(severity) {
-      case 'critical':
-        setCurrentVulnerabilities(scan.vulnerabilities.critical);
-        break;
-      case 'high':
-        setCurrentVulnerabilities(scan.vulnerabilities.high);
-        break;
-      case 'medium':
-        setCurrentVulnerabilities(scan.vulnerabilities.medium);
-        break;
-      case 'low':
-        setCurrentVulnerabilities(scan.vulnerabilities.low);
-        break;
-      default:
-        setCurrentVulnerabilities([]);
-    }
-    setCurrentSeverity(severity.toUpperCase());
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-    setCurrentVulnerabilities([]);
-    setCurrentSeverity('');
-  };
 
   const handleViewDetails = (scanId: number) => {
     navigate(`/scans/${scanId}`);
