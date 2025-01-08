@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useCallback } from 'react';
 
 export const logout = () => {
   localStorage.removeItem('access_token');
@@ -14,4 +15,14 @@ export const getCurrentUserRoles = async (): Promise<string[]> => {
     console.error('Error fetching user roles:', error);
     return [];
   }
+};
+
+export const useAuthService = () => {
+  const handleLogout = useCallback(() => {
+    logout();
+  }, []);
+
+  return {
+    logout: handleLogout
+  };
 };
