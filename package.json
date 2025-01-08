@@ -1,8 +1,11 @@
 {
-  "name": "container-security-web",
-  "version": "1.0.0",
+  "name": "three-tier-web",
+  "version": "0.1.0",
   "scripts": {
-    "build": "react-scripts build"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@mui/x-data-grid": "6.20.4",
@@ -17,6 +20,19 @@
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
     "react-scripts": "5.0.1",
     "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0"
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

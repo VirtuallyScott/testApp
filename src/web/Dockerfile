@@ -8,8 +8,8 @@ RUN apk add --no-cache python3 make g++
 # Copy package files
 COPY package.json package-lock.json ./
 
-# Remove any existing package-lock and install dependencies
-RUN rm -f package-lock.json && npm install
+# Install dependencies
+RUN npm ci --only=production
 
 # Copy source files
 COPY . .
