@@ -390,7 +390,7 @@ async def update_email(
 @api_v1.put("/users/{user_id}/status")
 async def update_user_status(
     user_id: int,
-    is_active: bool,
+    is_active: bool = Body(..., embed=True),
     current_user: models.User = Depends(auth.check_admin_role),
     db: Session = Depends(get_db)
 ):
