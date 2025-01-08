@@ -1,7 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Typography, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Alert } from '@mui/material';
+import { 
+  Box, 
+  Button, 
+  Typography, 
+  List, 
+  ListItem, 
+  ListItemText, 
+  Dialog, 
+  DialogTitle, 
+  DialogContent, 
+  DialogActions, 
+  TextField, 
+  Alert,
+  IconButton,
+  Tooltip
+} from '@mui/material';
+import { Delete, Pause } from '@mui/icons-material';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import { fetchApiKeys, createApiKey, deleteApiKey, suspendApiKey } from '../services/apiKeyService';
+import { getCurrentUserRoles } from '../services/authService';
 
 interface ApiKey {
   id: number;
@@ -9,6 +27,7 @@ interface ApiKey {
   created_at: string;
   expires_at: string | null;
   last_used_at: string | null;
+  created_by: number;
 }
 
 const ApiKeys: React.FC = () => {
@@ -17,17 +36,21 @@ const ApiKeys: React.FC = () => {
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [generatedKey, setGeneratedKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
-  const fetchKeys = async () => {
+  const checkAdminStatus = async () => {
     try {
-      const response = await fetch('/api/v1/api-keys', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-        }
-      });
-      if (!response.ok) throw new Error('Failed to fetch API keys');
-      const data = await response.json();
+      const roles = await getCurrentUserRoles();
+      setIsAdmin(roles.includes('admin'));
+    } catch (err) {
+      console.error('Error checking admin status:', err);
+    }
+  };
+
+  const loadKeys = async () => {
+    try {
+      const data = await fetchApiKeys();
       setKeys(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error fetching API keys');
@@ -35,29 +58,16 @@ const ApiKeys: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchKeys();
+    checkAdminStatus();
+    loadKeys();
   }, []);
 
   const handleCreateKey = async () => {
     try {
-      const response = await fetch('/api/v1/api-keys', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-        },
-        body: JSON.stringify({
-          name: newKey.name,
-          expires_in_days: newKey.expires_in_days
-        })
-      });
-      
-      if (!response.ok) throw new Error('Failed to create API key');
-      
-      const data = await response.json();
-      setGeneratedKey(data.api_key);
+      const result = await createApiKey(newKey.name, newKey.expires_in_days);
+      setGeneratedKey(result.api_key);
       setShowCreateDialog(false);
-      fetchKeys();
+      loadKeys();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error creating API key');
     }
@@ -65,18 +75,19 @@ const ApiKeys: React.FC = () => {
 
   const handleDeleteKey = async (id: number) => {
     try {
-      const response = await fetch(`/api/v1/api-keys/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-        }
-      });
-      
-      if (!response.ok) throw new Error('Failed to delete API key');
-      
-      fetchKeys();
+      await deleteApiKey(id);
+      loadKeys();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error deleting API key');
+    }
+  };
+
+  const handleSuspendKey = async (id: number) => {
+    try {
+      await suspendApiKey(id);
+      loadKeys();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error suspending API key');
     }
   };
 
@@ -109,12 +120,26 @@ const ApiKeys: React.FC = () => {
                 </>
               }
             />
-            <Button 
-              color="error"
-              onClick={() => handleDeleteKey(key.id)}
-            >
-              Delete
-            </Button>
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              <Tooltip title="Suspend Key">
+                <IconButton 
+                  color="warning"
+                  onClick={() => handleSuspendKey(key.id)}
+                  disabled={!isAdmin && key.created_by !== parseInt(localStorage.getItem('user_id') || '0')}
+                >
+                  <Pause />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete Key">
+                <IconButton 
+                  color="error"
+                  onClick={() => handleDeleteKey(key.id)}
+                  disabled={!isAdmin && key.created_by !== parseInt(localStorage.getItem('user_id') || '0')}
+                >
+                  <Delete />
+                </IconButton>
+              </Tooltip>
+            </Box>
           </ListItem>
         ))}
       </List>
