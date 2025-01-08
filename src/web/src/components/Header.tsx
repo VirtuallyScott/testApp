@@ -17,26 +17,27 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      console.log('Not authenticated, hiding admin links');
-      setIsAdmin(false);
-      return;
-    }
     const checkAdminStatus = () => {
+      if (!isAuthenticated) {
+        console.log('Not authenticated, hiding admin links');
+        setIsAdmin(false);
+        return;
+      }
+      
       const token = localStorage.getItem('access_token');
-      if (token) {
-        try {
-          const decoded = jwt_decode<DecodedToken>(token);
-          console.log('Token decoded:', decoded); // Debug log
-          console.log('Admin status:', decoded.is_admin); // New debug log
-          setIsAdmin(decoded.is_admin);
-          console.log('isAdmin state set to:', decoded.is_admin); // New debug log
-        } catch (error) {
-          console.error('Error decoding token:', error);
-          setIsAdmin(false);
-        }
-      } else {
-        console.log('No token found'); // Debug log
+      if (!token) {
+        console.log('No token found');
+        setIsAdmin(false);
+        return;
+      }
+
+      try {
+        const decoded = jwt_decode<DecodedToken>(token);
+        console.log('Token decoded:', decoded);
+        console.log('Admin status:', decoded.is_admin);
+        setIsAdmin(decoded.is_admin);
+      } catch (error) {
+        console.error('Error decoding token:', error);
         setIsAdmin(false);
       }
     };
@@ -49,7 +50,7 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
 
     // Cleanup interval on unmount
     return () => clearInterval(interval);
-  }, []);
+  }, [isAuthenticated]); // Add isAuthenticated as dependency
   return (
     <AppBar position="static">
       <Toolbar>
