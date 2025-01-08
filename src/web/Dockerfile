@@ -9,7 +9,7 @@ RUN apk add --no-cache python3 make g++
 COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm install --legacy-peer-deps
 
 # Copy source files
 COPY . .
@@ -17,7 +17,7 @@ COPY . .
 # Set environment variables and build
 ENV NODE_ENV=production
 ENV REACT_APP_API_URL=/api/v1
-RUN npm run build
+RUN npm run build -- --max-old-space-size=4096
 
 # Runtime stage
 FROM nginx:1.25-alpine
