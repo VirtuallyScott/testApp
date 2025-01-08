@@ -26,17 +26,20 @@ axios.interceptors.response.use(
 export const fetchHealthStatus = async () => {
   try {
     const response = await axios.get(`${API_URL}/health`);
+    const checks = response.data.checks || {};
     return {
       status: response.data.status || 'unknown',
-      database: response.data.checks?.database?.status || 'unknown',
-      redis: response.data.checks?.redis?.status || 'unknown'
+      database: checks.database?.status || 'unknown',
+      redis: checks.redis?.status || 'unknown',
+      api: checks.api?.status || response.data.status || 'unknown'
     };
   } catch (error) {
     console.error('Health check failed:', error);
     return {
       status: 'down',
       database: 'down',
-      redis: 'down'
+      redis: 'down',
+      api: 'down'
     };
   }
 };
@@ -44,10 +47,12 @@ export const fetchHealthStatus = async () => {
 export const fetchReadinessStatus = async () => {
   try {
     const response = await axios.get(`${API_URL}/ready`);
+    const checks = response.data.checks || {};
     return {
       status: response.data.status || 'unknown',
-      database: response.data.checks?.database?.status || 'unknown',
-      redis: response.data.checks?.redis?.status || 'unknown'
+      database: checks.database?.status || 'unknown',
+      redis: checks.redis?.status || 'unknown',
+      api: checks.api?.status || response.data.status || 'unknown'
     };
   } catch (error) {
     console.error('Readiness check failed:', error);
