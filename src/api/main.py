@@ -239,9 +239,45 @@ async def version() -> Dict[str, str]:
     return {"version": get_version()}
 
 @api_v1.get("/health")
-async def health_check() -> Dict[str, str]:
+async def health_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     """Health check endpoint"""
-    return {"status": "healthy"}
+    try:
+        # Check database
+        db_status = "healthy"
+        try:
+            db.execute(text("SELECT 1"))
+        except Exception as e:
+            logger.error(f"Database health check failed: {str(e)}")
+            db_status = "unhealthy"
+
+        # Check Redis (assuming Redis connection is available)
+        redis_status = "healthy"
+        try:
+            from redis import Redis
+            redis = Redis(host='redis', port=6379, socket_connect_timeout=2)
+            redis.ping()
+        except Exception as e:
+            logger.error(f"Redis health check failed: {str(e)}")
+            redis_status = "unhealthy"
+
+        return {
+            "status": "healthy" if db_status == "healthy" and redis_status == "healthy" else "unhealthy",
+            "checks": {
+                "database": {"status": db_status},
+                "redis": {"status": redis_status},
+                "api": {"status": "healthy"}
+            }
+        }
+    except Exception as e:
+        logger.error(f"Health check failed: {str(e)}")
+        return {
+            "status": "unhealthy",
+            "checks": {
+                "database": {"status": "unknown"},
+                "redis": {"status": "unknown"},
+                "api": {"status": "unhealthy"}
+            }
+        }
 
 @api_v1.post("/api-keys")
 async def create_api_key(
@@ -480,15 +516,44 @@ async def update_user_preferences(
 async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     """Readiness check endpoint"""
     try:
-        db.execute(text("SELECT 1"))
-        # Check if admin user exists
-        admin = db.query(models.User).filter(models.User.username == 'admin').first()
-        if admin:
-            logger.info("Admin user exists in database")
-            return {"status": "ready", "admin_exists": "true"}
-        else:
-            logger.warning("Admin user not found in database") 
-            return {"status": "ready", "admin_exists": "false"}
+        # Check database
+        db_status = "ready"
+        admin_exists = False
+        try:
+            db.execute(text("SELECT 1"))
+            admin = db.query(models.User).filter(models.User.username == 'admin').first()
+            admin_exists = admin is not None
+        except Exception as e:
+            logger.error(f"Database readiness check failed: {str(e)}")
+            db_status = "not ready"
+
+        # Check Redis
+        redis_status = "ready"
+        try:
+            from redis import Redis
+            redis = Redis(host='redis', port=6379, socket_connect_timeout=2)
+            redis.ping()
+        except Exception as e:
+            logger.error(f"Redis readiness check failed: {str(e)}")
+            redis_status = "not ready"
+
+        return {
+            "status": "ready" if db_status == "ready" and redis_status == "ready" else "not ready",
+            "checks": {
+                "database": {"status": db_status},
+                "redis": {"status": redis_status},
+                "api": {"status": "ready"}
+            },
+            "admin_exists": str(admin_exists).lower()
+        }
     except Exception as e:
-        logger.error(f"Database check failed: {str(e)}")
-        return {"status": "not ready", "error": str(e)}
+        logger.error(f"Readiness check failed: {str(e)}")
+        return {
+            "status": "not ready",
+            "checks": {
+                "database": {"status": "unknown"},
+                "redis": {"status": "unknown"},
+                "api": {"status": "not ready"}
+            },
+            "admin_exists": "false"
+        }
