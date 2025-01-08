@@ -73,7 +73,10 @@ const UserManager: React.FC = () => {
         body: JSON.stringify({is_active: isActive})
       });
       
-      if (!response.ok) throw new Error('Failed to update user status');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to update user status');
+      }
       
       fetchUsers();
     } catch (err) {
