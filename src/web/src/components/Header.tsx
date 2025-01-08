@@ -65,13 +65,13 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
   return (
     <AppBar position="static">
       <Toolbar>
+        <Typography variant="subtitle1" sx={{ marginRight: 2 }}>
+          {format(currentDateTime, 'yyyy-MM-dd HH:mm:ss')}
+        </Typography>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Container Security Dashboard
         </Typography>
-        <Typography variant="subtitle1" sx={{ marginRight: 3 }}>
-          {format(currentDateTime, 'yyyy-MM-dd HH:mm:ss')}
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', marginLeft: 'auto' }}>
           <Button color="inherit" component={Link} to="/">
             Home
           </Button>
