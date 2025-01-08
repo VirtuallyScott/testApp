@@ -1,18 +1,6 @@
-# Version stage
-FROM alpine:3.18 AS version
-WORKDIR /build
-COPY ./get_version.sh /build/get_version.sh
-RUN chmod +x /build/get_version.sh
-RUN apk add --no-cache git
-RUN /build/get_version.sh > /build/version
-
 # Build stage
 FROM node:18-alpine AS builder
 WORKDIR /app
-
-# Get version from previous stage
-COPY --from=version /build/version /version
-ARG VERSION=$(cat /version)
 
 # Install system dependencies
 RUN apk add --no-cache python3 make g++
@@ -28,14 +16,11 @@ COPY . .
 
 # Build the app
 RUN test -f .env || echo "REACT_APP_API_URL=/api/v1" > .env
-ENV NODE_ENV=production \
-    REACT_APP_VERSION=${VERSION}
+ENV NODE_ENV=production
 RUN npm run build
 
 # Runtime stage
 FROM nginx:1.25-alpine
-ARG VERSION
-LABEL version=$VERSION
 
 # Copy nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
