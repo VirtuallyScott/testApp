@@ -401,6 +401,16 @@ async def list_users(
         "created_at": user.created_at
     } for user in users]
 
+@api_v1.get("/users/me/roles")
+async def get_current_user_roles(
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get roles for current user"""
+    return {
+        "roles": [role.name for role in current_user.roles]
+    }
+
 @api_v1.get("/ready")
 async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     """Readiness check endpoint"""

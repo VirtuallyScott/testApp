@@ -2,20 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
-
-interface DecodedToken {
-  sub: string;
-  is_admin: boolean;
-  exp: number;
-}
+import { getCurrentUserRoles } from '../services/authService';
 
 interface HeaderProps {
   isAuthenticated: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [userRoles, setUserRoles] = useState<string[]>([]);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   // Update the clock every second
@@ -28,40 +22,32 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
   }, []);
 
   useEffect(() => {
-    const checkAdminStatus = () => {
+    const fetchUserRoles = async () => {
       if (!isAuthenticated) {
-        console.log('Not authenticated, hiding admin links');
-        setIsAdmin(false);
-        return;
-      }
-      
-      const token = localStorage.getItem('access_token');
-      if (!token) {
-        console.log('No token found');
-        setIsAdmin(false);
+        setUserRoles([]);
         return;
       }
 
       try {
-        const decoded = jwt_decode<DecodedToken>(token);
-        console.log('Token decoded:', decoded);
-        console.log('Admin status:', decoded.is_admin);
-        setIsAdmin(decoded.is_admin);
+        const roles = await getCurrentUserRoles();
+        setUserRoles(roles);
       } catch (error) {
-        console.error('Error decoding token:', error);
-        setIsAdmin(false);
+        console.error('Error fetching user roles:', error);
+        setUserRoles([]);
       }
     };
 
-    // Check immediately
-    checkAdminStatus();
+    // Fetch immediately
+    fetchUserRoles();
 
     // Set up interval to check periodically
-    const interval = setInterval(checkAdminStatus, 30000); // Check every 30 seconds
+    const interval = setInterval(fetchUserRoles, 30000); // Check every 30 seconds
 
     // Cleanup interval on unmount
     return () => clearInterval(interval);
-  }, [isAuthenticated]); // Add isAuthenticated as dependency
+  }, [isAuthenticated]);
+
+  const isAdmin = userRoles.includes('admin');
   return (
     <AppBar position="static">
       <Toolbar>
