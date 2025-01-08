@@ -1,16 +1,17 @@
 # Version stage
 FROM alpine:3.18 AS version
-COPY ./get_version.sh ./get_version.sh
-RUN chmod +x ./get_version.sh
+WORKDIR /build
+COPY ./get_version.sh /build/get_version.sh
+RUN chmod +x /build/get_version.sh
 RUN apk add --no-cache git
-RUN ./get_version.sh > version
+RUN /build/get_version.sh > /build/version
 
 # Build stage
 FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Get version from previous stage
-COPY --from=version /version /version
+COPY --from=version /build/version /version
 ARG VERSION=$(cat /version)
 
 # Install system dependencies
