@@ -73,6 +73,9 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
           <Button color="inherit" component={Link} to="/scans">
             Scan Results
           </Button>
+          <Button color="inherit" component={Link} to="/api-keys">
+            API Keys
+          </Button>
           {isAdmin && (
             <>
               <Button 
