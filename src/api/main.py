@@ -434,6 +434,48 @@ async def get_current_user_roles(
         logger.error(f"Error getting roles for user {current_user.username}: {str(e)}")
         return {"roles": []}
 
+@api_v1.get("/users/me/preferences")
+async def get_user_preferences(
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Get current user's preferences"""
+    prefs = db.query(models.UserPreferences).filter(
+        models.UserPreferences.user_id == current_user.id
+    ).first()
+    
+    if not prefs:
+        # Create default preferences if none exist
+        prefs = models.UserPreferences(user_id=current_user.id)
+        db.add(prefs)
+        db.commit()
+        db.refresh(prefs)
+    
+    return prefs
+
+@api_v1.put("/users/me/preferences")
+async def update_user_preferences(
+    preferences: dict,
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update current user's preferences"""
+    prefs = db.query(models.UserPreferences).filter(
+        models.UserPreferences.user_id == current_user.id
+    ).first()
+    
+    if not prefs:
+        prefs = models.UserPreferences(user_id=current_user.id)
+        db.add(prefs)
+    
+    for key, value in preferences.items():
+        if hasattr(prefs, key):
+            setattr(prefs, key, value)
+    
+    db.commit()
+    db.refresh(prefs)
+    return prefs
+
 @api_v1.get("/ready")
 async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
     """Readiness check endpoint"""
