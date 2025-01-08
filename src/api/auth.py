@@ -96,9 +96,26 @@ def check_admin_role(user: models.User = Depends(get_current_user)):
             detail="User account is inactive"
         )
     
+    # Check if user has admin role
     if not any(role.name == "admin" for role in user.roles):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Insufficient permissions - admin role required"
+        )
+    return user
+
+def check_user_role(user: models.User = Depends(get_current_user)):
+    """Check if user has basic user permissions"""
+    if not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="User account is inactive"
+        )
+    
+    # Check if user has at least one role
+    if not user.roles:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="User has no assigned roles"
         )
     return user
