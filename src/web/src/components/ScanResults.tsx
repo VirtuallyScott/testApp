@@ -56,9 +56,6 @@ const ScanResults: React.FC = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [currentVulnerabilities, setCurrentVulnerabilities] = useState<Vulnerability[]>([]);
   const [currentSeverity, setCurrentSeverity] = useState('');
-  const [openDialog, setOpenDialog] = useState(false);
-  const [currentVulnerabilities, setCurrentVulnerabilities] = useState<Vulnerability[]>([]);
-  const [currentSeverity, setCurrentSeverity] = useState('');
   const navigate = useNavigate();
 
   const handleVulnerabilityClick = (scan: Scan, severity: string) => {
