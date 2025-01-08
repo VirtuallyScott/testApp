@@ -6,6 +6,7 @@ import { getCurrentUserRoles } from '../services/authService';
 
 interface HeaderProps {
   isAuthenticated: boolean;
+  onLogout: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
@@ -57,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Container Security Dashboard
         </Typography>
-        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', marginLeft: 'auto' }}>
+        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', marginLeft: 'auto', alignItems: 'center' }}>
           <Button color="inherit" component={Link} to="/">
             Home
           </Button>
@@ -86,6 +87,23 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
                 User Manager
               </Button>
             </>
+          )}
+          {isAuthenticated && (
+            <Button 
+              variant="contained" 
+              color="secondary" 
+              onClick={onLogout}
+              sx={{ 
+                ml: 2,
+                fontWeight: 'bold',
+                backgroundColor: 'error.main',
+                '&:hover': {
+                  backgroundColor: 'error.dark'
+                }
+              }}
+            >
+              Logout
+            </Button>
           )}
         </Box>
       </Toolbar>
