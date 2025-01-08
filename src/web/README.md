@@ -39,6 +39,15 @@ docker build --build-arg VERSION=$(./get_version.sh) -t web-app:prod .
 docker run -p 80:80 web-app:prod
 ```
 
+## Troubleshooting
+
+If you encounter build issues:
+1. Make sure Docker is running
+2. Clear Docker cache: `docker builder prune`
+3. Verify network connectivity
+4. Check available disk space
+5. Ensure package-lock.json is up to date
+
 ## Build Process Details
 
 The Docker build uses a multi-stage process:

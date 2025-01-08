@@ -9,6 +9,11 @@ RUN VERSION=$(/get_version.sh)
 FROM node:18-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
+
+# Install system dependencies first
+RUN apk add --no-cache python3 make g++
+
+# Install production dependencies
 RUN npm ci --production
 
 # Build stage
@@ -19,14 +24,16 @@ WORKDIR /app
 # Install system dependencies
 RUN apk add --no-cache python3 make g++
 
-# Copy dependencies from deps stage
+# Copy production dependencies from deps stage
 COPY --from=deps /app/node_modules ./node_modules
 
 # Copy source files
 COPY . .
 
-# Install dev dependencies and build
-RUN npm ci
+# Install dev dependencies
+RUN npm ci --only=development
+
+# Build the app
 RUN test -f .env || echo "REACT_APP_API_URL=/api/v1" > .env
 ENV NODE_ENV=production
 RUN npm run build
