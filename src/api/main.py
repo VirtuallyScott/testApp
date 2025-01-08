@@ -91,10 +91,7 @@ async def login(
         logger.info(f"Successful login for user {username}")
         
         access_token = auth.create_access_token(
-            data={
-                "sub": user.username,
-                "is_admin": user.is_admin
-            },
+            data={"sub": user.username},
             expires_delta=timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
         )
         return {"access_token": access_token, "token_type": "bearer"}
