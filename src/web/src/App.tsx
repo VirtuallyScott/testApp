@@ -33,15 +33,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header isAuthenticated={isAuthenticated} />
+      <Header isAuthenticated={isAuthenticated} onLogout={handleLogout} />
       <Container maxWidth="lg" sx={{ pb: 8, pt: 2 }}> {/* Add padding bottom for footer */}
-        {isAuthenticated && (
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-            <Button variant="contained" color="secondary" onClick={handleLogout}>
-              Logout
-            </Button>
-          </Box>
-        )}
         <Box sx={{ my: 4 }}>
           <Routes>
             <Route
