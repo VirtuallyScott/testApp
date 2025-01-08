@@ -8,13 +8,15 @@
     "@mui/x-data-grid": "6.20.4",
     "date-fns": "3.2.0",
     "jwt-decode": "4.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "react-router-dom": "7.1.1",
     "reselect": "4.1.8"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0"
   }
 }
