@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 
@@ -15,6 +16,16 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
+  // Update the clock every second
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+    
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const checkAdminStatus = () => {
@@ -56,6 +67,9 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Container Security Dashboard
+        </Typography>
+        <Typography variant="subtitle1" sx={{ marginRight: 3 }}>
+          {format(currentDateTime, 'yyyy-MM-dd HH:mm:ss')}
         </Typography>
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
           <Button color="inherit" component={Link} to="/">
