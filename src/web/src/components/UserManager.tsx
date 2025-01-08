@@ -38,13 +38,18 @@ const UserManager: React.FC = () => {
 
   const handleCreateUser = async () => {
     try {
+      const params = new URLSearchParams();
+      params.append('username', newUser.username);
+      params.append('email', newUser.email);
+      params.append('password', newUser.password);
+      params.append('is_active', 'true'); // Default to active
+
       const response = await fetch('/api/v1/users', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`
         },
-        body: JSON.stringify(newUser)
+        body: params
       });
       
       if (!response.ok) throw new Error('Failed to create user');
