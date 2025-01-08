@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
-import { getCurrentUserRoles } from '../services/authService';
+import { getCurrentUserRoles, logout } from '../services/authService';
 
 interface HeaderProps {
   isAuthenticated: boolean;
@@ -12,6 +12,10 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
   const [userRoles, setUserRoles] = useState<string[]>([]);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
+  const handleLogout = () => {
+    logout();
+  };
 
   // Update the clock every second
   useEffect(() => {
@@ -92,7 +96,7 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
             <Button 
               variant="contained" 
               color="secondary" 
-              onClick={onLogout}
+              onClick={handleLogout}
               sx={{ 
                 ml: 2,
                 fontWeight: 'bold',
