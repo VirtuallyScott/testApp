@@ -47,12 +47,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Screenshots (track directory but exclude specific image types)
-docs/screenshots/*.png
-docs/screenshots/*.jpg
-docs/screenshots/*.jpeg
-!docs/screenshots/.gitkeep
-
 # macOS
 .DS_Store
 .AppleDouble
