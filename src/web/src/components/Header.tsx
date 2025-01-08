@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
-import { getCurrentUserRoles, logout } from '../services/authService';
+import { getCurrentUserRoles } from '../services/authService';
+import { logout } from '../services/logoutService';
 
 interface HeaderProps {
   isAuthenticated: boolean;

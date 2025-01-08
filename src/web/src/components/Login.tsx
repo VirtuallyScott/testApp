@@ -16,6 +16,10 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess }) => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Clear any previous session
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('sessionId');
+    
     // Default credentials
     if (username === 'admin' && password === 'admin') {
       localStorage.setItem('access_token', 'default-token');
