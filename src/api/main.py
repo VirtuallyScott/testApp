@@ -1,6 +1,16 @@
 import os
 from datetime import datetime, timedelta
-from typing import Optional
+from typing import Optional, Dict
+from pydantic import BaseModel
+
+class HealthStatus(BaseModel):
+    status: str
+    checks: Dict[str, Dict[str, str]]
+
+class ReadinessStatus(BaseModel):
+    status: str 
+    checks: Dict[str, Dict[str, str]]
+    admin_exists: str
 from fastapi import FastAPI, Depends, HTTPException, status, Request, Body
 from version import get_version
 from fastapi.security import OAuth2PasswordRequestForm
@@ -238,8 +248,8 @@ async def version() -> Dict[str, str]:
     """Get application version"""
     return {"version": get_version()}
 
-@api_v1.get("/health")
-async def health_check(db: Session = Depends(get_db)) -> Dict[str, str]:
+@api_v1.get("/health", response_model=HealthStatus)
+async def health_check(db: Session = Depends(get_db)) -> HealthStatus:
     """Health check endpoint"""
     try:
         # Check database
@@ -260,24 +270,24 @@ async def health_check(db: Session = Depends(get_db)) -> Dict[str, str]:
             logger.error(f"Redis health check failed: {str(e)}")
             redis_status = "unhealthy"
 
-        return {
-            "status": "healthy" if db_status == "healthy" and redis_status == "healthy" else "unhealthy",
-            "checks": {
+        return HealthStatus(
+            status="healthy" if db_status == "healthy" and redis_status == "healthy" else "unhealthy",
+            checks={
                 "database": {"status": db_status},
                 "redis": {"status": redis_status},
                 "api": {"status": "healthy"}
             }
-        }
+        )
     except Exception as e:
         logger.error(f"Health check failed: {str(e)}")
-        return {
-            "status": "unhealthy",
-            "checks": {
+        return HealthStatus(
+            status="unhealthy",
+            checks={
                 "database": {"status": "unknown"},
                 "redis": {"status": "unknown"},
                 "api": {"status": "unhealthy"}
             }
-        }
+        )
 
 @api_v1.post("/api-keys")
 async def create_api_key(
@@ -512,8 +522,8 @@ async def update_user_preferences(
     db.refresh(prefs)
     return prefs
 
-@api_v1.get("/ready")
-async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
+@api_v1.get("/ready", response_model=ReadinessStatus)
+async def readiness_check(db: Session = Depends(get_db)) -> ReadinessStatus:
     """Readiness check endpoint"""
     try:
         # Check database
@@ -537,23 +547,23 @@ async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
             logger.error(f"Redis readiness check failed: {str(e)}")
             redis_status = "not ready"
 
-        return {
-            "status": "ready" if db_status == "ready" and redis_status == "ready" else "not ready",
-            "checks": {
+        return ReadinessStatus(
+            status="ready" if db_status == "ready" and redis_status == "ready" else "not ready",
+            checks={
                 "database": {"status": db_status},
                 "redis": {"status": redis_status},
                 "api": {"status": "ready"}
             },
-            "admin_exists": str(admin_exists).lower()
-        }
+            admin_exists=str(admin_exists).lower()
+        )
     except Exception as e:
         logger.error(f"Readiness check failed: {str(e)}")
-        return {
-            "status": "not ready",
-            "checks": {
+        return ReadinessStatus(
+            status="not ready",
+            checks={
                 "database": {"status": "unknown"},
                 "redis": {"status": "unknown"},
                 "api": {"status": "not ready"}
             },
-            "admin_exists": "false"
-        }
+            admin_exists="false"
+        )
