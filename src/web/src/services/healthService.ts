@@ -24,13 +24,39 @@ axios.interceptors.response.use(
 );
 
 export const fetchHealthStatus = async () => {
-  const response = await axios.get(`${API_URL}/health`);
-  return response.data;
+  try {
+    const response = await axios.get(`${API_URL}/health`);
+    return {
+      status: response.data.status || 'unknown',
+      database: response.data.database || 'unknown',
+      redis: response.data.redis || 'unknown'
+    };
+  } catch (error) {
+    console.error('Health check failed:', error);
+    return {
+      status: 'down',
+      database: 'down',
+      redis: 'down'
+    };
+  }
 };
 
 export const fetchReadinessStatus = async () => {
-  const response = await axios.get(`${API_URL}/ready`);
-  return response.data;
+  try {
+    const response = await axios.get(`${API_URL}/ready`);
+    return {
+      status: response.data.status || 'unknown',
+      database: response.data.database || 'unknown',
+      redis: response.data.redis || 'unknown'
+    };
+  } catch (error) {
+    console.error('Readiness check failed:', error);
+    return {
+      status: 'down',
+      database: 'down',
+      redis: 'down'
+    };
+  }
 };
 
 export const fetchVersion = async () => {
