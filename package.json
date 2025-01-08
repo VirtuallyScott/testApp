@@ -2,8 +2,7 @@
   "name": "container-security-web",
   "version": "1.0.0",
   "scripts": {
-    "build": "react-scripts build",
-    "build:prod": "react-scripts build --production"
+    "build": "react-scripts build"
   },
   "dependencies": {
     "@mui/x-data-grid": "6.20.4",
