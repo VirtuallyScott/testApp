@@ -18,6 +18,7 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
 
   useEffect(() => {
     if (!isAuthenticated) {
+      console.log('Not authenticated, hiding admin links');
       setIsAdmin(false);
       return;
     }
@@ -27,7 +28,9 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
         try {
           const decoded = jwt_decode<DecodedToken>(token);
           console.log('Token decoded:', decoded); // Debug log
+          console.log('Admin status:', decoded.is_admin); // New debug log
           setIsAdmin(decoded.is_admin);
+          console.log('isAdmin state set to:', decoded.is_admin); // New debug log
         } catch (error) {
           console.error('Error decoding token:', error);
           setIsAdmin(false);
