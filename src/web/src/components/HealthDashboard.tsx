@@ -74,11 +74,25 @@ const HealthDashboard: React.FC = () => {
               <Typography variant="h6" gutterBottom>
                 Health Status
               </Typography>
-              <Box display="flex" alignItems="center" gap={1}>
-                <StatusIcon status={healthStatus?.status || 'down'} />
-                <Typography>
-                  {healthStatus?.status || 'Unknown'}
-                </Typography>
+              <Box display="flex" flexDirection="column" gap={1}>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <StatusIcon status={healthStatus?.status || 'down'} />
+                  <Typography>
+                    Overall: {healthStatus?.status || 'Unknown'}
+                  </Typography>
+                </Box>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <StatusIcon status={healthStatus?.database || 'down'} />
+                  <Typography>
+                    Database: {healthStatus?.database || 'Unknown'}
+                  </Typography>
+                </Box>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <StatusIcon status={healthStatus?.redis || 'down'} />
+                  <Typography>
+                    Redis: {healthStatus?.redis || 'Unknown'}
+                  </Typography>
+                </Box>
               </Box>
             </CardContent>
           </Card>
