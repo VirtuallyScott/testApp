@@ -99,5 +99,15 @@ BEGIN
             (SELECT id FROM roles WHERE name = 'admin')
         )
         ON CONFLICT (user_id, role_id) DO NOTHING;
+        
+        RAISE NOTICE 'Created admin user with ID %', admin_id;
+    ELSE
+        -- Ensure existing admin user has admin role
+        UPDATE user_roles 
+        SET role_id = (SELECT id FROM roles WHERE name = 'admin')
+        WHERE user_id = (SELECT id FROM users WHERE username = 'admin')
+        AND role_id IS NULL;
+        
+        RAISE NOTICE 'Verified admin role for existing admin user';
     END IF;
 END $$;

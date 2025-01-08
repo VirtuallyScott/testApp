@@ -407,9 +407,15 @@ async def get_current_user_roles(
     db: Session = Depends(get_db)
 ):
     """Get roles for current user"""
-    return {
-        "roles": [role.name for role in current_user.roles]
-    }
+    try:
+        # Refresh the user object to ensure we have latest roles
+        db.refresh(current_user)
+        roles = [role.name for role in current_user.roles]
+        logger.info(f"Retrieved roles for user {current_user.username}: {roles}")
+        return {"roles": roles}
+    except Exception as e:
+        logger.error(f"Error getting roles for user {current_user.username}: {str(e)}")
+        return {"roles": []}
 
 @api_v1.get("/ready")
 async def readiness_check(db: Session = Depends(get_db)) -> Dict[str, str]:
