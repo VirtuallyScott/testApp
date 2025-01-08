@@ -21,7 +21,6 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     password_hash = Column(String)
     is_active = Column(Boolean, default=True)
-    is_admin = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
     roles = relationship("Role", secondary=user_roles, back_populates="users")
     api_keys = relationship("ApiKey", back_populates="user")
