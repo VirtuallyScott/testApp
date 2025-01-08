@@ -14,9 +14,9 @@ RUN npm install
 # Copy source files
 COPY . .
 
-# Build the app
-RUN test -f .env || echo "REACT_APP_API_URL=/api/v1" > .env
+# Set environment variables and build
 ENV NODE_ENV=production
+ENV REACT_APP_API_URL=/api/v1
 RUN npm run build
 
 # Runtime stage
