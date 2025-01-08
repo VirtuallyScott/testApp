@@ -39,6 +39,37 @@ When running, visit:
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 
+### Health and Readiness Endpoints
+
+The API provides two monitoring endpoints:
+
+#### Health Check (/api/v1/health)
+Returns the health status of all system components:
+```json
+{
+  "status": "healthy",
+  "checks": {
+    "database": {"status": "healthy"},
+    "redis": {"status": "healthy"},
+    "api": {"status": "healthy"}
+  }
+}
+```
+
+#### Readiness Check (/api/v1/ready)
+Returns the readiness status of all system components:
+```json
+{
+  "status": "ready",
+  "checks": {
+    "database": {"status": "ready"},
+    "redis": {"status": "ready"},
+    "api": {"status": "ready"}
+  },
+  "admin_exists": "true"
+}
+```
+
 ## Docker Build Features
 
 - Multi-stage build process

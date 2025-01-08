@@ -73,12 +73,19 @@ The application uses JWT-based authentication with:
 ## Health Monitoring
 
 The application includes a comprehensive health monitoring dashboard that shows:
-- API service status (/health endpoint)
-- System readiness status (/ready endpoint)
-- Database connectivity
-- Redis cache status
+- Overall system health status
+- Individual service status monitoring:
+  - API service health
+  - Database connectivity
+  - Redis cache status
+- System readiness checks:
+  - API readiness
+  - Database readiness
+  - Redis readiness
+- Admin user status
 - Version information
-- Detailed service metrics
+- Auto-refresh every 30 seconds
+- Visual status indicators
 
 ## Security Features
 
