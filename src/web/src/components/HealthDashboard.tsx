@@ -16,6 +16,7 @@ interface ServiceStatus {
   status: string;
   database?: string;
   redis?: string;
+  api?: string;
 }
 
 const HealthDashboard: React.FC = () => {
@@ -93,6 +94,12 @@ const HealthDashboard: React.FC = () => {
                     Redis: {healthStatus?.redis || 'Unknown'}
                   </Typography>
                 </Box>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <StatusIcon status={healthStatus?.api || 'down'} />
+                  <Typography>
+                    API: {healthStatus?.api || 'Unknown'}
+                  </Typography>
+                </Box>
               </Box>
             </CardContent>
           </Card>
@@ -121,6 +128,12 @@ const HealthDashboard: React.FC = () => {
                   <StatusIcon status={readyStatus?.redis || 'down'} />
                   <Typography>
                     Redis: {readyStatus?.redis || 'Unknown'}
+                  </Typography>
+                </Box>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <StatusIcon status={readyStatus?.api || 'down'} />
+                  <Typography>
+                    API: {readyStatus?.api || 'Unknown'}
                   </Typography>
                 </Box>
               </Box>
