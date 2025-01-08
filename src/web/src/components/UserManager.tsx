@@ -99,6 +99,11 @@ const UserManager: React.FC = () => {
     }
   };
 
+  const onLogout = () => {
+    localStorage.removeItem('access_token');
+    window.location.href = '/login';
+  };
+
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" gutterBottom>
