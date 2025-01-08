@@ -3,39 +3,32 @@ FROM alpine:3.18 AS version
 COPY get_version.sh /get_version.sh
 RUN chmod +x /get_version.sh
 RUN apk add --no-cache git
-RUN VERSION=$(/get_version.sh)
-
-# Dependency stage
-FROM node:18-alpine AS deps
-WORKDIR /app
-COPY package.json package-lock.json ./
-
-# Install system dependencies first
-RUN apk add --no-cache python3 make g++
-
-# Install production dependencies
-RUN npm ci --production
+RUN /get_version.sh > /version
 
 # Build stage
 FROM node:18-alpine AS builder
-ARG VERSION
 WORKDIR /app
+
+# Get version from previous stage
+COPY --from=version /version /version
+ARG VERSION=$(cat /version)
 
 # Install system dependencies
 RUN apk add --no-cache python3 make g++
 
-# Copy production dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
+# Copy package files
+COPY package.json package-lock.json ./
+
+# Install all dependencies (including dev dependencies)
+RUN npm ci
 
 # Copy source files
 COPY . .
 
-# Install dev dependencies
-RUN npm ci --only=development
-
 # Build the app
 RUN test -f .env || echo "REACT_APP_API_URL=/api/v1" > .env
-ENV NODE_ENV=production
+ENV NODE_ENV=production \
+    REACT_APP_VERSION=${VERSION}
 RUN npm run build
 
 # Runtime stage
