@@ -1,12 +1,15 @@
 {
   "scripts": {
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "build:prod": "react-scripts build --production"
   },
   "dependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@mui/x-data-grid": "^6.20.4",
     "react-router-dom": "^7.1.1",
-    "react-scripts": "^5.0.1",
     "reselect": "^4.1.8"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "react-scripts": "^5.0.1"
   }
 }
