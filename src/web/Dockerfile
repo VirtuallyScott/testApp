@@ -8,8 +8,9 @@ RUN apk add --no-cache python3 make g++
 # Copy package files
 COPY package.json package-lock.json ./
 
-# Install dependencies
-RUN npm install --legacy-peer-deps
+# Install dependencies with cache
+RUN --mount=type=cache,target=/root/.npm \
+    npm install --legacy-peer-deps --prefer-offline
 
 # Copy source files
 COPY . .
@@ -17,7 +18,11 @@ COPY . .
 # Set environment variables and build
 ENV NODE_ENV=production
 ENV REACT_APP_API_URL=/api/v1
-RUN npm run build -- --max-old-space-size=4096
+ENV GENERATE_SOURCEMAP=false
+
+# Build with increased memory and cache
+RUN --mount=type=cache,target=/app/.cache \
+    npm run build
 
 # Runtime stage
 FROM nginx:1.25-alpine
