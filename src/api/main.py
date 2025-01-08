@@ -309,13 +309,30 @@ async def delete_api_key(
 
 @api_v1.post("/users")
 async def create_user(
-    username: str,
-    email: str,
-    password: str,
-    is_active: bool = True,
+    request: Request,
     current_user: models.User = Depends(auth.check_admin_role),
     db: Session = Depends(get_db)
 ):
+    try:
+        # Try to parse as JSON first
+        json_data = await request.json()
+        username = json_data.get("username")
+        email = json_data.get("email")
+        password = json_data.get("password")
+        is_active = json_data.get("is_active", True)
+    except:
+        # Fall back to form data
+        form_data = await request.form()
+        username = form_data.get("username")
+        email = form_data.get("email")
+        password = form_data.get("password")
+        is_active = form_data.get("is_active", "true").lower() == "true"
+    
+    if not username or not email or not password:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Username, email and password are required"
+        )
     """Create a new user"""
     # Check if username already exists
     existing_user = db.query(models.User).filter(models.User.username == username).first()
