@@ -56,11 +56,10 @@ const HealthDashboard: React.FC = () => {
     );
   }
 
-  const StatusIcon = ({ status }: { status: string }) => (
-    status === 'healthy' || status === 'up' || status === 'ready' 
-      ? <CheckCircleIcon color="success" />
-      : <ErrorIcon color="error" />
-  );
+  const StatusIcon = ({ status }: { status: string }) => {
+    const isHealthy = status === 'healthy' || status === 'ready';
+    return isHealthy ? <CheckCircleIcon color="success" /> : <ErrorIcon color="error" />;
+  };
 
   return (
     <Paper sx={{ p: 3 }}>
