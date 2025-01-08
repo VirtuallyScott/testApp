@@ -3,17 +3,37 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#1976d2" />
-    <meta
-      name="description"
-      content="Three-tier application dashboard"
-    />
+    <meta name="description" content="Three-tier application dashboard" />
+    <meta name="robots" content="index,follow" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="stylesheet" href="%PUBLIC_URL%/styles.css">
-    <title>System Dashboard</title>
+    <title>Container Security Dashboard</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <noscript>
+      <div style="text-align: center; margin-top: 20%;">
+        <h1>JavaScript is required to run this application</h1>
+        <p>Please enable JavaScript in your browser settings and refresh the page.</p>
+      </div>
+    </noscript>
+    <div id="root">
+      <div style="text-align: center; margin-top: 20%;">
+        <h1>Loading application...</h1>
+      </div>
+    </div>
+    <script>
+      // Error handling for failed loading
+      window.addEventListener('error', function(event) {
+        document.getElementById('root').innerHTML = `
+          <div style="text-align: center; margin-top: 20%;">
+            <h1>Application Error</h1>
+            <p>Failed to load the application. Please try refreshing the page.</p>
+            <p>If the problem persists, contact support.</p>
+          </div>
+        `;
+      });
+    </script>
   </body>
 </html>
