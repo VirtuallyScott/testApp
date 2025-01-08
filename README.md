@@ -4,7 +4,19 @@ A modern three-tier application for container security scanning and monitoring.
 
 ## Features
 
+![Login Screen](docs/screenshots/login_screen.png)
+*Login Screen with secure authentication*
+
+![Dashboard](docs/screenshots/dashboard.png) 
+*Main dashboard showing system health and metrics*
+
 - **Web Frontend**: React/TypeScript with Material UI
+
+![Scan Results](docs/screenshots/scan_results_1.png)
+*Detailed scan results showing vulnerabilities*
+
+![User Management](docs/screenshots/user_management.png)
+*User management interface for administrators*
 - **API Backend**: FastAPI/Python with JWT authentication
 - **Database**: PostgreSQL for persistent storage
 - **Redis**: Session management and caching
@@ -30,6 +42,15 @@ tests/          # Test suites for TDD
 postman/        # Postman Collections for API testing
 scripts/        # Development and deployment scripts
 ```
+
+## Screenshots
+
+| Feature | Screenshot |
+|---------|------------|
+| Login Screen | ![Login](docs/screenshots/login_screen.png) |
+| Dashboard | ![Dashboard](docs/screenshots/dashboard.png) |
+| Scan Results | ![Scan Results](docs/screenshots/scan_results_1.png) ![Scan Results 2](docs/screenshots/scan_results_2.png) |
+| User Management | ![User Management](docs/screenshots/user_management.png) |
 
 ## Development Setup
 
