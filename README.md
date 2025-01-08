@@ -15,6 +15,9 @@ A modern three-tier application for container security scanning and monitoring.
 
 ## Directory Structure
 ```
+docs/
+├── screenshots/  # Application screenshots for documentation
+
 src/
 ├── web/         # React frontend
 ├── api/         # FastAPI backend
