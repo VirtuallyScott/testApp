@@ -90,7 +90,7 @@ const ScanResults: React.FC = () => {
     };
 
     fetchScans();
-  }, []);
+  }, [page, perPage, sortBy, sortOrder]);
 
   const handleVulnerabilityClick = async (scan: Scan, severity: string) => {
     try {
@@ -272,8 +272,14 @@ const ScanResults: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {scans.map((scan) => (
-              <TableRow key={scan.id}>
+            {scans.map((scan, index) => (
+              <TableRow 
+                key={scan.id}
+                sx={{ 
+                  backgroundColor: index % 2 === 0 ? 'inherit' : 'action.hover',
+                  '&:hover': { backgroundColor: 'action.selected' }
+                }}
+              >
                 <TableCell>{scan.image_name}</TableCell>
                 <TableCell>{scan.image_tag}</TableCell>
                 <TableCell>{new Date(scan.scan_timestamp).toLocaleString()}</TableCell>

@@ -206,11 +206,21 @@ async def list_scans(
         # Build query
         query = db.query(models.ScanResult)
         
-        # Apply sorting
+        # Validate and apply sorting
+        valid_sort_fields = {
+            "scan_timestamp": models.ScanResult.scan_timestamp,
+            "image_name": models.ScanResult.image_name,
+            "severity_critical": models.ScanResult.severity_critical,
+            "severity_high": models.ScanResult.severity_high,
+            "severity_medium": models.ScanResult.severity_medium,
+            "severity_low": models.ScanResult.severity_low
+        }
+        
+        sort_field = valid_sort_fields.get(sort_by, models.ScanResult.scan_timestamp)
         if sort_order.lower() == "asc":
-            query = query.order_by(getattr(models.ScanResult, sort_by).asc())
+            query = query.order_by(sort_field.asc())
         else:
-            query = query.order_by(getattr(models.ScanResult, sort_by).desc())
+            query = query.order_by(sort_field.desc())
             
         # Get total count
         total_count = query.count()
