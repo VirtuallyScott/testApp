@@ -56,6 +56,11 @@ interface Scan {
 const ScanResults: React.FC = () => {
   const [scans, setScans] = useState<Scan[]>([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(25);
+  const [totalPages, setTotalPages] = useState(1);
+  const [sortBy, setSortBy] = useState('scan_timestamp');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [openDialog, setOpenDialog] = useState(false);
   const [currentVulnerabilities, setCurrentVulnerabilities] = useState<Vulnerability[]>([]);
   const [currentSeverity, setCurrentSeverity] = useState('');
@@ -64,8 +69,16 @@ const ScanResults: React.FC = () => {
   useEffect(() => {
     const fetchScans = async () => {
       try {
-        const response = await axios.get('/api/v1/scans');
-        setScans(response.data);
+        const response = await axios.get('/api/v1/scans', {
+          params: {
+            page,
+            per_page: perPage,
+            sort_by: sortBy,
+            sort_order: sortOrder
+          }
+        });
+        setScans(response.data.items);
+        setTotalPages(response.data.total_pages);
       } catch (error) {
         console.error('Error fetching scans:', error);
       } finally {
@@ -146,20 +159,112 @@ const ScanResults: React.FC = () => {
   return (
     <>
       <Paper sx={{ p: 3, mt: 2 }}>
-        <Typography variant="h4" gutterBottom>
-          Scan Results
-        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+          <Typography variant="h4">
+            Scan Results
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+            <TextField
+              select
+              label="Results per page"
+              value={perPage}
+              onChange={(e) => {
+                setPerPage(Number(e.target.value));
+                setPage(1);
+              }}
+              sx={{ width: 100 }}
+            >
+              {[10, 25, 50, 100].map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+        </Box>
         <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Image Name</TableCell>
+              <TableCell 
+                onClick={() => {
+                  if (sortBy === 'image_name') {
+                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                  } else {
+                    setSortBy('image_name');
+                    setSortOrder('asc');
+                  }
+                }}
+                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+              >
+                Image Name {sortBy === 'image_name' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </TableCell>
               <TableCell>Tag</TableCell>
-              <TableCell>Scan Date</TableCell>
-              <TableCell>Critical</TableCell>
-              <TableCell>High</TableCell>
-              <TableCell>Medium</TableCell>
-              <TableCell>Low</TableCell>
+              <TableCell 
+                onClick={() => {
+                  if (sortBy === 'scan_timestamp') {
+                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                  } else {
+                    setSortBy('scan_timestamp');
+                    setSortOrder('asc');
+                  }
+                }}
+                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+              >
+                Scan Date {sortBy === 'scan_timestamp' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </TableCell>
+              <TableCell 
+                onClick={() => {
+                  if (sortBy === 'severity_critical') {
+                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                  } else {
+                    setSortBy('severity_critical');
+                    setSortOrder('desc');
+                  }
+                }}
+                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+              >
+                Critical {sortBy === 'severity_critical' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </TableCell>
+              <TableCell 
+                onClick={() => {
+                  if (sortBy === 'severity_high') {
+                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                  } else {
+                    setSortBy('severity_high');
+                    setSortOrder('desc');
+                  }
+                }}
+                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+              >
+                High {sortBy === 'severity_high' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </TableCell>
+              <TableCell 
+                onClick={() => {
+                  if (sortBy === 'severity_medium') {
+                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                  } else {
+                    setSortBy('severity_medium');
+                    setSortOrder('desc');
+                  }
+                }}
+                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+              >
+                Medium {sortBy === 'severity_medium' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </TableCell>
+              <TableCell 
+                onClick={() => {
+                  if (sortBy === 'severity_low') {
+                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                  } else {
+                    setSortBy('severity_low');
+                    setSortOrder('desc');
+                  }
+                }}
+                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+              >
+                Low {sortBy === 'severity_low' && (sortOrder === 'asc' ? '↑' : '↓')}
+              </TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -210,6 +315,17 @@ const ScanResults: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      
+      <Box sx={{ mt: 2, display: 'flex', justifyContent: 'center' }}>
+        <Pagination 
+          count={totalPages} 
+          page={page} 
+          onChange={(_, value) => setPage(value)}
+          color="primary"
+          showFirstButton 
+          showLastButton
+        />
+      </Box>
       </Paper>
 
       <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth>
