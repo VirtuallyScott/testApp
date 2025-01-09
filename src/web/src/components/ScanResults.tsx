@@ -80,12 +80,6 @@ const ScanResults: React.FC = () => {
           sort_order: sortOrder
         });
         
-        // Reset to page 1 when sorting changes
-        if (page !== 1 && (sortBy || sortOrder)) {
-          setPage(1);
-          return;
-        }
-        
         const response = await axios.get(`/api/v1/scans?${params.toString()}`, {
           headers: {
             'Cache-Control': 'no-cache',
@@ -104,6 +98,17 @@ const ScanResults: React.FC = () => {
     fetchScans();
     // Fetch scans whenever page, perPage, sortBy, or sortOrder changes
   }, [page, perPage, sortBy, sortOrder]);
+
+  // Separate function to handle sorting
+  const handleSort = (column: string) => {
+    if (sortBy === column) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortBy(column);
+      setSortOrder('desc'); // Default to descending when changing columns
+    }
+    setPage(1); // Reset to first page when sorting changes
+  };
 
   const handleVulnerabilityClick = async (scan: Scan, severity: string) => {
     try {
@@ -203,10 +208,7 @@ const ScanResults: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell 
-                onClick={() => {
-                  setSortBy('image_name');
-                  setSortOrder(sortBy === 'image_name' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'asc');
-                }}
+                onClick={() => handleSort('image_name')}
                 sx={{ 
                   cursor: 'pointer', 
                   '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
@@ -218,10 +220,7 @@ const ScanResults: React.FC = () => {
               </TableCell>
               <TableCell>Tag</TableCell>
               <TableCell 
-                onClick={() => {
-                  setSortBy('scan_timestamp');
-                  setSortOrder(sortBy === 'scan_timestamp' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
-                }}
+                onClick={() => handleSort('scan_timestamp')}
                 sx={{ 
                   cursor: 'pointer', 
                   '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
@@ -231,10 +230,7 @@ const ScanResults: React.FC = () => {
                 Scan Date {sortBy === 'scan_timestamp' && (sortOrder === 'asc' ? '▲' : '▼')}
               </TableCell>
               <TableCell 
-                onClick={() => {
-                  setSortBy('severity_critical');
-                  setSortOrder(sortBy === 'severity_critical' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
-                }}
+                onClick={() => handleSort('severity_critical')}
                 sx={{ 
                   cursor: 'pointer', 
                   '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
@@ -246,10 +242,7 @@ const ScanResults: React.FC = () => {
                 Critical {sortBy === 'severity_critical' && (sortOrder === 'asc' ? '▲' : '▼')}
               </TableCell>
               <TableCell 
-                onClick={() => {
-                  setSortBy('severity_high');
-                  setSortOrder(sortBy === 'severity_high' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
-                }}
+                onClick={() => handleSort('severity_high')}
                 sx={{ 
                   cursor: 'pointer', 
                   '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
@@ -259,10 +252,7 @@ const ScanResults: React.FC = () => {
                 High {sortBy === 'severity_high' && (sortOrder === 'asc' ? '▲' : '▼')}
               </TableCell>
               <TableCell 
-                onClick={() => {
-                  setSortBy('severity_medium');
-                  setSortOrder(sortBy === 'severity_medium' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
-                }}
+                onClick={() => handleSort('severity_medium')}
                 sx={{ 
                   cursor: 'pointer', 
                   '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
@@ -272,10 +262,7 @@ const ScanResults: React.FC = () => {
                 Medium {sortBy === 'severity_medium' && (sortOrder === 'asc' ? '▲' : '▼')}
               </TableCell>
               <TableCell 
-                onClick={() => {
-                  setSortBy('severity_low');
-                  setSortOrder(sortBy === 'severity_low' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
-                }}
+                onClick={() => handleSort('severity_low')}
                 sx={{ 
                   cursor: 'pointer', 
                   '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
