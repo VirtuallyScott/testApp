@@ -41,6 +41,23 @@ export const createApiKey = async (name: string, expires_in_days: number): Promi
   }
 };
 
+export const extendApiKey = async (id: number, days: number): Promise<void> => {
+  try {
+    await axios.put(`/api/v1/api-keys/${id}/extend`, 
+      { days },
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+  } catch (error) {
+    console.error('Error extending API key:', error);
+    throw error;
+  }
+};
+
 export const deleteApiKey = async (id: number): Promise<void> => {
   try {
     await axios.delete(`/api/v1/api-keys/${id}`, {

@@ -338,6 +338,35 @@ async def list_api_keys(
         "last_used_at": key.last_used_at
     } for key in keys]
 
+@api_v1.put("/api-keys/{key_id}/extend")
+async def extend_api_key(
+    key_id: int,
+    days: int = Body(..., embed=True),
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Extend an API key's expiration date"""
+    key = db.query(models.ApiKey).filter(
+        models.ApiKey.id == key_id,
+        models.ApiKey.user_id == current_user.id
+    ).first()
+    
+    if not key:
+        raise HTTPException(status_code=404, detail="API key not found")
+    
+    if not key.expires_at:
+        raise HTTPException(status_code=400, detail="API key has no expiration date")
+    
+    key.expires_at = key.expires_at + timedelta(days=days)
+    db.commit()
+    db.refresh(key)
+    
+    return {
+        "id": key.id,
+        "name": key.name,
+        "expires_at": key.expires_at
+    }
+
 @api_v1.delete("/api-keys/{key_id}")
 async def delete_api_key(
     key_id: int,
