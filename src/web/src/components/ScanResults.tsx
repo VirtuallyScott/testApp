@@ -79,10 +79,19 @@ const ScanResults: React.FC = () => {
   const handleVulnerabilityClick = async (scan: Scan, severity: string) => {
     try {
       const response = await axios.get(`/api/v1/scans/${scan.id}`);
-      const vulnerabilities = response.data.raw_results?.vulnerabilities || [];
-      const filteredVulns = vulnerabilities.filter((vuln: Vulnerability) => 
-        vuln.severity.toLowerCase() === severity.toLowerCase()
-      );
+      const rawResults = response.data.raw_results || {};
+      const vulnerabilities = rawResults.Results?.[0]?.Vulnerabilities || [];
+      const filteredVulns = vulnerabilities.filter((vuln: any) => 
+        vuln.Severity?.toLowerCase() === severity.toLowerCase()
+      ).map((vuln: any) => ({
+        id: vuln.VulnerabilityID || '',
+        title: vuln.Title || '',
+        description: vuln.Description || '',
+        severity: vuln.Severity || '',
+        package_name: vuln.PkgName || '',
+        installed_version: vuln.InstalledVersion || '',
+        fixed_version: vuln.FixedVersion || ''
+      }));
       setCurrentVulnerabilities(filteredVulns);
       setCurrentSeverity(severity.toUpperCase());
       setOpenDialog(true);
@@ -92,6 +101,12 @@ const ScanResults: React.FC = () => {
       setCurrentVulnerabilities([]);
       setCurrentSeverity('ERROR');
       setOpenDialog(true);
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.detail || 'Failed to fetch vulnerability details';
+        alert(errorMessage);
+      } else {
+        alert('An unexpected error occurred while fetching vulnerability details');
+      }
     }
   };
 
