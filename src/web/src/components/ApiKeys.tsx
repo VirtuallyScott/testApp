@@ -18,7 +18,7 @@ import {
 import { Delete, Pause, PlayArrow, Update } from '@mui/icons-material';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-import { fetchApiKeys, createApiKey, deleteApiKey, suspendApiKey } from '../services/apiKeyService';
+import { fetchApiKeys, createApiKey, deleteApiKey, suspendApiKey, extendApiKey } from '../services/apiKeyService';
 import { getCurrentUserRoles } from '../services/authService';
 
 interface ApiKey {
