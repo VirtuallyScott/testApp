@@ -82,7 +82,7 @@ const ScanDetail: React.FC = () => {
       <Typography variant="h6" gutterBottom>
         Basic Information
       </Typography>
-      <TableContainer component={Paper} sx={{ mb: 3 }}>
+      <TableContainer component={Paper} sx={{ mb: 3, maxWidth: '100vw', overflowX: 'auto' }}>
         <Table>
           <TableBody>
             <TableRow>

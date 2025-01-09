@@ -223,7 +223,7 @@ const ScanResults: React.FC = () => {
             </TextField>
           </Box>
         </Box>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ maxWidth: '100vw', overflowX: 'auto' }}>
         <Table>
           <TableHead>
             <TableRow>
