@@ -159,8 +159,8 @@ app = FastAPI(
             }
         }
     ],
-    docs_url="/api/docs",
-    redoc_url="/api/redoc"
+    docs_url="/docs",
+    redoc_url="/redoc"
 )
 
 # Create sub-application for API v1
