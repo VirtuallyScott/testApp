@@ -198,15 +198,7 @@ async def list_scans(
     try:
         logger.info(f"User {current_user.username} requesting scan list - page {page}, per_page {per_page}")
         
-        # Validate sort parameters
-        valid_sort_fields = ["scan_timestamp", "image_name", "severity_critical", "severity_high", "severity_medium", "severity_low"]
-        if sort_by not in valid_sort_fields:
-            sort_by = "scan_timestamp"
-        
-        # Build query
-        query = db.query(models.ScanResult)
-        
-        # Validate and apply sorting
+        # Validate and normalize sort parameters
         valid_sort_fields = {
             "scan_timestamp": models.ScanResult.scan_timestamp,
             "image_name": models.ScanResult.image_name,
