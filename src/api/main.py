@@ -216,6 +216,31 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@api_v1.post("/logout",
+    summary="Logout user",
+    description="Invalidate current session token",
+    responses={
+        200: {"description": "Successfully logged out"},
+        401: {"description": "Not authenticated"}
+    },
+    tags=["Authentication"]
+)
+async def logout(
+    current_user: models.User = Depends(get_current_user)
+):
+    """Logout endpoint to invalidate token"""
+    token = request.headers.get("Authorization", "").replace("Bearer ", "")
+    if token:
+        redis_client = redis.Redis(
+            host='redis',
+            port=6379,
+            password='redis_password',
+            db=0,
+            decode_responses=True
+        )
+        redis_client.delete(f"token:{token}")
+    return {"status": "logged out"}
+
 @api_v1.post("/token", 
     response_model=dict,
     summary="Create access token",

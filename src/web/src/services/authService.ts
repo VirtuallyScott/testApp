@@ -1,9 +1,22 @@
 import axios from 'axios';
 import { useCallback } from 'react';
 
-export const logout = () => {
-  localStorage.removeItem('access_token');
-  window.location.href = '/login';
+export const logout = async () => {
+  try {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      await axios.post('/api/v1/logout', null, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+    }
+  } catch (error) {
+    console.error('Error during logout:', error);
+  } finally {
+    localStorage.removeItem('access_token');
+    window.location.href = '/login';
+  }
 };
 
 export const getCurrentUserRoles = async (): Promise<string[]> => {
