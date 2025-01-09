@@ -191,13 +191,18 @@ const ScanResults: React.FC = () => {
             <TableRow>
               <TableCell 
                 onClick={() => {
-                  setSortBy('image_name');
-                  setSortOrder(sortBy === 'image_name' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'asc');
+                  if (sortBy === 'image_name') {
+                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                  } else {
+                    setSortBy('image_name');
+                    setSortOrder('asc');
+                  }
                 }}
                 sx={{ 
                   cursor: 'pointer', 
                   '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
-                  fontWeight: sortBy === 'image_name' ? 'bold' : 'normal'
+                  fontWeight: sortBy === 'image_name' ? 'bold' : 'normal',
+                  userSelect: 'none'
                 }}
               >
                 Image Name {sortBy === 'image_name' && (sortOrder === 'asc' ? '▲' : '▼')}
@@ -218,13 +223,19 @@ const ScanResults: React.FC = () => {
               </TableCell>
               <TableCell 
                 onClick={() => {
-                  setSortBy('severity_critical');
-                  setSortOrder(sortBy === 'severity_critical' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
+                  if (sortBy === 'severity_critical') {
+                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+                  } else {
+                    setSortBy('severity_critical');
+                    setSortOrder('desc');
+                  }
                 }}
                 sx={{ 
                   cursor: 'pointer', 
                   '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
-                  fontWeight: sortBy === 'severity_critical' ? 'bold' : 'normal'
+                  fontWeight: sortBy === 'severity_critical' ? 'bold' : 'normal',
+                  color: 'error.main',
+                  userSelect: 'none'
                 }}
               >
                 Critical {sortBy === 'severity_critical' && (sortOrder === 'asc' ? '▲' : '▼')}

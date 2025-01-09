@@ -14,8 +14,11 @@ React/TypeScript frontend for the container security scanning system.
 - Automatic API token refresh handling
 - Error boundary and 401 redirect handling
 - Version information in footer
-- Scan results management
-- JSON download functionality
+- Scan results management with:
+  - Sortable columns (click headers to sort)
+  - Alternating row shading
+  - Severity-based color coding
+  - JSON download functionality
 
 ## Development
 
