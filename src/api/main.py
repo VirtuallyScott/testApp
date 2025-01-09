@@ -39,10 +39,32 @@ except Exception as e:
     raise
 
 # Create main FastAPI app
-app = FastAPI(title="Container Security Scan API")
+app = FastAPI(
+    title="Container Security Scan API",
+    description="""
+    API for managing container security scans and user access.
+    
+    ## Features
+    * Upload and retrieve container security scan results
+    * User authentication and management
+    * API key management
+    * Health and readiness monitoring
+    """,
+    version="1.0.0",
+    contact={
+        "name": "Container Security Team",
+        "url": "https://github.com/yourusername/container-security",
+    },
+    license_info={
+        "name": "MIT",
+    }
+)
 
 # Create sub-application for API v1
-api_v1 = FastAPI()
+api_v1 = FastAPI(
+    title="Container Security API v1",
+    description="Version 1 of the Container Security API"
+)
 
 # Mount the API v1 sub-application
 app.mount("/api/v1", api_v1)
@@ -56,7 +78,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@api_v1.post("/token")
+@api_v1.post("/token", 
+    response_model=dict,
+    summary="Create access token",
+    description="Authenticate user and return JWT access token",
+    responses={
+        200: {
+            "description": "Successful authentication",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                        "token_type": "bearer"
+                    }
+                }
+            }
+        },
+        401: {"description": "Invalid credentials"},
+        422: {"description": "Validation error"}
+    },
+    tags=["Authentication"]
+)
 async def login(
     request: Request,
     db: Session = Depends(get_db)
@@ -149,7 +191,21 @@ async def login(
             detail="Internal server error",
         )
 
-@api_v1.post("/scans")
+@api_v1.post("/scans",
+    response_model=models.ScanResult,
+    summary="Upload scan results",
+    description="""
+    Upload new security scan results for a container image.
+    Requires authentication via JWT token or API key.
+    """,
+    responses={
+        200: {"description": "Scan results uploaded successfully"},
+        400: {"description": "Invalid scan data"},
+        401: {"description": "Not authenticated"},
+        422: {"description": "Validation error"}
+    },
+    tags=["Scans"]
+)
 async def upload_scan(
     scan_data: Dict,
     current_user: models.User = Depends(auth.get_current_user),
@@ -185,7 +241,43 @@ async def upload_scan(
     db.refresh(scan_result)
     return scan_result
 
-@api_v1.get("/scans")
+@api_v1.get("/scans",
+    response_model=Dict,
+    summary="List scan results",
+    description="""
+    Retrieve paginated list of security scan results.
+    Supports sorting and filtering options.
+    """,
+    responses={
+        200: {
+            "description": "List of scan results",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "items": [
+                            {
+                                "id": 1,
+                                "image_name": "nginx",
+                                "image_tag": "latest",
+                                "severity_critical": 0,
+                                "severity_high": 2,
+                                "severity_medium": 5,
+                                "severity_low": 10
+                            }
+                        ],
+                        "total": 100,
+                        "page": 1,
+                        "per_page": 25,
+                        "total_pages": 4
+                    }
+                }
+            }
+        },
+        401: {"description": "Not authenticated"},
+        500: {"description": "Internal server error"}
+    },
+    tags=["Scans"]
+)
 async def list_scans(
     page: int = 1,
     per_page: int = 25,
