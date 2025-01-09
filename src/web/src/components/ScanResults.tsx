@@ -278,10 +278,6 @@ const ScanResults: React.FC = () => {
             {scans.map((scan, index) => (
               <TableRow 
                 key={scan.id}
-                sx={{ 
-                  backgroundColor: index % 2 === 0 ? 'inherit' : 'rgba(0, 0, 0, 0.04)',
-                  '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.08)' }
-                }}
               >
                 <TableCell>{scan.image_name}</TableCell>
                 <TableCell>{scan.image_tag}</TableCell>
