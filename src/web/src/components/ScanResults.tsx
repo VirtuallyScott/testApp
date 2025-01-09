@@ -79,6 +79,11 @@ const ScanResults: React.FC = () => {
             per_page: perPage,
             sort_by: sortBy,
             sort_order: sortOrder
+          },
+          // Prevent caching of results
+          headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
           }
         });
         setScans(response.data.items);
@@ -280,8 +285,8 @@ const ScanResults: React.FC = () => {
               <TableRow 
                 key={scan.id}
                 sx={{ 
-                  backgroundColor: index % 2 === 0 ? 'inherit' : 'action.hover',
-                  '&:hover': { backgroundColor: 'action.selected' }
+                  backgroundColor: index % 2 === 0 ? 'inherit' : 'rgba(0, 0, 0, 0.04)',
+                  '&:hover': { backgroundColor: 'rgba(0, 0, 0, 0.08)' }
                 }}
               >
                 <TableCell>{scan.image_name}</TableCell>
