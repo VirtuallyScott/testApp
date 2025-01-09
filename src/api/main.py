@@ -73,16 +73,39 @@ app = FastAPI(
     * JWT Bearer token - Obtained via /api/v1/token endpoint
     * API Key - Created and managed via /api/v1/api-keys endpoints
     
+    ### JWT Authentication
+    1. Call POST /api/v1/token with username/password
+    2. Include token in Authorization header:
+       `Authorization: Bearer <token>`
+    
+    ### API Key Authentication
+    1. Create API key via POST /api/v1/api-keys
+    2. Include key in X-API-Key header:
+       `X-API-Key: <api_key>`
+    
     ## Rate Limiting
-    API endpoints are rate limited to prevent abuse. Limits vary by endpoint.
+    API endpoints are rate limited to prevent abuse:
+    * Authentication endpoints: 5 requests per minute
+    * Scan upload: 10 requests per minute
+    * Other endpoints: 60 requests per minute
     
     ## Error Responses
-    The API uses standard HTTP status codes and returns error details in the response body:
+    The API uses standard HTTP status codes and returns error details:
     ```json
     {
-        "detail": "Error message"
+        "detail": "Error message",
+        "error_code": "ERROR_CODE",
+        "timestamp": "2024-01-09T12:00:00Z"
     }
     ```
+    
+    ## Common Error Codes
+    * AUTH001 - Invalid credentials
+    * AUTH002 - Token expired
+    * SCAN001 - Invalid scan data
+    * SCAN002 - Duplicate scan
+    * USER001 - User not found
+    * USER002 - Invalid permissions
     """,
     version="1.0.0",
     contact={
@@ -97,23 +120,43 @@ app = FastAPI(
     openapi_tags=[
         {
             "name": "Authentication",
-            "description": "Operations for authentication and authorization"
+            "description": "Operations for authentication and authorization",
+            "externalDocs": {
+                "description": "Auth Specification",
+                "url": "https://example.com/docs/auth"
+            }
         },
         {
             "name": "Scans",
-            "description": "Operations for managing security scan results"
+            "description": "Operations for managing security scan results",
+            "externalDocs": {
+                "description": "Scan Format Specification",
+                "url": "https://example.com/docs/scans"
+            }
         },
         {
             "name": "Users",
-            "description": "User management operations (admin only)"
+            "description": "User management operations (admin only)",
+            "externalDocs": {
+                "description": "User Management Guide",
+                "url": "https://example.com/docs/users"
+            }
         },
         {
             "name": "API Keys",
-            "description": "API key management operations"
+            "description": "API key management operations",
+            "externalDocs": {
+                "description": "API Key Documentation",
+                "url": "https://example.com/docs/api-keys"
+            }
         },
         {
             "name": "Health",
-            "description": "Health and readiness check endpoints"
+            "description": "Health and readiness check endpoints",
+            "externalDocs": {
+                "description": "Monitoring Guide",
+                "url": "https://example.com/docs/monitoring"
+            }
         }
     ],
     docs_url="/api/docs",
