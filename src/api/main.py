@@ -1,7 +1,25 @@
 import os
 from datetime import datetime, timedelta
-from typing import Optional, Dict
+from typing import Optional, Dict, List
+from datetime import datetime
 from pydantic import BaseModel
+
+class ScanResultResponse(BaseModel):
+    id: int
+    image_name: str
+    image_tag: str
+    image_sha256: str
+    scanner_type: str
+    scan_timestamp: datetime
+    severity_critical: int = 0
+    severity_high: int = 0
+    severity_medium: int = 0
+    severity_low: int = 0
+    raw_results: Dict
+    uploaded_by: int
+
+    class Config:
+        from_attributes = True
 
 class HealthStatus(BaseModel):
     status: str
@@ -192,14 +210,17 @@ async def login(
         )
 
 @api_v1.post("/scans",
-    response_model=models.ScanResult,
-    summary="Upload scan results",
+    response_model=ScanResultResponse,
+    summary="Upload scan results", 
     description="""
     Upload new security scan results for a container image.
     Requires authentication via JWT token or API key.
     """,
     responses={
-        200: {"description": "Scan results uploaded successfully"},
+        200: {
+            "description": "Scan results uploaded successfully",
+            "model": ScanResultResponse
+        },
         400: {"description": "Invalid scan data"},
         401: {"description": "Not authenticated"},
         422: {"description": "Validation error"}
