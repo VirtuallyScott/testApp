@@ -31,6 +31,9 @@ interface Vulnerability {
   title: string;
   description: string;
   severity: string;
+  package_name?: string;
+  installed_version?: string;
+  fixed_version?: string;
 }
 
 interface Scan {
@@ -73,25 +76,23 @@ const ScanResults: React.FC = () => {
     fetchScans();
   }, []);
 
-  const handleVulnerabilityClick = (scan: Scan, severity: string) => {
-    switch(severity) {
-      case 'critical':
-        setCurrentVulnerabilities(scan.vulnerabilities.critical);
-        break;
-      case 'high':
-        setCurrentVulnerabilities(scan.vulnerabilities.high);
-        break;
-      case 'medium':
-        setCurrentVulnerabilities(scan.vulnerabilities.medium);
-        break;
-      case 'low':
-        setCurrentVulnerabilities(scan.vulnerabilities.low);
-        break;
-      default:
-        setCurrentVulnerabilities([]);
+  const handleVulnerabilityClick = async (scan: Scan, severity: string) => {
+    try {
+      const response = await axios.get(`/api/v1/scans/${scan.id}`);
+      const vulnerabilities = response.data.raw_results?.vulnerabilities || [];
+      const filteredVulns = vulnerabilities.filter((vuln: Vulnerability) => 
+        vuln.severity.toLowerCase() === severity.toLowerCase()
+      );
+      setCurrentVulnerabilities(filteredVulns);
+      setCurrentSeverity(severity.toUpperCase());
+      setOpenDialog(true);
+    } catch (error) {
+      console.error('Error fetching vulnerabilities:', error);
+      // Show error message to user
+      setCurrentVulnerabilities([]);
+      setCurrentSeverity('ERROR');
+      setOpenDialog(true);
     }
-    setCurrentSeverity(severity.toUpperCase());
-    setOpenDialog(true);
   };
 
   const handleCloseDialog = () => {
