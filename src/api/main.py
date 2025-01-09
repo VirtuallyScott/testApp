@@ -63,25 +63,102 @@ app = FastAPI(
     API for managing container security scans and user access.
     
     ## Features
-    * Upload and retrieve container security scan results
+    * Upload and retrieve container security scan results 
     * User authentication and management
     * API key management
     * Health and readiness monitoring
+    
+    ## Authentication
+    The API supports two authentication methods:
+    * JWT Bearer token - Obtained via /api/v1/token endpoint
+    * API Key - Created and managed via /api/v1/api-keys endpoints
+    
+    ## Rate Limiting
+    API endpoints are rate limited to prevent abuse. Limits vary by endpoint.
+    
+    ## Error Responses
+    The API uses standard HTTP status codes and returns error details in the response body:
+    ```json
+    {
+        "detail": "Error message"
+    }
+    ```
     """,
     version="1.0.0",
     contact={
         "name": "Container Security Team",
         "url": "https://github.com/yourusername/container-security",
+        "email": "security@example.com"
     },
     license_info={
         "name": "MIT",
-    }
+        "url": "https://opensource.org/licenses/MIT"
+    },
+    openapi_tags=[
+        {
+            "name": "Authentication",
+            "description": "Operations for authentication and authorization"
+        },
+        {
+            "name": "Scans",
+            "description": "Operations for managing security scan results"
+        },
+        {
+            "name": "Users",
+            "description": "User management operations (admin only)"
+        },
+        {
+            "name": "API Keys",
+            "description": "API key management operations"
+        },
+        {
+            "name": "Health",
+            "description": "Health and readiness check endpoints"
+        }
+    ],
+    docs_url="/api/docs",
+    redoc_url="/api/redoc"
 )
 
 # Create sub-application for API v1
 api_v1 = FastAPI(
     title="Container Security API v1",
-    description="Version 1 of the Container Security API"
+    description="""
+    Version 1 of the Container Security API
+    
+    ## Authentication Required
+    Most endpoints require authentication via JWT token or API key.
+    
+    ## Response Format
+    All responses are in JSON format and include:
+    * Success responses: Requested data or confirmation message
+    * Error responses: Error details in standard format
+    
+    ## Pagination
+    List endpoints support pagination with page and per_page parameters
+    """,
+    openapi_tags=[
+        {
+            "name": "Authentication",
+            "description": "Login and token operations"
+        },
+        {
+            "name": "Scans", 
+            "description": "Security scan result operations"
+        },
+        {
+            "name": "Users",
+            "description": "User management operations"
+        },
+        {
+            "name": "API Keys",
+            "description": "API key operations"
+        },
+        {
+            "name": "Health",
+            "description": "Health check operations"
+        }
+    ]
 )
 
 # Mount the API v1 sub-application
