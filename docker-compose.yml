@@ -1,5 +1,5 @@
 services:
-  web:
+  web1:
     build:
       context: ./src/web
       args:
@@ -9,9 +9,27 @@ services:
     volumes:
       - ./src/web:/app
       - /app/node_modules
-      - ./logs/web:/var/log/web
+      - ./logs/web1:/var/log/web
     environment:
       - REACT_APP_API_URL=http://localhost:8000/api/v1
+      - REACT_APP_INSTANCE_NAME=web1
+    depends_on:
+      - api
+
+  web2:
+    build:
+      context: ./src/web
+      args:
+        - VERSION=${VERSION:-0.0.1}
+    ports:
+      - "81:80"
+    volumes:
+      - ./src/web:/app
+      - /app/node_modules
+      - ./logs/web2:/var/log/web
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api/v1
+      - REACT_APP_INSTANCE_NAME=web2
     depends_on:
       - api
 
