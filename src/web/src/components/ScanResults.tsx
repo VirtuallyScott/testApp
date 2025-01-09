@@ -80,6 +80,12 @@ const ScanResults: React.FC = () => {
           sort_order: sortOrder
         });
         
+        // Reset to page 1 when sorting changes
+        if (page !== 1 && (sortBy || sortOrder)) {
+          setPage(1);
+          return;
+        }
+        
         const response = await axios.get(`/api/v1/scans?${params.toString()}`, {
           headers: {
             'Cache-Control': 'no-cache',
