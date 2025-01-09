@@ -73,14 +73,14 @@ const ScanResults: React.FC = () => {
     const fetchScans = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('/api/v1/scans', {
-          params: {
-            page,
-            per_page: perPage,
-            sort_by: sortBy,
-            sort_order: sortOrder
-          },
-          // Prevent caching of results
+        const params = new URLSearchParams({
+          page: page.toString(),
+          per_page: perPage.toString(),
+          sort_by: sortBy,
+          sort_order: sortOrder
+        });
+        
+        const response = await axios.get(`/api/v1/scans?${params.toString()}`, {
           headers: {
             'Cache-Control': 'no-cache',
             'Pragma': 'no-cache'
