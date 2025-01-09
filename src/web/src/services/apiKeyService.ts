@@ -25,14 +25,15 @@ export const fetchApiKeys = async (): Promise<ApiKey[]> => {
 
 export const createApiKey = async (name: string, expires_in_days: number): Promise<{ api_key: string }> => {
   try {
-    const response = await axios.post('/api/v1/api-keys', {
-      name,
-      expires_in_days
-    }, {
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+    const response = await axios.post('/api/v1/api-keys', 
+      { name: name, expires_in_days: expires_in_days },
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          'Content-Type': 'application/json'
+        }
       }
-    });
+    );
     return response.data;
   } catch (error) {
     console.error('Error creating API key:', error);
