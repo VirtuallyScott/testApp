@@ -11,7 +11,7 @@ FastAPI backend for the three-tier application.
 - User preference management
 - API key management with role-based access:
   - Create/Delete API keys
-  - Suspend/Resume API keys
+  - Toggle API key status (suspend/activate)
   - Extend API key expiration
   - View API key status and history
 

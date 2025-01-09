@@ -72,7 +72,7 @@ export const deleteApiKey = async (id: number): Promise<void> => {
   }
 };
 
-export const suspendApiKey = async (id: number): Promise<void> => {
+export const suspendApiKey = async (id: number): Promise<{ is_active: boolean }> => {
   try {
     const response = await axios.put(`/api/v1/api-keys/${id}/suspend`, {}, {
       headers: {
@@ -81,10 +81,11 @@ export const suspendApiKey = async (id: number): Promise<void> => {
       }
     });
     if (response.status !== 200) {
-      throw new Error('Failed to suspend API key');
+      throw new Error('Failed to update API key status');
     }
+    return { is_active: response.data.is_active };
   } catch (error) {
-    console.error('Error suspending API key:', error);
+    console.error('Error updating API key status:', error);
     throw error;
   }
 };

@@ -393,7 +393,7 @@ async def suspend_api_key(
     current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
 ):
-    """Suspend an API key"""
+    """Toggle API key active status"""
     key = db.query(models.ApiKey).filter(
         models.ApiKey.id == key_id,
         models.ApiKey.user_id == current_user.id
@@ -402,10 +402,14 @@ async def suspend_api_key(
     if not key:
         raise HTTPException(status_code=404, detail="API key not found")
     
-    key.is_active = False
+    key.is_active = not key.is_active
     db.commit()
     db.refresh(key)
-    return {"status": "suspended"}
+    return {
+        "id": key.id,
+        "is_active": key.is_active,
+        "status": "active" if key.is_active else "suspended"
+    }
 
 @api_v1.post("/users")
 async def create_user(
