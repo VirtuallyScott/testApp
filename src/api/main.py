@@ -31,6 +31,7 @@ class ReadinessStatus(BaseModel):
     admin_exists: str
 from fastapi import FastAPI, Depends, HTTPException, status, Request, Body
 from version import get_version
+from auth import get_current_user
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
