@@ -264,7 +264,7 @@ async def health_check(db: Session = Depends(get_db)) -> HealthStatus:
         redis_status = "healthy"
         try:
             from redis import Redis
-            redis = Redis(host='redis', port=6379, socket_connect_timeout=2)
+            redis = Redis(host='redis', port=6379, password='redis_password', socket_connect_timeout=2)
             redis.ping()
         except Exception as e:
             logger.error(f"Redis health check failed: {str(e)}")
@@ -541,7 +541,7 @@ async def readiness_check(db: Session = Depends(get_db)) -> ReadinessStatus:
         redis_status = "ready"
         try:
             from redis import Redis
-            redis = Redis(host='redis', port=6379, socket_connect_timeout=2)
+            redis = Redis(host='redis', port=6379, password='redis_password', socket_connect_timeout=2)
             redis.ping()
         except Exception as e:
             logger.error(f"Redis readiness check failed: {str(e)}")
