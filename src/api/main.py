@@ -386,6 +386,26 @@ async def delete_api_key(
     db.commit()
     return {"status": "deleted"}
 
+@api_v1.put("/api-keys/{key_id}/suspend")
+async def suspend_api_key(
+    key_id: int,
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Suspend an API key"""
+    key = db.query(models.ApiKey).filter(
+        models.ApiKey.id == key_id,
+        models.ApiKey.user_id == current_user.id
+    ).first()
+    
+    if not key:
+        raise HTTPException(status_code=404, detail="API key not found")
+    
+    key.is_active = False
+    db.commit()
+    db.refresh(key)
+    return {"status": "suspended"}
+
 @api_v1.post("/users")
 async def create_user(
     request: Request,
