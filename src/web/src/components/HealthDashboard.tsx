@@ -9,6 +9,7 @@ import {
   Box,
   Button
 } from '@mui/material';
+import { extendApiKey } from '../services/apiKeyService';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import { fetchHealthStatus, fetchReadinessStatus, fetchVersion } from '../services/healthService';
