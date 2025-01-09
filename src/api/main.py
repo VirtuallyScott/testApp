@@ -335,7 +335,8 @@ async def list_api_keys(
         "name": key.name,
         "created_at": key.created_at,
         "expires_at": key.expires_at,
-        "last_used_at": key.last_used_at
+        "last_used_at": key.last_used_at,
+        "is_active": key.is_active
     } for key in keys]
 
 @api_v1.put("/api-keys/{key_id}/extend")
