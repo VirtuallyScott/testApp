@@ -78,24 +78,6 @@ const HealthDashboard: React.FC = () => {
               </Typography>
               <Box display="flex" flexDirection="column" gap={1}>
                 <Box display="flex" alignItems="center" gap={2}>
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    onClick={() => {
-                      const days = window.prompt('Enter number of days to extend:', '30');
-                      if (days && !isNaN(parseInt(days))) {
-                        extendApiKey(key.id, parseInt(days))
-                          .then(() => {
-                            loadKeys();
-                          })
-                          .catch((err) => {
-                            setError(err.response?.data?.detail || 'Error extending API key');
-                          });
-                      }
-                    }}
-                  >
-                    Extend
-                  </Button>
                   <StatusIcon status={healthStatus?.status || 'down'} />
                   <Typography>
                     Overall: {healthStatus?.status || 'Unknown'}
