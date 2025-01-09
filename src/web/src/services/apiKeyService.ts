@@ -73,11 +73,15 @@ export const deleteApiKey = async (id: number): Promise<void> => {
 
 export const suspendApiKey = async (id: number): Promise<void> => {
   try {
-    await axios.put(`/api/v1/api-keys/${id}/suspend`, null, {
+    const response = await axios.put(`/api/v1/api-keys/${id}/suspend`, {}, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        'Content-Type': 'application/json'
       }
     });
+    if (response.status !== 200) {
+      throw new Error('Failed to suspend API key');
+    }
   } catch (error) {
     console.error('Error suspending API key:', error);
     throw error;
