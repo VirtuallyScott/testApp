@@ -15,7 +15,7 @@ import {
   IconButton,
   Tooltip
 } from '@mui/material';
-import { Delete, Pause } from '@mui/icons-material';
+import { Delete, Pause, PlayArrow, Update } from '@mui/icons-material';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { fetchApiKeys, createApiKey, deleteApiKey, suspendApiKey } from '../services/apiKeyService';
@@ -37,6 +37,9 @@ const ApiKeys: React.FC = () => {
   const [generatedKey, setGeneratedKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [showExtendDialog, setShowExtendDialog] = useState(false);
+  const [selectedKeyId, setSelectedKeyId] = useState<number | null>(null);
+  const [extensionDays, setExtensionDays] = useState(30);
   const navigate = useNavigate();
 
   const checkAdminStatus = async () => {
@@ -85,9 +88,26 @@ const ApiKeys: React.FC = () => {
   const handleSuspendKey = async (id: number) => {
     try {
       await suspendApiKey(id);
-      loadKeys();
+      await loadKeys(); // Reload the keys to update UI
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error suspending API key');
+    }
+  };
+
+  const handleExtendKey = (id: number) => {
+    setSelectedKeyId(id);
+    setShowExtendDialog(true);
+  };
+
+  const handleExtendConfirm = async () => {
+    if (selectedKeyId === null) return;
+    try {
+      await extendApiKey(selectedKeyId, extensionDays);
+      await loadKeys(); // Reload the keys to update UI
+      setShowExtendDialog(false);
+      setSelectedKeyId(null);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error extending API key');
     }
   };
 
@@ -121,13 +141,22 @@ const ApiKeys: React.FC = () => {
               }
             />
             <Box sx={{ display: 'flex', gap: 1 }}>
-              <Tooltip title="Suspend Key">
+              <Tooltip title={key.is_active ? "Suspend Key" : "Resume Key"}>
                 <IconButton 
-                  color="warning"
+                  color={key.is_active ? "warning" : "success"}
                   onClick={() => handleSuspendKey(key.id)}
                   disabled={!isAdmin && key.created_by !== parseInt(localStorage.getItem('user_id') || '0')}
                 >
-                  <Pause />
+                  {key.is_active ? <Pause /> : <PlayArrow />}
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Extend Expiration">
+                <IconButton
+                  color="primary"
+                  onClick={() => handleExtendKey(key.id)}
+                  disabled={!key.is_active || (!isAdmin && key.created_by !== parseInt(localStorage.getItem('user_id') || '0'))}
+                >
+                  <Update />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Delete Key">
@@ -189,6 +218,24 @@ const ApiKeys: React.FC = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setGeneratedKey(null)}>Close</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={showExtendDialog} onClose={() => setShowExtendDialog(false)}>
+        <DialogTitle>Extend API Key Expiration</DialogTitle>
+        <DialogContent>
+          <TextField
+            fullWidth
+            label="Extension Days"
+            type="number"
+            value={extensionDays}
+            onChange={(e) => setExtensionDays(parseInt(e.target.value) || 0)}
+            margin="normal"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowExtendDialog(false)}>Cancel</Button>
+          <Button onClick={handleExtendConfirm} color="primary">Extend</Button>
         </DialogActions>
       </Dialog>
     </Box>
