@@ -43,6 +43,28 @@ When running, visit:
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 
+### Scan Results Endpoint
+
+GET /api/v1/scans
+Parameters:
+- page (optional, default: 1): Page number
+- per_page (optional, default: 25): Results per page
+- sort_by (optional, default: "scan_timestamp"): Field to sort by
+  - Allowed values: scan_timestamp, image_name, severity_critical, severity_high, severity_medium, severity_low
+- sort_order (optional, default: "desc"): Sort direction
+  - Allowed values: asc, desc
+
+Response format:
+```json
+{
+  "items": [...],
+  "total": 100,
+  "page": 1,
+  "per_page": 25,
+  "total_pages": 4
+}
+```
+
 ### Health and Readiness Endpoints
 
 The API provides two monitoring endpoints:

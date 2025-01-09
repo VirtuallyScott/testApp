@@ -187,16 +187,40 @@ async def upload_scan(
 
 @api_v1.get("/scans")
 async def list_scans(
+    page: int = 1,
+    per_page: int = 25,
+    sort_by: str = "scan_timestamp",
+    sort_order: str = "desc",
     current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
-) -> List[Dict]:
-    """List all security scan results"""
+) -> Dict:
+    """List security scan results with pagination and sorting"""
     try:
-        logger.info(f"User {current_user.username} requesting scan list")
-        scans = db.query(models.ScanResult).all()
-        logger.info(f"Successfully retrieved {len(scans)} scans")
+        logger.info(f"User {current_user.username} requesting scan list - page {page}, per_page {per_page}")
         
-        result = []
+        # Validate sort parameters
+        valid_sort_fields = ["scan_timestamp", "image_name", "severity_critical", "severity_high", "severity_medium", "severity_low"]
+        if sort_by not in valid_sort_fields:
+            sort_by = "scan_timestamp"
+        
+        # Build query
+        query = db.query(models.ScanResult)
+        
+        # Apply sorting
+        if sort_order.lower() == "asc":
+            query = query.order_by(getattr(models.ScanResult, sort_by).asc())
+        else:
+            query = query.order_by(getattr(models.ScanResult, sort_by).desc())
+            
+        # Get total count
+        total_count = query.count()
+        
+        # Apply pagination
+        offset = (page - 1) * per_page
+        scans = query.offset(offset).limit(per_page).all()
+        logger.info(f"Successfully retrieved {len(scans)} scans (page {page} of {(total_count + per_page - 1) // per_page})")
+        
+        items = []
         for scan in scans:
             try:
                 # Ensure raw_results is a dict
@@ -215,15 +239,20 @@ async def list_scans(
                     "raw_results": raw_results,
                     "uploaded_by": int(scan.uploaded_by) if scan.uploaded_by else None
                 }
-                result.append(scan_dict)
+                items.append(scan_dict)
                 logger.debug(f"Successfully processed scan {scan.id}")
             except Exception as scan_error:
                 logger.error(f"Error processing scan {scan.id}: {str(scan_error)}", exc_info=True)
-                # Continue processing other scans
                 continue
         
-        logger.info(f"Successfully processed {len(result)} out of {len(scans)} scans")
-        return result
+        logger.info(f"Successfully processed {len(items)} out of {len(scans)} scans")
+        return {
+            "items": items,
+            "total": total_count,
+            "page": page,
+            "per_page": per_page,
+            "total_pages": (total_count + per_page - 1) // per_page
+        }
     except Exception as e:
         logger.error(f"Error retrieving scans: {str(e)}", exc_info=True)
         raise HTTPException(
