@@ -191,82 +191,82 @@ const ScanResults: React.FC = () => {
             <TableRow>
               <TableCell 
                 onClick={() => {
-                  if (sortBy === 'image_name') {
-                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-                  } else {
-                    setSortBy('image_name');
-                    setSortOrder('asc');
-                  }
+                  setSortBy('image_name');
+                  setSortOrder(sortBy === 'image_name' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'asc');
                 }}
-                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+                sx={{ 
+                  cursor: 'pointer', 
+                  '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
+                  fontWeight: sortBy === 'image_name' ? 'bold' : 'normal'
+                }}
               >
-                Image Name {sortBy === 'image_name' && (sortOrder === 'asc' ? '↑' : '↓')}
+                Image Name {sortBy === 'image_name' && (sortOrder === 'asc' ? '▲' : '▼')}
               </TableCell>
               <TableCell>Tag</TableCell>
               <TableCell 
                 onClick={() => {
-                  if (sortBy === 'scan_timestamp') {
-                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-                  } else {
-                    setSortBy('scan_timestamp');
-                    setSortOrder('asc');
-                  }
+                  setSortBy('scan_timestamp');
+                  setSortOrder(sortBy === 'scan_timestamp' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'asc');
                 }}
-                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+                sx={{ 
+                  cursor: 'pointer', 
+                  '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
+                  fontWeight: sortBy === 'scan_timestamp' ? 'bold' : 'normal'
+                }}
               >
-                Scan Date {sortBy === 'scan_timestamp' && (sortOrder === 'asc' ? '↑' : '↓')}
+                Scan Date {sortBy === 'scan_timestamp' && (sortOrder === 'asc' ? '▲' : '▼')}
               </TableCell>
               <TableCell 
                 onClick={() => {
-                  if (sortBy === 'severity_critical') {
-                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-                  } else {
-                    setSortBy('severity_critical');
-                    setSortOrder('desc');
-                  }
+                  setSortBy('severity_critical');
+                  setSortOrder(sortBy === 'severity_critical' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
                 }}
-                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+                sx={{ 
+                  cursor: 'pointer', 
+                  '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
+                  fontWeight: sortBy === 'severity_critical' ? 'bold' : 'normal'
+                }}
               >
-                Critical {sortBy === 'severity_critical' && (sortOrder === 'asc' ? '↑' : '↓')}
+                Critical {sortBy === 'severity_critical' && (sortOrder === 'asc' ? '▲' : '▼')}
               </TableCell>
               <TableCell 
                 onClick={() => {
-                  if (sortBy === 'severity_high') {
-                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-                  } else {
-                    setSortBy('severity_high');
-                    setSortOrder('desc');
-                  }
+                  setSortBy('severity_high');
+                  setSortOrder(sortBy === 'severity_high' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
                 }}
-                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+                sx={{ 
+                  cursor: 'pointer', 
+                  '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
+                  fontWeight: sortBy === 'severity_high' ? 'bold' : 'normal'
+                }}
               >
-                High {sortBy === 'severity_high' && (sortOrder === 'asc' ? '↑' : '↓')}
+                High {sortBy === 'severity_high' && (sortOrder === 'asc' ? '▲' : '▼')}
               </TableCell>
               <TableCell 
                 onClick={() => {
-                  if (sortBy === 'severity_medium') {
-                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-                  } else {
-                    setSortBy('severity_medium');
-                    setSortOrder('desc');
-                  }
+                  setSortBy('severity_medium');
+                  setSortOrder(sortBy === 'severity_medium' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
                 }}
-                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+                sx={{ 
+                  cursor: 'pointer', 
+                  '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
+                  fontWeight: sortBy === 'severity_medium' ? 'bold' : 'normal'
+                }}
               >
-                Medium {sortBy === 'severity_medium' && (sortOrder === 'asc' ? '↑' : '↓')}
+                Medium {sortBy === 'severity_medium' && (sortOrder === 'asc' ? '▲' : '▼')}
               </TableCell>
               <TableCell 
                 onClick={() => {
-                  if (sortBy === 'severity_low') {
-                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-                  } else {
-                    setSortBy('severity_low');
-                    setSortOrder('desc');
-                  }
+                  setSortBy('severity_low');
+                  setSortOrder(sortBy === 'severity_low' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
                 }}
-                sx={{ cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' } }}
+                sx={{ 
+                  cursor: 'pointer', 
+                  '&:hover': { bgcolor: 'rgba(0, 0, 0, 0.04)' },
+                  fontWeight: sortBy === 'severity_low' ? 'bold' : 'normal'
+                }}
               >
-                Low {sortBy === 'severity_low' && (sortOrder === 'asc' ? '↑' : '↓')}
+                Low {sortBy === 'severity_low' && (sortOrder === 'asc' ? '▲' : '▼')}
               </TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
