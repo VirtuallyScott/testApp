@@ -72,6 +72,7 @@ const ScanResults: React.FC = () => {
   useEffect(() => {
     const fetchScans = async () => {
       try {
+        setLoading(true);
         const response = await axios.get('/api/v1/scans', {
           params: {
             page,
@@ -191,12 +192,8 @@ const ScanResults: React.FC = () => {
             <TableRow>
               <TableCell 
                 onClick={() => {
-                  if (sortBy === 'image_name') {
-                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-                  } else {
-                    setSortBy('image_name');
-                    setSortOrder('asc');
-                  }
+                  setSortBy('image_name');
+                  setSortOrder(sortBy === 'image_name' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'asc');
                 }}
                 sx={{ 
                   cursor: 'pointer', 
@@ -211,7 +208,7 @@ const ScanResults: React.FC = () => {
               <TableCell 
                 onClick={() => {
                   setSortBy('scan_timestamp');
-                  setSortOrder(sortBy === 'scan_timestamp' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'asc');
+                  setSortOrder(sortBy === 'scan_timestamp' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
                 }}
                 sx={{ 
                   cursor: 'pointer', 
@@ -223,12 +220,8 @@ const ScanResults: React.FC = () => {
               </TableCell>
               <TableCell 
                 onClick={() => {
-                  if (sortBy === 'severity_critical') {
-                    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-                  } else {
-                    setSortBy('severity_critical');
-                    setSortOrder('desc');
-                  }
+                  setSortBy('severity_critical');
+                  setSortOrder(sortBy === 'severity_critical' ? (sortOrder === 'asc' ? 'desc' : 'asc') : 'desc');
                 }}
                 sx={{ 
                   cursor: 'pointer', 
