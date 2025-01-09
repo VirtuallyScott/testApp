@@ -96,6 +96,7 @@ const ScanResults: React.FC = () => {
     };
 
     fetchScans();
+    // Fetch scans whenever page, perPage, sortBy, or sortOrder changes
   }, [page, perPage, sortBy, sortOrder]);
 
   const handleVulnerabilityClick = async (scan: Scan, severity: string) => {

@@ -80,7 +80,7 @@ body {
   background-color: #ffffff;
 }
 
-.MuiTableRow-root:nth-of-type(odd) {
+.MuiTableRow-root:nth-of-type(even) {
   background-color: #f8f9fa;
 }
 
