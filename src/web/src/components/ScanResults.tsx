@@ -100,14 +100,34 @@ const ScanResults: React.FC = () => {
   }, [page, perPage, sortBy, sortOrder]);
 
   // Separate function to handle sorting
-  const handleSort = (column: string) => {
-    if (sortBy === column) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortBy(column);
-      setSortOrder('desc'); // Default to descending when changing columns
-    }
+  const handleSort = async (column: string) => {
+    const newOrder = sortBy === column && sortOrder === 'desc' ? 'asc' : 'desc';
+    setSortBy(column);
+    setSortOrder(newOrder);
     setPage(1); // Reset to first page when sorting changes
+    
+    try {
+      setLoading(true);
+      const params = new URLSearchParams({
+        page: '1',
+        per_page: perPage.toString(),
+        sort_by: column,
+        sort_order: newOrder
+      });
+      
+      const response = await axios.get(`/api/v1/scans?${params.toString()}`, {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache'
+        }
+      });
+      setScans(response.data.items);
+      setTotalPages(response.data.total_pages);
+    } catch (error) {
+      console.error('Error sorting scans:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleVulnerabilityClick = async (scan: Scan, severity: string) => {

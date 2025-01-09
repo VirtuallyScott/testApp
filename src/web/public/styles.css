@@ -56,6 +56,11 @@ body {
   margin-top: 16px !important;
 }
 
+/* Table Rows */
+.MuiTableRow-root:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
 /* Card Content */
 .MuiCardContent-root {
   padding: 24px !important;
