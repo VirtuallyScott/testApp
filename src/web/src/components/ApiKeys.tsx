@@ -28,6 +28,7 @@ interface ApiKey {
   expires_at: string | null;
   last_used_at: string | null;
   created_by: number;
+  is_active: boolean;
 }
 
 const ApiKeys: React.FC = () => {
