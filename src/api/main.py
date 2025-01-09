@@ -289,10 +289,13 @@ async def health_check(db: Session = Depends(get_db)) -> HealthStatus:
             }
         )
 
+class ApiKeyCreate(BaseModel):
+    name: str
+    expires_in_days: Optional[int] = 30
+
 @api_v1.post("/api-keys")
 async def create_api_key(
-    name: str,
-    expires_in_days: Optional[int] = 30,
+    key_data: ApiKeyCreate,
     current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
 ):
@@ -302,9 +305,10 @@ async def create_api_key(
     
     db_key = models.ApiKey(
         key_hash=hashed_key,
-        name=name,
+        name=key_data.name,
         user_id=current_user.id,
-        expires_at=datetime.utcnow() + timedelta(days=expires_in_days) if expires_in_days else None
+        expires_at=datetime.utcnow() + timedelta(days=key_data.expires_in_days) if key_data.expires_in_days else None,
+        is_active=True
     )
     
     db.add(db_key)
