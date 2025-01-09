@@ -198,6 +198,9 @@ async def list_scans(
     try:
         logger.info(f"User {current_user.username} requesting scan list - page {page}, per_page {per_page}")
         
+        # Initialize query
+        query = db.query(models.ScanResult)
+
         # Validate and normalize sort parameters
         valid_sort_fields = {
             "scan_timestamp": models.ScanResult.scan_timestamp,
