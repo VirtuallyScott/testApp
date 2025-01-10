@@ -17,6 +17,9 @@ A modern three-tier application for container security scanning and monitoring.
 
 ![User Management](docs/screenshots/user_management.png)
 *User management interface for administrators*
+- **User Management**: 
+  - Administrators can manage all users
+  - Viewers can manage their own account and API keys
 - **API Backend**: FastAPI/Python with JWT authentication
 - **Database**: PostgreSQL for persistent storage
 - **Redis**: Session management and caching
