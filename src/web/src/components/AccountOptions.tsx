@@ -52,6 +52,7 @@ const AccountOptions: React.FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState<UserProfile>({ email: '', username: '' });
   const [userRoles, setUserRoles] = useState<string[]>([]);
   const [newPassword, setNewPassword] = useState('');
@@ -63,6 +64,9 @@ const AccountOptions: React.FC = () => {
   const [newKeyValue, setNewKeyValue] = useState<string | null>(null);
 
   useEffect(() => {
+    setLoading(true);
+    console.log('AccountOptions: Starting to fetch data');
+    
     const fetchUserRoles = async () => {
       try {
         const response = await fetch('/api/v1/users/me/roles', {
@@ -135,10 +139,24 @@ const AccountOptions: React.FC = () => {
       }
     };
 
-    fetchPreferences();
-    fetchUserProfile();
-    fetchApiKeys();
-    fetchUserRoles();
+    const loadAllData = async () => {
+      try {
+        await Promise.all([
+          fetchPreferences(),
+          fetchUserProfile(),
+          fetchApiKeys(),
+          fetchUserRoles()
+        ]);
+        console.log('AccountOptions: All data loaded successfully');
+      } catch (err) {
+        console.error('AccountOptions: Error loading data:', err);
+        setError('Error loading account data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAllData();
   }, []);
 
   const handleCreateApiKey = async () => {
@@ -218,6 +236,12 @@ const AccountOptions: React.FC = () => {
       <Typography variant="h4" gutterBottom>
         Account Options
       </Typography>
+
+      {loading ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+          <Typography>Loading account settings...</Typography>
+        </Box>
+      ) : (
 
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
       {saved && <Alert severity="success" sx={{ mb: 2 }}>Preferences saved successfully!</Alert>}
@@ -434,6 +458,7 @@ const AccountOptions: React.FC = () => {
           )}
         </DialogActions>
       </Dialog>
+      )}
     </Paper>
   );
 };
