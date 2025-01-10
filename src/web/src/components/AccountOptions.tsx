@@ -69,11 +69,21 @@ const AccountOptions: React.FC = () => {
             'Authorization': `Bearer ${localStorage.getItem('access_token')}`
           }
         });
-        if (!response.ok) throw new Error('Failed to fetch preferences');
-        const data = await response.json();
-        setPreferences(data);
+        if (response.ok) {
+          const data = await response.json();
+          setPreferences(data);
+        } else if (response.status === 404) {
+          // If preferences don't exist yet, use defaults
+          setPreferences({
+            theme: 'light',
+            notifications_enabled: true
+          });
+        } else {
+          throw new Error('Failed to fetch preferences');
+        }
       } catch (err) {
-        setError('Failed to load preferences');
+        console.error('Error loading preferences:', err);
+        // Don't show error for preferences load failure
       }
     };
 
@@ -88,7 +98,8 @@ const AccountOptions: React.FC = () => {
         const data = await response.json();
         setProfile(data);
       } catch (err) {
-        setError('Failed to load user profile');
+        console.error('Error loading profile:', err);
+        setError('Unable to load user profile. Please try again later.');
       }
     };
 

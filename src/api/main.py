@@ -885,6 +885,38 @@ async def list_users(
         "created_at": user.created_at
     } for user in users]
 
+@api_v1.get("/users/me")
+async def get_current_user_profile(
+    current_user: models.User = Depends(auth.get_current_user)
+):
+    """Get current user profile"""
+    return {
+        "username": current_user.username,
+        "email": current_user.email
+    }
+
+@api_v1.put("/users/me/email")
+async def update_user_email(
+    new_email: str = Body(..., embed=True),
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update user email"""
+    current_user.email = new_email
+    db.commit()
+    return {"status": "email updated"}
+
+@api_v1.put("/users/me/password")
+async def update_user_password(
+    new_password: str = Body(..., embed=True),
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update user password"""
+    current_user.password_hash = auth.get_password_hash(new_password)
+    db.commit()
+    return {"status": "password updated"}
+
 @api_v1.get("/users/me/roles")
 async def get_current_user_roles(
     current_user: models.User = Depends(auth.get_current_user),
