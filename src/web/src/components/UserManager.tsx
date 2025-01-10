@@ -120,6 +120,29 @@ const UserManager: React.FC = () => {
     }
   };
 
+  const handleDeleteUser = async (userId: number) => {
+    if (!window.confirm('Are you sure you want to delete this user?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/v1/users/${userId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to delete user');
+      }
+      
+      fetchUsers();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error deleting user');
+    }
+  };
 
   return (
     <Box sx={{ p: 3 }}>
