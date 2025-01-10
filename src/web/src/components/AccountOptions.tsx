@@ -53,6 +53,7 @@ const AccountOptions: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [profile, setProfile] = useState<UserProfile>({ email: '', username: '' });
+  const [userRoles, setUserRoles] = useState<string[]>([]);
   const [newPassword, setNewPassword] = useState('');
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
@@ -62,6 +63,22 @@ const AccountOptions: React.FC = () => {
   const [newKeyValue, setNewKeyValue] = useState<string | null>(null);
 
   useEffect(() => {
+    const fetchUserRoles = async () => {
+      try {
+        const response = await fetch('/api/v1/users/me/roles', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUserRoles(data.roles);
+        }
+      } catch (err) {
+        console.error('Error fetching user roles:', err);
+      }
+    };
+
     const fetchPreferences = async () => {
       try {
         const response = await fetch('/api/v1/users/me/preferences', {
@@ -121,6 +138,7 @@ const AccountOptions: React.FC = () => {
     fetchPreferences();
     fetchUserProfile();
     fetchApiKeys();
+    fetchUserRoles();
   }, []);
 
   const handleCreateApiKey = async () => {

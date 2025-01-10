@@ -910,7 +910,7 @@ async def get_current_user_profile(
 @api_v1.put("/users/me/email")
 async def update_user_email(
     new_email: str = Body(..., embed=True),
-    current_user: models.User = Depends(auth.check_user_role),
+    current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
 ):
     """Update user email"""
@@ -921,7 +921,7 @@ async def update_user_email(
 @api_v1.put("/users/me/password")
 async def update_user_password(
     new_password: str = Body(..., embed=True),
-    current_user: models.User = Depends(auth.check_user_role),
+    current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
 ):
     """Update user password"""
