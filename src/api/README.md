@@ -14,6 +14,7 @@ FastAPI backend for the three-tier application.
   - Toggle API key status (suspend/activate)
   - Extend API key expiration
   - View API key status and history
+  - Users with 'viewer' role can manage their own API keys
 
 ## Development
 

@@ -124,6 +124,10 @@ const AccountOptions: React.FC = () => {
   }, []);
 
   const handleCreateApiKey = async () => {
+    if (!newKeyName) {
+      setError('API key name is required');
+      return;
+    }
     try {
       const response = await fetch('/api/v1/api-keys', {
         method: 'POST',

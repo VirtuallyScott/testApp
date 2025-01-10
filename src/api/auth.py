@@ -155,4 +155,12 @@ def check_user_role(user: models.User = Depends(get_current_user)):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="User has no assigned roles"
         )
-    return user
+    
+    # Allow users with 'viewer' role to manage their own account and API keys
+    if any(role.name == "viewer" for role in user.roles):
+        return user
+    
+    raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="Insufficient permissions"
+    )
