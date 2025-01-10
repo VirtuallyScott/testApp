@@ -11,8 +11,20 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel
+  InputLabel,
+  TextField,
+  List,
+  ListItem,
+  ListItemText,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Divider
 } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { format } from 'date-fns';
 
 interface UserPreferences {
   theme: string;
@@ -22,6 +34,15 @@ interface UserPreferences {
 interface UserProfile {
   email: string;
   username: string;
+}
+
+interface ApiKey {
+  id: number;
+  name: string;
+  created_at: string;
+  expires_at: string | null;
+  last_used_at: string | null;
+  is_active: boolean;
 }
 
 const AccountOptions: React.FC = () => {
@@ -34,6 +55,11 @@ const AccountOptions: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile>({ email: '', username: '' });
   const [newPassword, setNewPassword] = useState('');
   const [passwordChanged, setPasswordChanged] = useState(false);
+  const [apiKeys, setApiKeys] = useState<ApiKey[]>([]);
+  const [showCreateKeyDialog, setShowCreateKeyDialog] = useState(false);
+  const [newKeyName, setNewKeyName] = useState('');
+  const [newKeyExpiryDays, setNewKeyExpiryDays] = useState('30');
+  const [newKeyValue, setNewKeyValue] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPreferences = async () => {
@@ -66,9 +92,68 @@ const AccountOptions: React.FC = () => {
       }
     };
 
+    const fetchApiKeys = async () => {
+      try {
+        const response = await fetch('/api/v1/api-keys', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+          }
+        });
+        if (!response.ok) throw new Error('Failed to fetch API keys');
+        const data = await response.json();
+        setApiKeys(data);
+      } catch (err) {
+        setError('Failed to load API keys');
+      }
+    };
+
     fetchPreferences();
     fetchUserProfile();
+    fetchApiKeys();
   }, []);
+
+  const handleCreateApiKey = async () => {
+    try {
+      const response = await fetch('/api/v1/api-keys', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify({
+          name: newKeyName,
+          expires_in_days: parseInt(newKeyExpiryDays)
+        })
+      });
+
+      if (!response.ok) throw new Error('Failed to create API key');
+      const data = await response.json();
+      setNewKeyValue(data.api_key);
+      setApiKeys([...apiKeys, data]);
+    } catch (err) {
+      setError('Failed to create API key');
+    }
+  };
+
+  const handleDeleteApiKey = async (keyId: number) => {
+    if (!window.confirm('Are you sure you want to delete this API key?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/v1/api-keys/${keyId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+      });
+
+      if (!response.ok) throw new Error('Failed to delete API key');
+      setApiKeys(apiKeys.filter(key => key.id !== keyId));
+    } catch (err) {
+      setError('Failed to delete API key');
+    }
+  };
 
   const handleSave = async () => {
     try {
@@ -202,6 +287,114 @@ const AccountOptions: React.FC = () => {
           </Button>
         </Box>
       </FormGroup>
+
+      <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+        API Keys
+      </Typography>
+      
+      <Box sx={{ mb: 2 }}>
+        <Button 
+          variant="contained" 
+          onClick={() => setShowCreateKeyDialog(true)}
+          color="primary"
+        >
+          Create New API Key
+        </Button>
+      </Box>
+
+      <List>
+        {apiKeys.map((key) => (
+          <ListItem
+            key={key.id}
+            secondaryAction={
+              <IconButton 
+                edge="end" 
+                aria-label="delete"
+                onClick={() => handleDeleteApiKey(key.id)}
+              >
+                <DeleteIcon />
+              </IconButton>
+            }
+          >
+            <ListItemText
+              primary={key.name}
+              secondary={
+                <>
+                  Created: {format(new Date(key.created_at), 'yyyy-MM-dd HH:mm')}
+                  <br />
+                  Expires: {key.expires_at ? format(new Date(key.expires_at), 'yyyy-MM-dd HH:mm') : 'Never'}
+                  <br />
+                  Last Used: {key.last_used_at ? format(new Date(key.last_used_at), 'yyyy-MM-dd HH:mm') : 'Never'}
+                  <br />
+                  Status: {key.is_active ? 'Active' : 'Inactive'}
+                </>
+              }
+            />
+          </ListItem>
+        ))}
+      </List>
+
+      <Dialog 
+        open={showCreateKeyDialog} 
+        onClose={() => {
+          setShowCreateKeyDialog(false);
+          setNewKeyValue(null);
+          setNewKeyName('');
+          setNewKeyExpiryDays('30');
+        }}
+      >
+        <DialogTitle>Create New API Key</DialogTitle>
+        <DialogContent>
+          {!newKeyValue ? (
+            <>
+              <TextField
+                fullWidth
+                label="Key Name"
+                value={newKeyName}
+                onChange={(e) => setNewKeyName(e.target.value)}
+                margin="normal"
+              />
+              <TextField
+                fullWidth
+                label="Expires in Days"
+                type="number"
+                value={newKeyExpiryDays}
+                onChange={(e) => setNewKeyExpiryDays(e.target.value)}
+                margin="normal"
+              />
+            </>
+          ) : (
+            <Box sx={{ mt: 2 }}>
+              <Alert severity="warning" sx={{ mb: 2 }}>
+                Copy this API key now. You won't be able to see it again!
+              </Alert>
+              <TextField
+                fullWidth
+                value={newKeyValue}
+                InputProps={{
+                  readOnly: true,
+                }}
+                margin="normal"
+              />
+            </Box>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => {
+            setShowCreateKeyDialog(false);
+            setNewKeyValue(null);
+            setNewKeyName('');
+            setNewKeyExpiryDays('30');
+          }}>
+            {newKeyValue ? 'Close' : 'Cancel'}
+          </Button>
+          {!newKeyValue && (
+            <Button onClick={handleCreateApiKey} color="primary">
+              Create
+            </Button>
+          )}
+        </DialogActions>
+      </Dialog>
     </Paper>
   );
 };
