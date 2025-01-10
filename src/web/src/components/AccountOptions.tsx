@@ -242,8 +242,8 @@ const AccountOptions: React.FC = () => {
           <Typography>Loading account settings...</Typography>
         </Box>
       ) : (
-
-      {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+        <>
+          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
       {saved && <Alert severity="success" sx={{ mb: 2 }}>Preferences saved successfully!</Alert>}
 
       <Typography variant="h5" gutterBottom sx={{ mt: 3 }}>
