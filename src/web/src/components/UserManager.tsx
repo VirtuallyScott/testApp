@@ -99,17 +99,6 @@ const UserManager: React.FC = () => {
         role: 'viewer'
       });
       await fetchUsers();
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-        },
-        body: params
-      });
-      
-      if (!response.ok) throw new Error('Failed to create user');
-      
-      setShowCreateDialog(false);
-      fetchUsers();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error creating user');
     }
