@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthService } from '../services/authService';
-import { Box, Button, Typography, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Alert, Switch, IconButton, Tooltip } from '@mui/material';
+import { Box, Button, Typography, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Alert, Switch, IconButton, Tooltip, MenuItem } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { format } from 'date-fns';
@@ -11,12 +11,24 @@ interface User {
   email: string;
   is_active: boolean;
   created_at: string;
-  roles?: string[];
+  roles: string[];
+}
+
+interface CreateUserData {
+  username: string;
+  email: string;
+  password: string;
+  role: 'admin' | 'viewer';
 }
 
 const UserManager: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const [newUser, setNewUser] = useState({username: '', email: '', password: ''});
+  const [newUser, setNewUser] = useState<CreateUserData>({
+    username: '', 
+    email: '', 
+    password: '',
+    role: 'viewer'
+  });
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [editUser, setEditUser] = useState<User | null>(null);
@@ -59,11 +71,19 @@ const UserManager: React.FC = () => {
 
   const handleCreateUser = async () => {
     try {
-      const params = new URLSearchParams();
-      params.append('username', newUser.username);
-      params.append('email', newUser.email);
-      params.append('password', newUser.password);
-      params.append('is_active', 'true'); // Default to active
+      const response = await fetch('/api/v1/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify({
+          username: newUser.username,
+          email: newUser.email,
+          password: newUser.password,
+          is_active: true,
+          role: newUser.role
+        })
 
       const response = await fetch('/api/v1/users', {
         method: 'POST',
@@ -187,6 +207,7 @@ const UserManager: React.FC = () => {
                 <>
                   Email: {user.email}<br />
                   Status: {user.is_active ? 'Active' : 'Inactive'}<br />
+                  Role: {user.roles?.includes('admin') ? 'Admin' : 'Viewer'}<br />
                   Created: {format(new Date(user.created_at), 'yyyy-MM-dd HH:mm')}
                 </>
               }
@@ -247,6 +268,17 @@ const UserManager: React.FC = () => {
             onChange={(e) => setNewUser({...newUser, password: e.target.value})}
             margin="normal"
           />
+          <TextField
+            select
+            fullWidth
+            label="Role"
+            value={newUser.role}
+            onChange={(e) => setNewUser({...newUser, role: e.target.value as 'admin' | 'viewer'})}
+            margin="normal"
+          >
+            <MenuItem value="viewer">Viewer</MenuItem>
+            <MenuItem value="admin">Admin</MenuItem>
+          </TextField>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setShowCreateDialog(false)}>Cancel</Button>

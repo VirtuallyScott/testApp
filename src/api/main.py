@@ -718,6 +718,7 @@ async def create_user(
         email = json_data.get("email")
         password = json_data.get("password")
         is_active = json_data.get("is_active", True)
+        role = json_data.get("role", "viewer")  # Default to viewer role
     except:
         # Fall back to form data
         form_data = await request.form()
@@ -740,6 +741,13 @@ async def create_user(
             detail="Username already exists"
         )
     
+    # Validate role
+    if role not in ["admin", "viewer"]:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid role. Must be 'admin' or 'viewer'"
+        )
+
     # Create new user
     new_user = models.User(
         username=username,
@@ -747,6 +755,16 @@ async def create_user(
         password_hash=auth.get_password_hash(password),
         is_active=is_active
     )
+    
+    # Get role from database
+    role_obj = db.query(models.Role).filter(models.Role.name == role).first()
+    if not role_obj:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Role '{role}' not found in database"
+        )
+    
+    new_user.roles.append(role_obj)
     
     db.add(new_user)
     db.commit()
