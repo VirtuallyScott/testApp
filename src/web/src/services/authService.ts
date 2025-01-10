@@ -22,12 +22,16 @@ export const logout = async () => {
 export const getCurrentUserRoles = async (): Promise<string[]> => {
   try {
     const response = await axios.get('/api/v1/users/me/roles');
-    console.log('User roles response:', response.data);
     return response.data.roles || [];
   } catch (error) {
     console.error('Error fetching user roles:', error);
     return [];
   }
+};
+
+export const getCurrentUserId = (): number | null => {
+  const userId = localStorage.getItem('user_id');
+  return userId ? parseInt(userId) : null;
 };
 
 export const useAuthService = () => {

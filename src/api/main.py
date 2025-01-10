@@ -774,12 +774,12 @@ async def create_user(
 @api_v1.put("/users/{user_id}/password")
 async def change_password(
     user_id: int,
-    new_password: str,
+    new_password: str = Body(..., embed=True),
     current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
 ):
     # Allow users to change their own password
-    if current_user.id != user_id and not any(role.name == 'admin' for role in current_user.roles):
+    if current_user.id != user_id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="You can only change your own password"
@@ -796,12 +796,12 @@ async def change_password(
 @api_v1.put("/users/{user_id}/email")
 async def update_email(
     user_id: int,
-    new_email: str,
+    new_email: str = Body(..., embed=True),
     current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
 ):
     # Allow users to change their own email
-    if current_user.id != user_id and not any(role.name == 'admin' for role in current_user.roles):
+    if current_user.id != user_id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="You can only change your own email"

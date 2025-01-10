@@ -137,12 +137,15 @@ const AccountOptions: React.FC = () => {
         })
       });
 
-      if (!response.ok) throw new Error('Failed to create API key');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to create API key');
+      }
       const data = await response.json();
       setNewKeyValue(data.api_key);
       setApiKeys([...apiKeys, data]);
     } catch (err) {
-      setError('Failed to create API key');
+      setError(err instanceof Error ? err.message : 'Failed to create API key');
     }
   };
 
@@ -159,10 +162,13 @@ const AccountOptions: React.FC = () => {
         }
       });
 
-      if (!response.ok) throw new Error('Failed to delete API key');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to delete API key');
+      }
       setApiKeys(apiKeys.filter(key => key.id !== keyId));
     } catch (err) {
-      setError('Failed to delete API key');
+      setError(err instanceof Error ? err.message : 'Failed to delete API key');
     }
   };
 
