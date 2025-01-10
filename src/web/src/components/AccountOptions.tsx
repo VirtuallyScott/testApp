@@ -19,6 +19,11 @@ interface UserPreferences {
   notifications_enabled: boolean;
 }
 
+interface UserProfile {
+  email: string;
+  username: string;
+}
+
 const AccountOptions: React.FC = () => {
   const [preferences, setPreferences] = useState<UserPreferences>({
     theme: 'light',
@@ -26,6 +31,9 @@ const AccountOptions: React.FC = () => {
   });
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
+  const [profile, setProfile] = useState<UserProfile>({ email: '', username: '' });
+  const [newPassword, setNewPassword] = useState('');
+  const [passwordChanged, setPasswordChanged] = useState(false);
 
   useEffect(() => {
     const fetchPreferences = async () => {
@@ -43,7 +51,23 @@ const AccountOptions: React.FC = () => {
       }
     };
 
+    const fetchUserProfile = async () => {
+      try {
+        const response = await fetch('/api/v1/users/me', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+          }
+        });
+        if (!response.ok) throw new Error('Failed to fetch user profile');
+        const data = await response.json();
+        setProfile(data);
+      } catch (err) {
+        setError('Failed to load user profile');
+      }
+    };
+
     fetchPreferences();
+    fetchUserProfile();
   }, []);
 
   const handleSave = async () => {
@@ -74,6 +98,74 @@ const AccountOptions: React.FC = () => {
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
       {saved && <Alert severity="success" sx={{ mb: 2 }}>Preferences saved successfully!</Alert>}
 
+      <Typography variant="h5" gutterBottom sx={{ mt: 3 }}>
+        Profile Settings
+      </Typography>
+      
+      <FormGroup sx={{ mb: 4 }}>
+        <TextField
+          label="Email"
+          value={profile.email}
+          onChange={(e) => setProfile({...profile, email: e.target.value})}
+          margin="normal"
+          fullWidth
+        />
+        
+        <TextField
+          label="New Password"
+          type="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          margin="normal"
+          fullWidth
+        />
+
+        <Box sx={{ mt: 2 }}>
+          <Button 
+            variant="contained" 
+            onClick={async () => {
+              try {
+                if (newPassword) {
+                  const response = await fetch('/api/v1/users/me/password', {
+                    method: 'PUT',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                    },
+                    body: JSON.stringify({ new_password: newPassword })
+                  });
+                  if (!response.ok) throw new Error('Failed to update password');
+                  setPasswordChanged(true);
+                  setNewPassword('');
+                  setTimeout(() => setPasswordChanged(false), 3000);
+                }
+
+                const emailResponse = await fetch('/api/v1/users/me/email', {
+                  method: 'PUT',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                  },
+                  body: JSON.stringify({ new_email: profile.email })
+                });
+                if (!emailResponse.ok) throw new Error('Failed to update email');
+                
+              } catch (err) {
+                setError('Failed to update profile');
+              }
+            }}
+            color="primary"
+            sx={{ mr: 2 }}
+          >
+            Update Profile
+          </Button>
+        </Box>
+      </FormGroup>
+
+      <Typography variant="h5" gutterBottom>
+        Preferences
+      </Typography>
+      
       <FormGroup sx={{ mt: 3 }}>
         <FormControl sx={{ mb: 2 }}>
           <InputLabel>Theme</InputLabel>
