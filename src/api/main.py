@@ -1,8 +1,9 @@
 import os
 from datetime import datetime, timedelta
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Tuple
 from datetime import datetime
 from pydantic import BaseModel
+from sqlalchemy import and_
 
 class ScanResultResponse(BaseModel):
     id: int
@@ -784,6 +785,22 @@ async def update_email(
     db.commit()
     return {"status": "email updated"}
 
+def check_other_admins(db: Session, user_id: int) -> Tuple[bool, int]:
+    """Check if there are other admin users besides the given user_id"""
+    admin_role = db.query(models.Role).filter(models.Role.name == 'admin').first()
+    if not admin_role:
+        return False, 0
+        
+    other_admins_count = db.query(models.User).join(models.User.roles).filter(
+        and_(
+            models.Role.id == admin_role.id,
+            models.User.id != user_id,
+            models.User.is_active == True
+        )
+    ).count()
+    
+    return other_admins_count > 0, other_admins_count
+
 @api_v1.put("/users/{user_id}/status")
 async def update_user_status(
     user_id: int,
@@ -796,9 +813,44 @@ async def update_user_status(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
+    # Check if this is an admin user being deactivated
+    is_admin = any(role.name == 'admin' for role in user.roles)
+    if is_admin and not is_active:
+        has_other_admins, count = check_other_admins(db, user_id)
+        if not has_other_admins:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot deactivate the last admin user. Create another admin user first."
+            )
+    
     user.is_active = is_active
     db.commit()
     return {"status": "active" if is_active else "inactive"}
+
+@api_v1.delete("/users/{user_id}")
+async def delete_user(
+    user_id: int,
+    current_user: models.User = Depends(auth.check_admin_role),
+    db: Session = Depends(get_db)
+):
+    """Delete a user"""
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check if this is an admin user being deleted
+    is_admin = any(role.name == 'admin' for role in user.roles)
+    if is_admin:
+        has_other_admins, count = check_other_admins(db, user_id)
+        if not has_other_admins:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot delete the last admin user. Create another admin user first."
+            )
+    
+    db.delete(user)
+    db.commit()
+    return {"status": "deleted"}
 
 @api_v1.get("/users")
 async def list_users(

@@ -81,7 +81,16 @@ const UserManager: React.FC = () => {
     }
   };
 
-  const handleUpdateStatus = async (userId: number, isActive: boolean) => {
+  const handleUpdateStatus = async (userId: number, isActive: boolean, isAdmin: boolean) => {
+    if (!isActive && isAdmin) {
+      const confirmDeactivate = window.confirm(
+        'Warning: Deactivating an admin user could prevent system access if this is the last active admin. Continue?'
+      );
+      if (!confirmDeactivate) {
+        return;
+      }
+    }
+
     try {
       const response = await fetch(`/api/v1/users/${userId}/status`, {
         method: 'PUT',
@@ -100,6 +109,8 @@ const UserManager: React.FC = () => {
       fetchUsers();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error updating user status');
+      // Refresh the list to ensure we show current state
+      fetchUsers();
     }
   };
 
@@ -122,8 +133,12 @@ const UserManager: React.FC = () => {
     }
   };
 
-  const handleDeleteUser = async (userId: number) => {
-    if (!window.confirm('Are you sure you want to delete this user?')) {
+  const handleDeleteUser = async (userId: number, isAdmin: boolean) => {
+    if (isAdmin) {
+      if (!window.confirm('Warning: Deleting an admin user could prevent system access if this is the last admin. Are you sure you want to continue?')) {
+        return;
+      }
+    } else if (!window.confirm('Are you sure you want to delete this user?')) {
       return;
     }
 
@@ -177,7 +192,7 @@ const UserManager: React.FC = () => {
             />
             <Switch
               checked={user.is_active}
-              onChange={(e) => handleUpdateStatus(user.id, e.target.checked)}
+              onChange={(e) => handleUpdateStatus(user.id, e.target.checked, user.roles?.includes('admin') || false)}
               color="primary"
             />
             {isAdmin && (
@@ -194,7 +209,7 @@ const UserManager: React.FC = () => {
                 <Tooltip title="Delete User">
                   <IconButton 
                     color="error"
-                    onClick={() => handleDeleteUser(user.id)}
+                    onClick={() => handleDeleteUser(user.id, user.roles?.includes('admin') || false)}
                     size="small"
                   >
                     <DeleteIcon />
