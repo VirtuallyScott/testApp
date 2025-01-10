@@ -775,9 +775,15 @@ async def create_user(
 async def change_password(
     user_id: int,
     new_password: str,
-    current_user: models.User = Depends(auth.check_admin_role),
+    current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
 ):
+    # Allow users to change their own password
+    if current_user.id != user_id and not any(role.name == 'admin' for role in current_user.roles):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only change your own password"
+        )
     """Change a user's password"""
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:
@@ -791,9 +797,15 @@ async def change_password(
 async def update_email(
     user_id: int,
     new_email: str,
-    current_user: models.User = Depends(auth.check_admin_role),
+    current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
 ):
+    # Allow users to change their own email
+    if current_user.id != user_id and not any(role.name == 'admin' for role in current_user.roles):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only change your own email"
+        )
     """Update a user's email address"""
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:

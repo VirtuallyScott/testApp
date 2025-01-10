@@ -153,6 +153,33 @@ const AccountOptions: React.FC = () => {
 
     try {
       const response = await fetch(`/api/v1/api-keys/${keyId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify({
+          name: newKeyName,
+          expires_in_days: parseInt(newKeyExpiryDays)
+        })
+      });
+
+      if (!response.ok) throw new Error('Failed to create API key');
+      const data = await response.json();
+      setNewKeyValue(data.api_key);
+      setApiKeys([...apiKeys, data]);
+    } catch (err) {
+      setError('Failed to create API key');
+    }
+  };
+
+  const handleDeleteApiKey = async (keyId: number) => {
+    if (!window.confirm('Are you sure you want to delete this API key?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/v1/api-keys/${keyId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`
