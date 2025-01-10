@@ -95,9 +95,25 @@ body {
 
 .MuiTableCell-root {
   border-bottom: 1px solid rgba(224, 224, 224, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 
 .MuiTableCell-head {
   background-color: #f5f5f5;
   font-weight: 600 !important;
+  white-space: nowrap;
+}
+
+.MuiTableContainer-root {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.MuiTable-root {
+  table-layout: fixed;
+  width: 100%;
+  min-width: 800px;
 }

@@ -68,7 +68,7 @@ const Header: React.FC<HeaderProps> = ({ isAuthenticated }) => {
             Home
           </Button>
           <Button color="inherit" component={Link} to="/dashboard">
-            Dashboard
+            Health Check
           </Button>
           <Button color="inherit" component={Link} to="/scans">
             Scan Results

@@ -1,7 +1,26 @@
 import os
 from datetime import datetime, timedelta
-from typing import Optional, Dict
+from typing import Optional, Dict, List, Tuple
+from datetime import datetime
 from pydantic import BaseModel
+from sqlalchemy import and_
+
+class ScanResultResponse(BaseModel):
+    id: int
+    image_name: str
+    image_tag: str
+    image_sha256: str
+    scanner_type: str
+    scan_timestamp: datetime
+    severity_critical: int = 0
+    severity_high: int = 0
+    severity_medium: int = 0
+    severity_low: int = 0
+    raw_results: Dict
+    uploaded_by: int
+
+    class Config:
+        from_attributes = True
 
 class HealthStatus(BaseModel):
     status: str
@@ -13,6 +32,7 @@ class ReadinessStatus(BaseModel):
     admin_exists: str
 from fastapi import FastAPI, Depends, HTTPException, status, Request, Body
 from version import get_version
+from auth import get_current_user
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -39,10 +59,152 @@ except Exception as e:
     raise
 
 # Create main FastAPI app
-app = FastAPI(title="Container Security Scan API")
+app = FastAPI(
+    title="Container Security Scan API",
+    description="""
+    API for managing container security scans and user access.
+    
+    ## Features
+    * Upload and retrieve container security scan results 
+    * User authentication and management
+    * API key management
+    * Health and readiness monitoring
+    
+    ## Authentication
+    The API supports two authentication methods:
+    * JWT Bearer token - Obtained via /api/v1/token endpoint
+    * API Key - Created and managed via /api/v1/api-keys endpoints
+    
+    ### JWT Authentication
+    1. Call POST /api/v1/token with username/password
+    2. Include token in Authorization header:
+       `Authorization: Bearer <token>`
+    
+    ### API Key Authentication
+    1. Create API key via POST /api/v1/api-keys
+    2. Include key in X-API-Key header:
+       `X-API-Key: <api_key>`
+    
+    ## Rate Limiting
+    API endpoints are rate limited to prevent abuse:
+    * Authentication endpoints: 5 requests per minute
+    * Scan upload: 10 requests per minute
+    * Other endpoints: 60 requests per minute
+    
+    ## Error Responses
+    The API uses standard HTTP status codes and returns error details:
+    ```json
+    {
+        "detail": "Error message",
+        "error_code": "ERROR_CODE",
+        "timestamp": "2024-01-09T12:00:00Z"
+    }
+    ```
+    
+    ## Common Error Codes
+    * AUTH001 - Invalid credentials
+    * AUTH002 - Token expired
+    * SCAN001 - Invalid scan data
+    * SCAN002 - Duplicate scan
+    * USER001 - User not found
+    * USER002 - Invalid permissions
+    """,
+    version="1.0.0",
+    contact={
+        "name": "Container Security Team",
+        "url": "https://github.com/yourusername/container-security",
+        "email": "security@example.com"
+    },
+    license_info={
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+    },
+    openapi_tags=[
+        {
+            "name": "Authentication",
+            "description": "Operations for authentication and authorization",
+            "externalDocs": {
+                "description": "Auth Specification",
+                "url": "https://example.com/docs/auth"
+            }
+        },
+        {
+            "name": "Scans",
+            "description": "Operations for managing security scan results",
+            "externalDocs": {
+                "description": "Scan Format Specification",
+                "url": "https://example.com/docs/scans"
+            }
+        },
+        {
+            "name": "Users",
+            "description": "User management operations (admin only)",
+            "externalDocs": {
+                "description": "User Management Guide",
+                "url": "https://example.com/docs/users"
+            }
+        },
+        {
+            "name": "API Keys",
+            "description": "API key management operations",
+            "externalDocs": {
+                "description": "API Key Documentation",
+                "url": "https://example.com/docs/api-keys"
+            }
+        },
+        {
+            "name": "Health",
+            "description": "Health and readiness check endpoints",
+            "externalDocs": {
+                "description": "Monitoring Guide",
+                "url": "https://example.com/docs/monitoring"
+            }
+        }
+    ],
+    docs_url="/docs",
+    redoc_url="/redoc"
+)
 
 # Create sub-application for API v1
-api_v1 = FastAPI()
+api_v1 = FastAPI(
+    title="Container Security API v1",
+    description="""
+    Version 1 of the Container Security API
+    
+    ## Authentication Required
+    Most endpoints require authentication via JWT token or API key.
+    
+    ## Response Format
+    All responses are in JSON format and include:
+    * Success responses: Requested data or confirmation message
+    * Error responses: Error details in standard format
+    
+    ## Pagination
+    List endpoints support pagination with page and per_page parameters
+    """,
+    openapi_tags=[
+        {
+            "name": "Authentication",
+            "description": "Login and token operations"
+        },
+        {
+            "name": "Scans", 
+            "description": "Security scan result operations"
+        },
+        {
+            "name": "Users",
+            "description": "User management operations"
+        },
+        {
+            "name": "API Keys",
+            "description": "API key operations"
+        },
+        {
+            "name": "Health",
+            "description": "Health check operations"
+        }
+    ]
+)
 
 # Mount the API v1 sub-application
 app.mount("/api/v1", api_v1)
@@ -56,7 +218,52 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@api_v1.post("/token")
+@api_v1.post("/logout",
+    summary="Logout user",
+    description="Invalidate current session token",
+    responses={
+        200: {"description": "Successfully logged out"},
+        401: {"description": "Not authenticated"}
+    },
+    tags=["Authentication"]
+)
+async def logout(
+    current_user: models.User = Depends(get_current_user)
+):
+    """Logout endpoint to invalidate token"""
+    token = request.headers.get("Authorization", "").replace("Bearer ", "")
+    if token:
+        redis_client = redis.Redis(
+            host='redis',
+            port=6379,
+            password='redis_password',
+            db=0,
+            decode_responses=True
+        )
+        redis_client.delete(f"token:{token}")
+    return {"status": "logged out"}
+
+@api_v1.post("/token", 
+    response_model=dict,
+    summary="Create access token",
+    description="Authenticate user and return JWT access token",
+    responses={
+        200: {
+            "description": "Successful authentication",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                        "token_type": "bearer"
+                    }
+                }
+            }
+        },
+        401: {"description": "Invalid credentials"},
+        422: {"description": "Validation error"}
+    },
+    tags=["Authentication"]
+)
 async def login(
     request: Request,
     db: Session = Depends(get_db)
@@ -149,7 +356,24 @@ async def login(
             detail="Internal server error",
         )
 
-@api_v1.post("/scans")
+@api_v1.post("/scans",
+    response_model=ScanResultResponse,
+    summary="Upload scan results", 
+    description="""
+    Upload new security scan results for a container image.
+    Requires authentication via JWT token or API key.
+    """,
+    responses={
+        200: {
+            "description": "Scan results uploaded successfully",
+            "model": ScanResultResponse
+        },
+        400: {"description": "Invalid scan data"},
+        401: {"description": "Not authenticated"},
+        422: {"description": "Validation error"}
+    },
+    tags=["Scans"]
+)
 async def upload_scan(
     scan_data: Dict,
     current_user: models.User = Depends(auth.get_current_user),
@@ -185,7 +409,43 @@ async def upload_scan(
     db.refresh(scan_result)
     return scan_result
 
-@api_v1.get("/scans")
+@api_v1.get("/scans",
+    response_model=Dict,
+    summary="List scan results",
+    description="""
+    Retrieve paginated list of security scan results.
+    Supports sorting and filtering options.
+    """,
+    responses={
+        200: {
+            "description": "List of scan results",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "items": [
+                            {
+                                "id": 1,
+                                "image_name": "nginx",
+                                "image_tag": "latest",
+                                "severity_critical": 0,
+                                "severity_high": 2,
+                                "severity_medium": 5,
+                                "severity_low": 10
+                            }
+                        ],
+                        "total": 100,
+                        "page": 1,
+                        "per_page": 25,
+                        "total_pages": 4
+                    }
+                }
+            }
+        },
+        401: {"description": "Not authenticated"},
+        500: {"description": "Internal server error"}
+    },
+    tags=["Scans"]
+)
 async def list_scans(
     page: int = 1,
     per_page: int = 25,
@@ -458,6 +718,7 @@ async def create_user(
         email = json_data.get("email")
         password = json_data.get("password")
         is_active = json_data.get("is_active", True)
+        role = json_data.get("role", "viewer")  # Default to viewer role
     except:
         # Fall back to form data
         form_data = await request.form()
@@ -480,6 +741,13 @@ async def create_user(
             detail="Username already exists"
         )
     
+    # Validate role
+    if role not in ["admin", "viewer"]:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid role. Must be 'admin' or 'viewer'"
+        )
+
     # Create new user
     new_user = models.User(
         username=username,
@@ -487,6 +755,16 @@ async def create_user(
         password_hash=auth.get_password_hash(password),
         is_active=is_active
     )
+    
+    # Get role from database
+    role_obj = db.query(models.Role).filter(models.Role.name == role).first()
+    if not role_obj:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Role '{role}' not found in database"
+        )
+    
+    new_user.roles.append(role_obj)
     
     db.add(new_user)
     db.commit()
@@ -496,10 +774,16 @@ async def create_user(
 @api_v1.put("/users/{user_id}/password")
 async def change_password(
     user_id: int,
-    new_password: str,
-    current_user: models.User = Depends(auth.check_admin_role),
+    new_password: str = Body(..., embed=True),
+    current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
 ):
+    # Allow users to change their own password
+    if current_user.id != user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only change your own password"
+        )
     """Change a user's password"""
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:
@@ -512,10 +796,16 @@ async def change_password(
 @api_v1.put("/users/{user_id}/email")
 async def update_email(
     user_id: int,
-    new_email: str,
-    current_user: models.User = Depends(auth.check_admin_role),
+    new_email: str = Body(..., embed=True),
+    current_user: models.User = Depends(auth.get_current_user),
     db: Session = Depends(get_db)
 ):
+    # Allow users to change their own email
+    if current_user.id != user_id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only change your own email"
+        )
     """Update a user's email address"""
     user = db.query(models.User).filter(models.User.id == user_id).first()
     if not user:
@@ -524,6 +814,22 @@ async def update_email(
     user.email = new_email
     db.commit()
     return {"status": "email updated"}
+
+def check_other_admins(db: Session, user_id: int) -> Tuple[bool, int]:
+    """Check if there are other admin users besides the given user_id"""
+    admin_role = db.query(models.Role).filter(models.Role.name == 'admin').first()
+    if not admin_role:
+        return False, 0
+        
+    other_admins_count = db.query(models.User).join(models.User.roles).filter(
+        and_(
+            models.Role.id == admin_role.id,
+            models.User.id != user_id,
+            models.User.is_active == True
+        )
+    ).count()
+    
+    return other_admins_count > 0, other_admins_count
 
 @api_v1.put("/users/{user_id}/status")
 async def update_user_status(
@@ -537,9 +843,44 @@ async def update_user_status(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
+    # Check if this is an admin user being deactivated
+    is_admin = any(role.name == 'admin' for role in user.roles)
+    if is_admin and not is_active:
+        has_other_admins, count = check_other_admins(db, user_id)
+        if not has_other_admins:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot deactivate the last admin user. Create another admin user first."
+            )
+    
     user.is_active = is_active
     db.commit()
     return {"status": "active" if is_active else "inactive"}
+
+@api_v1.delete("/users/{user_id}")
+async def delete_user(
+    user_id: int,
+    current_user: models.User = Depends(auth.check_admin_role),
+    db: Session = Depends(get_db)
+):
+    """Delete a user"""
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Check if this is an admin user being deleted
+    is_admin = any(role.name == 'admin' for role in user.roles)
+    if is_admin:
+        has_other_admins, count = check_other_admins(db, user_id)
+        if not has_other_admins:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot delete the last admin user. Create another admin user first."
+            )
+    
+    db.delete(user)
+    db.commit()
+    return {"status": "deleted"}
 
 @api_v1.get("/users")
 async def list_users(
@@ -555,6 +896,38 @@ async def list_users(
         "is_active": user.is_active,
         "created_at": user.created_at
     } for user in users]
+
+@api_v1.get("/users/me")
+async def get_current_user_profile(
+    current_user: models.User = Depends(auth.get_current_user)
+):
+    """Get current user profile"""
+    return {
+        "username": current_user.username,
+        "email": current_user.email
+    }
+
+@api_v1.put("/users/me/email")
+async def update_user_email(
+    new_email: str = Body(..., embed=True),
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update user email"""
+    current_user.email = new_email
+    db.commit()
+    return {"status": "email updated"}
+
+@api_v1.put("/users/me/password")
+async def update_user_password(
+    new_password: str = Body(..., embed=True),
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Update user password"""
+    current_user.password_hash = auth.get_password_hash(new_password)
+    db.commit()
+    return {"status": "password updated"}
 
 @api_v1.get("/users/me/roles")
 async def get_current_user_roles(

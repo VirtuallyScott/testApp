@@ -82,7 +82,7 @@ const ScanDetail: React.FC = () => {
       <Typography variant="h6" gutterBottom>
         Basic Information
       </Typography>
-      <TableContainer component={Paper} sx={{ mb: 3 }}>
+      <TableContainer component={Paper} sx={{ mb: 3, maxWidth: '100vw', overflowX: 'auto' }}>
         <Table>
           <TableBody>
             <TableRow>
@@ -129,7 +129,11 @@ const ScanDetail: React.FC = () => {
           borderColor: 'divider',
           borderRadius: 1,
           maxHeight: '500px',
-          overflow: 'auto'
+          overflow: 'auto',
+          whiteSpace: 'pre-wrap',
+          wordWrap: 'break-word',
+          maxWidth: '100vw',
+          overflowX: 'auto'
         }}
       >
         {JSON.stringify(scan.raw_results, null, 2)}
