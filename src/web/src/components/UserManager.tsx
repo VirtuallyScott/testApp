@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuthService } from '../services/authService';
-import { Box, Button, Typography, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Alert, Switch } from '@mui/material';
+import { Box, Button, Typography, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Alert, Switch, IconButton, Tooltip } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { format } from 'date-fns';
 
 interface User {
@@ -180,18 +182,24 @@ const UserManager: React.FC = () => {
             />
             {isAdmin && (
               <>
-                <Button 
-                  color="primary"
-                  onClick={() => setEditUser(user)}
-                >
-                  Edit
-                </Button>
-                <Button 
-                  color="error"
-                  onClick={() => handleDeleteUser(user.id)}
-                >
-                  Delete
-                </Button>
+                <Tooltip title="Edit User">
+                  <IconButton 
+                    color="primary"
+                    onClick={() => setEditUser(user)}
+                    size="small"
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Delete User">
+                  <IconButton 
+                    color="error"
+                    onClick={() => handleDeleteUser(user.id)}
+                    size="small"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
               </>
             )}
           </ListItem>
