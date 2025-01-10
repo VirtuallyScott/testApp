@@ -84,8 +84,21 @@ const UserManager: React.FC = () => {
           is_active: true,
           role: newUser.role
         })
+      });
 
-      const response = await fetch('/api/v1/users', {
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to create user');
+      }
+
+      setShowCreateDialog(false);
+      setNewUser({
+        username: '',
+        email: '',
+        password: '',
+        role: 'viewer'
+      });
+      await fetchUsers();
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`
