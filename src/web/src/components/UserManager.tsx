@@ -17,6 +17,7 @@ const UserManager: React.FC = () => {
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [editUser, setEditUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const fetchUsers = async () => {
     try {
@@ -35,7 +36,23 @@ const UserManager: React.FC = () => {
 
   useEffect(() => {
     fetchUsers();
+    checkAdminStatus();
   }, []);
+
+  const checkAdminStatus = async () => {
+    try {
+      const response = await fetch('/api/v1/users/me/roles', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+      });
+      if (!response.ok) throw new Error('Failed to fetch roles');
+      const data = await response.json();
+      setIsAdmin(data.roles.includes('admin'));
+    } catch (err) {
+      console.error('Error checking admin status:', err);
+    }
+  };
 
   const handleCreateUser = async () => {
     try {
@@ -138,12 +155,22 @@ const UserManager: React.FC = () => {
               onChange={(e) => handleUpdateStatus(user.id, e.target.checked)}
               color="primary"
             />
-            <Button 
-              color="primary"
-              onClick={() => setEditUser(user)}
-            >
-              Edit
-            </Button>
+            {isAdmin && (
+              <>
+                <Button 
+                  color="primary"
+                  onClick={() => setEditUser(user)}
+                >
+                  Edit
+                </Button>
+                <Button 
+                  color="error"
+                  onClick={() => handleDeleteUser(user.id)}
+                >
+                  Delete
+                </Button>
+              </>
+            )}
           </ListItem>
         ))}
       </List>
