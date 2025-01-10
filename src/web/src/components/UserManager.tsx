@@ -11,6 +11,7 @@ interface User {
   email: string;
   is_active: boolean;
   created_at: string;
+  roles?: string[];
 }
 
 const UserManager: React.FC = () => {
@@ -192,7 +193,7 @@ const UserManager: React.FC = () => {
             />
             <Switch
               checked={user.is_active}
-              onChange={(e) => handleUpdateStatus(user.id, e.target.checked, user.roles?.includes('admin') || false)}
+              onChange={(e) => handleUpdateStatus(user.id, e.target.checked, false)}
               color="primary"
             />
             {isAdmin && (
@@ -209,7 +210,7 @@ const UserManager: React.FC = () => {
                 <Tooltip title="Delete User">
                   <IconButton 
                     color="error"
-                    onClick={() => handleDeleteUser(user.id, user.roles?.includes('admin') || false)}
+                    onClick={() => handleDeleteUser(user.id, false)}
                     size="small"
                   >
                     <DeleteIcon />
