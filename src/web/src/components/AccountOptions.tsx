@@ -458,6 +458,7 @@ const AccountOptions: React.FC = () => {
           )}
         </DialogActions>
       </Dialog>
+        </>
       )}
     </Paper>
   );
